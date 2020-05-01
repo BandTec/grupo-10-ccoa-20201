@@ -38,6 +38,7 @@ create table fileiras(
     sensorCheio boolean,
     sensorMedio boolean,
     sensorVazio boolean,
+    dataAbastecimento date,
     fkGeladeira int,
     fkProduto int
 );
@@ -47,12 +48,6 @@ create table produtos(
     nomeProduto varchar(20)
 );
 
-create table abastecimentos(
-	dataAbastecimento date,
-    situacaoSensor varchar(10),
-    fkFileira int,
-    fkFornecedor int
-);
 
 alter table consumidorFinal add foreign key (fkLocalidade) references localidades(idLocalidade);
 alter table funcionario add foreign key (fkFornecedora) references fornecedoras(idFornecedora);
@@ -60,13 +55,12 @@ alter table geladeiras add foreign key (fkLocador) references localidades(idLoca
 alter table geladeiras add foreign key (fkDono) references fornecedoras(idFornecedora);
 alter table fileiras add foreign key (fkGeladeira) references geladeiras(idGeladeira);
 alter table fileiras add foreign key (fkProduto) references produtos(idProduto);
-alter table abastecimentos add foreign key (fkFornecedor) references fornecedoras(idFornecedora);
+
 
 insert into fornecedoras values
 (null,'HassleFree Food'),
 (null,'Joaninha Food'),
-(null,'Food Guerrilla'),
-(null,'Dr.Food');
+(null,'Food Guerrilla');
 
 insert into localidades values
 (null,'OrbiPlan','Camaçari','Vila Alve Verde','Rua Cristo Redentor'),
@@ -104,31 +98,22 @@ insert into produtos values
 (null,'Salada de Frutas');
 
 insert into fileiras values
-(null,1,1,1,1,2),
-(null,0,1,1,1,1),
-(null,0,0,1,2,3),
-(null,0,1,1,1,2),
-(null,1,1,1,2,7),
-(null,0,0,1,3,5),
-(null,1,1,1,2,4),
-(null,0,0,0,3,4),
-(null,1,1,1,3,6),
-(null,0,1,1,2,6),
-(null,1,1,1,1,3),
-(null,0,0,1,2,5);
+(null,1,1,1,'2020-04-14',1,2),
+(null,0,1,1,'2020-04-14',1,1),
+(null,0,0,1,'2020-04-14',2,3),
+(null,0,1,1,'2020-03-25',1,2),
+(null,1,1,1,'2020-03-25',2,7),
+(null,0,0,1,'2020-03-25',3,5),
+(null,1,1,1,'2020-05-16',2,4),
+(null,0,0,0,'2020-05-16',3,4),
+(null,1,1,1,'2020-05-16',3,6),
+(null,0,1,1,'2020-02-24',2,6),
+(null,1,1,1,'2020-04-04',1,3),
+(null,0,0,1,'2020-04-04',2,5);
 
-insert into abastecimentos values
-('2020-04-14','vazio',1,1),
-('2020-04-14','meio',2,1),
-('2020-04-14','vazio',3,3),
-('2020-03-25','meio',1,1),
-('2020-05-16','vazio',7,3),
-('2020-05-16','vazio',1,2),
-('2020-02-24','cheio',5,3),
-('2020-04-04','vazio',6,2);
 
 select nomeConsumidor,emailConsumidor,nomelocalidade from consumidorFinal, localidades where fkLocalidade = idLocalidade;
 
 select nomeFuncionario,emailFuncionario,nomeFornecedora from funcionario, fornecedoras where fkFornecedora = idFornecedora;
 
-select nomeProduto, idGeladeira, nomeLocalidade, idFileira, situacaoSensor from produtos, geladeiras,localidades, fileiras, abastecimentos where idProduto = fkProduto and fkGeladeira = idGeladeira and fkFileira = idFileira;
+select nomeProduto, idGeladeira, nomeLocalidade, idFileira, dataabastecimento from produtos, geladeiras,localidades, fileiras where idProduto = fkProduto and fkGeladeira = idGeladeira;
