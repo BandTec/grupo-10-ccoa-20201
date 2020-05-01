@@ -1,14 +1,14 @@
 create database coldStock;
 use coldStock;
 
-create table consumidorFinal(
+create table consumidoresFinais(
 	emailConsumidor varchar(30) primary key,
     senhaConsumidor varchar(15),
     nomeConsumidor varchar(40),
     fkLocalidade int
 );
 
-create table funcionario(
+create table funcionarios(
 	emailFuncionario varchar(30) primary key,
     senhaFuncionario varchar(15),
     nomeFuncionario varchar(40),
@@ -38,7 +38,6 @@ create table fileiras(
     sensorCheio boolean,
     sensorMedio boolean,
     sensorVazio boolean,
-    dataAbastecimento date,
     fkGeladeira int,
     fkProduto int
 );
@@ -48,13 +47,24 @@ create table produtos(
     nomeProduto varchar(20)
 );
 
+create table abastecimentos(
+	idAbastecimento int primary key auto_increment,
+    nivelSensor char(5),
+    dataAbastecimento date,
+    fkFornecedora int,
+    fkFileira int,
+    check (nivelSensor ='medio' or nivelSensor ='vazio')
+);
 
-alter table consumidorFinal add foreign key (fkLocalidade) references localidades(idLocalidade);
-alter table funcionario add foreign key (fkFornecedora) references fornecedoras(idFornecedora);
+
+alter table consumidoresFinais add foreign key (fkLocalidade) references localidades(idLocalidade);
+alter table funcionarios add foreign key (fkFornecedora) references fornecedoras(idFornecedora);
 alter table geladeiras add foreign key (fkLocador) references localidades(idLocalidade);
 alter table geladeiras add foreign key (fkDono) references fornecedoras(idFornecedora);
 alter table fileiras add foreign key (fkGeladeira) references geladeiras(idGeladeira);
 alter table fileiras add foreign key (fkProduto) references produtos(idProduto);
+alter table abastecimentos add foreign key (fkFornecedora) references fornecedoras(idFornecedora);
+alter table abastecimentos add foreign key (fkFileira) references fileiras(idFileira);
 
 
 insert into fornecedoras values
@@ -67,13 +77,13 @@ insert into localidades values
 (null,'EE João Carlos de Almeida','São Paulo','Jardins','Rua Conde de Alvor'),
 (null,'Mercurio','Belém','Vila do Café','Avenida Dezesseis de Novembro');
 
-insert into funcionario values
+insert into funcionarios values
 ('giovanna.pereira@gmail.com','giovanna743','Giovanna Oliveira Pereira',1),
 ('gabrielle.cunha@gmail.com','gabrielle5743','Gabrielle Almeida Cunha',1),
 ('rebeca.pereira@gmail.com','rebecaRP356','Rebeca Rocha Pereira',2),
 ('mateus.alves@gmail.com','mateus79834','Mateus Pereira Alves',3);
 
-insert into consumidorFinal values
+insert into consumidoresFinais values
 ('vitoria.cavalcanti@gmail.com','vitoria345','Vitória Cunha Cavalcanti',2),
 ('lana.correia@gmail.com','lanaDias435','Lana Dias Correia',3),
 ('gabrielly.castro@gmail.com','gabrielly3342','Gabrielly Santos Castro',3),
@@ -98,22 +108,32 @@ insert into produtos values
 (null,'Salada de Frutas');
 
 insert into fileiras values
-(null,1,1,1,'2020-04-14',1,2),
-(null,0,1,1,'2020-04-14',1,1),
-(null,0,0,1,'2020-04-14',2,3),
-(null,0,1,1,'2020-03-25',1,2),
-(null,1,1,1,'2020-03-25',2,7),
-(null,0,0,1,'2020-03-25',3,5),
-(null,1,1,1,'2020-05-16',2,4),
-(null,0,0,0,'2020-05-16',3,4),
-(null,1,1,1,'2020-05-16',3,6),
-(null,0,1,1,'2020-02-24',2,6),
-(null,1,1,1,'2020-04-04',1,3),
-(null,0,0,1,'2020-04-04',2,5);
+(null,1,1,1,1,2),
+(null,0,1,1,1,1),
+(null,0,0,1,2,3),
+(null,0,1,1,1,2),
+(null,1,1,1,2,7),
+(null,0,0,1,3,5),
+(null,1,1,1,2,4),
+(null,0,0,0,3,4),
+(null,1,1,1,3,6),
+(null,0,1,1,2,6),
+(null,1,1,1,1,3),
+(null,0,0,1,2,5);
+
+insert into abastecimentos values
+(null,'medio','2020-04-14',1,2),
+(null,'vazio','2020-04-14',1,1),
+(null,'vazio','2020-04-14',2,3),
+(null,'vazio','2020-03-25',1,2),
+(null,'medio','2020-03-25',3,4),
+(null,'vazio','2020-04-04',2,5);
 
 
-select nomeConsumidor,emailConsumidor,nomelocalidade from consumidorFinal, localidades where fkLocalidade = idLocalidade;
 
-select nomeFuncionario,emailFuncionario,nomeFornecedora from funcionario, fornecedoras where fkFornecedora = idFornecedora;
 
-select nomeProduto, idGeladeira, nomeLocalidade, idFileira, dataabastecimento from produtos, geladeiras,localidades, fileiras where idProduto = fkProduto and fkGeladeira = idGeladeira;
+select nomeConsumidor,emailConsumidor,nomelocalidade from consumidoresFinais, localidades where fkLocalidade = idLocalidade;
+
+select nomeFuncionario,emailFuncionario,nomeFornecedora from funcionarios, fornecedoras where fkFornecedora = idFornecedora;
+
+select nomeProduto, idGeladeira, nomeLocalidade, idFileira, dataabastecimento from produtos, geladeiras,localidades, fileiras,abastecimentos where idProduto = fkProduto and fkGeladeira = idGeladeira and fkFileira = idFileira;
