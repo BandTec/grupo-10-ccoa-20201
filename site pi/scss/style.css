@@ -1,0 +1,406 @@
+body {
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat';
+}
+
+header {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #3AAFA9;
+  min-height: 60px;
+  color: #def2f1;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.title-header {
+  float: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.title-header a {
+  text-decoration: none;
+  color: #def2f1;
+  padding-left: 15px;
+}
+
+.title-header a img {
+  height: 50px;
+  margin-top: 17px;
+}
+
+.title-header a h1 {
+  margin-top: 20px;
+}
+
+.nav {
+  float: right;
+  margin-top: 15px;
+}
+
+.nav ul {
+  padding-right: 20px;
+}
+
+.nav ul li {
+  display: inline;
+  padding-left: 30px;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.nav ul li a {
+  color: #def2f1;
+  text-decoration: none;
+}
+
+.nav ul li a:hover {
+  color: #2b7a77;
+}
+
+.imagem-principal {
+  background: url(../img/lanchonete.png) no-repeat;
+  position: relative;
+  opacity: 100%;
+  height: 780px;
+  background-size: cover;
+  background-position: center;
+  font-weight: bold;
+  color: #FEFFFF;
+  font-family: 'Montserrat';
+  text-shadow: 0 0 7px black;
+  overflow: hidden;
+}
+
+.imagem-principal .title-img {
+  padding-right: 100px;
+  padding-top: 280px;
+  width: 50%;
+  float: right;
+  text-align: right;
+}
+
+.imagem-principal .title-img h1 {
+  font-size: 50px;
+  margin: 0;
+}
+
+.imagem-principal .texto-img {
+  padding-top: 240px;
+  padding-left: 50px;
+  width: 30%;
+  float: left;
+}
+
+.imagem-principal .texto-img h3 {
+  text-transform: uppercase;
+  font-size: 35px;
+  margin: 0;
+}
+
+.imagem-principal .texto-img h3 span {
+  background-color: #2b7a77ab;
+}
+
+.imagem-principal button {
+  width: 200px;
+  height: 40px;
+  margin-top: 30px;
+  margin-left: 30px;
+  border-radius: 10px;
+  border-style: none;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.imagem-principal button a {
+  text-decoration: none;
+  color: #FEFFFF;
+}
+
+.imagem-principal button:hover {
+  background-color: #FEFFFF;
+  color: #3AAFA9;
+}
+
+.vantagens {
+  padding-top: 50px;
+}
+
+.vantagens .container .img-vantagem {
+  width: 35%;
+  float: left;
+}
+
+.vantagens .container .img-vantagem img {
+  height: 550px;
+}
+
+.vantagens .container .textos-vantagem {
+  float: right;
+  width: 50%;
+}
+
+.vantagens .container .textos-vantagem .titulo-vantagem {
+  text-align: center;
+}
+
+.vantagens .container .textos-vantagem .titulo-vantagem h1 {
+  margin-top: 5px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}
+
+.vantagens .container .subtextos-vantagem {
+  overflow: hidden;
+}
+
+.vantagens .container .subtextos-vantagem h1 {
+  font-size: 22px;
+}
+
+.vantagens .container .subtextos-vantagem .box1 {
+  text-align: center;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.vantagens .container .subtextos-vantagem .box1 p {
+  width: 50%;
+  margin: auto;
+}
+
+.vantagens .container .subtextos-vantagem .box2 {
+  text-align: center;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.vantagens .container .subtextos-vantagem .box2 p {
+  width: 50%;
+  margin: auto;
+}
+
+.vantagens .container .subtextos-vantagem .box3 {
+  text-align: center;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.vantagens .container .subtextos-vantagem .box3 p {
+  width: 50%;
+  margin: auto;
+}
+
+.funcionalidade {
+  margin-top: 50px;
+  background-color: #17252a;
+  padding-bottom: 100px;
+  height: 400px;
+  font-family: 'Montserrat';
+}
+
+.funcionalidade .titulo-func {
+  text-align: center;
+}
+
+.funcionalidade .titulo-func h1 {
+  font-size: 35px;
+  color: #FEFFFF;
+  text-transform: uppercase;
+}
+
+.funcionalidade .conteudo-func {
+  overflow: hidden;
+  padding-top: 50px;
+}
+
+.funcionalidade .conteudo-func .texto-func {
+  width: 35%;
+  float: left;
+  padding-left: 50px;
+}
+
+.funcionalidade .conteudo-func .texto-func h3 {
+  font-size: 22px;
+  color: #FEFFFF;
+  font-weight: lighter;
+}
+
+.funcionalidade .conteudo-func .img-func {
+  width: 35%;
+  float: right;
+  padding-right: 20px;
+}
+
+.contato {
+  background-color: #DEF2F1;
+  padding-bottom: 50px;
+  font-family: 'Montserrat';
+}
+
+.contato .tudo-contato {
+  margin-top: 30px;
+  color: #17252A;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.contato .tudo-contato .titulo-contato {
+  text-align: center;
+  font-size: 25px;
+  margin: auto;
+  width: 24%;
+  padding-bottom: 5px;
+}
+
+.contato .tudo-contato .titulo-contato h1 {
+  border-bottom: #17252a 2px solid;
+  padding: 0;
+}
+
+.contato .tudo-contato .conteudo-contato {
+  margin-top: 50px;
+  overflow: hidden;
+}
+
+.contato .tudo-contato .conteudo-contato .emailtel-contato {
+  float: left;
+  width: 45%;
+  padding: 7px 7px 7px 7px;
+}
+
+.contato .tudo-contato .conteudo-contato .emailtel-contato .email-contato {
+  background-color: #3AAFA9;
+  -webkit-box-shadow: #17252a  0 0 7px;
+          box-shadow: #17252a  0 0 7px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 20px 0 20px 0;
+}
+
+.contato .tudo-contato .conteudo-contato .emailtel-contato .tel-contato {
+  margin-top: 50px;
+  background-color: #3AAFA9;
+  -webkit-box-shadow: #17252a  0 0 7px;
+          box-shadow: #17252a  0 0 7px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 20px 0 20px 0;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato {
+  width: 45%;
+  background-color: #3AAFA9;
+  -webkit-box-shadow: #17252a  0 0 7px;
+          box-shadow: #17252a  0 0 7px;
+  border-radius: 5px;
+  padding: 20px 10px 20px 10px;
+  margin: 7px 7px 7px 7px;
+  float: right;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .inputs-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .inputs-info .info-form {
+  margin: auto;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .inputs-info .info-form input {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  width: 200px;
+  border: 1px solid #FEFFFF;
+  border-radius: 5px;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .input-assunto {
+  margin-top: 20px;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .input-assunto .info-form {
+  margin-left: 17px;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .input-assunto .info-form input {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  width: 445px;
+  border: 1px solid #FEFFFF;
+  border-radius: 5px;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .input-mensagem {
+  margin-top: 20px;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .input-mensagem .info-form {
+  margin-left: 17px;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .input-mensagem .info-form input {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  width: 445px;
+  height: 137px;
+  border: 1px solid #FEFFFF;
+  border-radius: 5px;
+}
+
+.contato .tudo-contato .conteudo-contato .enviar-contato .btn-form {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.footer {
+  background-color: #17252a;
+  font-family: 'Montserrat';
+  color: #FEFFFF;
+  height: 150px;
+}
+
+.footer p {
+  padding-top: 50px;
+}
+/*# sourceMappingURL=style.css.map */

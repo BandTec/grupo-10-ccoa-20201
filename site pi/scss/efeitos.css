@@ -1,0 +1,81 @@
+.imagem-principal button{
+  color: #FEFFFF;
+  background-color: #3aafa9;
+  -webkit-transition:background 0.5s ease-out;
+  -moz-transition:background 0.5s ease-out;
+  -o-transition:background 0.5s ease-out;
+  -ms-transition:background 0.5s ease-out;
+}
+
+.imagem-principal button:hover{
+  color: #3aafa9;
+  background-color: #FEFFFF;
+  border: 3px solid #3aafa9;
+  filter:alpha(opacity=100);
+  -moz-opacity:1;
+  opacity:1;
+}
+
+.imagem-principal button:hover a{
+  color: #3aafa9;
+  height: 40px;
+  width: 200px;
+}
+
+.btn-form button{
+  font-family: 'Montserrat';
+  height:40px;
+  width:150px;
+  border: 1px solid #FEFFFF;
+  border-radius: 5px;
+  background-color: #FEFFFF;
+  color: #17252a;
+  font-weight: bold;
+  -webkit-transition:background 0.5s ease-out;
+  -moz-transition:background 0.5s ease-out;
+  -o-transition:background 0.5s ease-out;
+  -ms-transition:background 0.5s ease-out;
+}
+
+.btn-form button:hover{
+  background-color: #3AAFA9;
+  border: 3px solid #FEFFFF;
+  color: #FEFFFF;
+  border-radius: 5px;
+  filter:alpha(opacity=100);
+  -moz-opacity:1;
+  opacity:1;
+}
+
+.animacao{
+  position: absolute;
+  opacity: 0;
+  animation-name: animacao;
+  animation-duration: 24s;
+  animation-iteration-count: infinite;
+  
+}
+
+@keyframes animacao{
+
+  25%{
+    opacity: 1;
+  }
+
+  35%{
+    opacity: 0;
+  }
+}
+
+.animacao:nth-child(1){
+  
+}
+.animacao:nth-child(2){
+  animation-delay: 8s;
+}
+.animacao:nth-child(3){
+  animation-delay: 16s;
+}
+
+
+
