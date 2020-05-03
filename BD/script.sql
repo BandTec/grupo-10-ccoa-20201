@@ -2,14 +2,16 @@ create database coldStock;
 use coldStock;
 
 create table consumidoresFinais(
-	emailConsumidor varchar(30) primary key,
+	idConsumidor  int primary key auto_increment,
+	emailConsumidor varchar(30),
     senhaConsumidor varchar(15),
     nomeConsumidor varchar(40),
     fkLocalidade int
 );
 
 create table funcionarios(
-	emailFuncionario varchar(30) primary key,
+    idFuncionario  int primary key auto_increment,
+	emailFuncionario varchar(30),
     senhaFuncionario varchar(15),
     nomeFuncionario varchar(40),
     fkFornecedora int
@@ -78,17 +80,17 @@ insert into localidades values
 (null,'Mercurio','Belém','Vila do Café','Avenida Dezesseis de Novembro');
 
 insert into funcionarios values
-('giovanna.pereira@gmail.com','giovanna743','Giovanna Oliveira Pereira',1),
-('gabrielle.cunha@gmail.com','gabrielle5743','Gabrielle Almeida Cunha',1),
-('rebeca.pereira@gmail.com','rebecaRP356','Rebeca Rocha Pereira',2),
-('mateus.alves@gmail.com','mateus79834','Mateus Pereira Alves',3);
+(null,'giovanna.pereira@gmail.com','giovanna743','Giovanna Oliveira Pereira',1),
+(null,'gabrielle.cunha@gmail.com','gabrielle5743','Gabrielle Almeida Cunha',1),
+(null,'rebeca.pereira@gmail.com','rebecaRP356','Rebeca Rocha Pereira',2),
+(null,'mateus.alves@gmail.com','mateus79834','Mateus Pereira Alves',3);
 
 insert into consumidoresFinais values
-('vitoria.cavalcanti@gmail.com','vitoria345','Vitória Cunha Cavalcanti',2),
-('lana.correia@gmail.com','lanaDias435','Lana Dias Correia',3),
-('gabrielly.castro@gmail.com','gabrielly3342','Gabrielly Santos Castro',3),
-('rebeca.cardoso@gmail.com','rebeca3094','Rebeca Rodrigues Cardoso',1),
-('felipe.pereira@gmail.com','felipe879','Felipe Ferreira Pereira',3);
+(null,'vitoria.cavalcanti@gmail.com','vitoria345','Vitória Cunha Cavalcanti',2),
+(null,'lana.correia@gmail.com','lanaDias435','Lana Dias Correia',3),
+(null,'gabrielly.castro@gmail.com','gabrielly3342','Gabrielly Santos Castro',3),
+(null,'rebeca.cardoso@gmail.com','rebeca3094','Rebeca Rodrigues Cardoso',1),
+(null,'felipe.pereira@gmail.com','felipe879','Felipe Ferreira Pereira',3);
 
 insert into geladeiras values
 (null,1,1),
