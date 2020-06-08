@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://www.chartjs.org/samples/latest/charts/pie.html -->
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Pie Chart</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,900&display=swap" rel="stylesheet">
+  <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+  <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+
+  <style type="text/css">
+    body {
+      font-family: 'Montserrat';
+    }
+
+    /* Chart.js */
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: .99
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .botao {
+      padding: 7px 7px 7px 7px;
+      border-radius: 10px;
+      border-style: none;
+      cursor: pointer;
+      background-color: #3AAFA9;
+      color: #FEFFFF;
+      font-family: 'Montserrat';
+      -webkit-transition: background 0.3s ease-out;
+      -moz-transition: background 0.3s ease-out;
+      -o-transition: background 0.3s ease-out;
+      -ms-transition: background 0.3s ease-out;
+    }
+
+    .botao:hover {
+      background-color: #2b7a77;
+    }
+
+    .input-dados {
+      padding: 5px 10px 5px 10px;
+      border-radius: 10px;
+      border: 2px solid #3AAFA9;
+      font-family: 'Montserrat'
+    }
+
+    .chartjs-render-monitor {
+      animation: chartjs-render-animation 1ms
+    }
+
+    .chartjs-size-monitor,
+    .chartjs-size-monitor-expand,
+    .chartjs-size-monitor-shrink {
+      position: absolute;
+      direction: ltr;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      pointer-events: none;
+      visibility: hidden;
+      z-index: -1
+    }
+
+    .chartjs-size-monitor-expand>div {
+      position: absolute;
+      width: 1000000px;
+      height: 1000000px;
+      left: 0;
+      top: 0
+    }
+
+    .chartjs-size-monitor-shrink>div {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      left: 0;
+      top: 0
+    }
+  </style>
+</head>
+
+<body>
+  <center>
+    <h1 style="color: #3AAFA9 ">SEUS DADOS</h1>
+    Consultar vendas: <input class="input-dados" placeholder="Insira id da máquina" id="mostrar">
+    <div id="grafico">
+      <div style="display: none; margin-top: 10px; margin-bottom: 10px;" id="frase"></div>
+      <div style="display: none; width:50%;" id="canvas">
+        <div class="chartjs-size-monitor">
+          <div class="chartjs-size-monitor-expand">
+            <div class=""></div>
+          </div>
+          <div class="chartjs-size-monitor-shrink">
+            <div class=""></div>
+          </div>
+        </div>
+        <canvas id="chart-area" class="chartjs-render-monitor">
+        </canvas>
+      </div>
+      <div style="margin-top: 30px;" class="btn">
+        <button class="botao" id="randomizeData">Gerar
+          dados para amostra</button>
+      </div>
+      <button onclick="voltar()" class="botao" style="margin-top: 10px;">Voltar</button>
+    </div>
+
+  </center>
+
+  <script>
+    var randomScalingFactor = function () {
+      return Math.round(Math.random() * 100);
+    };
+
+    var config = {
+
+
+
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: [
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+          ],
+          backgroundColor: [
+            window.chartColors.red,
+            window.chartColors.orange,
+            window.chartColors.yellow,
+            window.chartColors.green,
+            window.chartColors.blue,
+          ],
+          label: 'Dataset 1'
+        }],
+        labels: [
+          'Coca',
+          'Sanduíche de frango',
+          'Barra de cereal',
+          'Guaraná',
+          'Água'
+        ]
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function () {
+      var ctx = document.getElementById('chart-area').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+    document.getElementById('randomizeData').addEventListener('click', function () {
+      frase.style.display = 'block'
+      frase.innerHTML = `Esses são os dados obtidos na máquina ${mostrar.value}`;
+      canvas.style.display = 'block';
+
+      config.data.datasets.forEach(function (dataset) {
+        dataset.data = dataset.data.map(function () {
+          return randomScalingFactor();
+        });
+      });
+
+      window.myPie.update();
+    });
+
+    function voltar() {
+      window.location.replace("indexGrafico.html")
+    }
+  </script>
+
+
+
+</body>
+
+</html>
