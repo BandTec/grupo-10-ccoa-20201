@@ -1,0 +1,183 @@
+body{
+    line-height: 1.5;
+    margin: 0;
+    background: url('../img/background.jpg')no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: 'Montserrat';
+}
+/* global*/
+.dados input{
+    height: 25px;
+    width: 95%;
+    border: 2px rgb(0, 160, 160) solid;
+    border-radius: 5px;
+}
+
+/*Login*/
+
+.container{
+    margin: auto;
+    width: 80%;
+    
+}
+.dados{
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(255, 255, 255, 0.897); 
+    width: 400px;
+    height: 375px;
+    border-radius: 7%;
+}
+
+.caixa .texto{
+    margin-bottom: auto;
+    margin-top: 20px;
+}
+.titulo-caixa h3{
+    color:  rgb(0, 160, 160);
+    padding-top:  20px;
+    margin-bottom: 0;
+    text-align: center;
+}
+.conectado{
+    padding-bottom: 5px;
+}    
+.caixa h5{
+    color: rgb(0, 160, 160);
+    font-style: normal;
+    font-size: 12px;
+    padding-top: 4px;
+}
+.caixa .chec{
+    float: left;
+    width: 20px;
+}
+
+.dados .botao{
+    margin-top: 5px;
+}
+
+/*Cadastro*/
+.dados2{
+    margin: auto;
+    background-color: rgba(255, 255, 255,0.897); 
+    width: 500px;
+    height: 700px;
+    border-radius: 7%;
+}
+.dados2 input{
+    height: 25px;
+    width: 95%;
+    border: 2px rgb(0, 160, 160) solid;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.caixa .chec{
+    float: left;
+    width: 20px;
+    margin-top: 0;
+}
+
+.dados2 h5{
+    margin-top: 15px;
+}
+
+.inscrever{  
+    height: 17px;
+    width: 100px;
+    margin-top: 15px;
+}
+.inscrever a{
+    color: rgb(0, 160, 160);
+    font-style: normal;
+}
+
+.div-btn{
+    margin-left: auto;
+    margin-right: auto;
+    width:90%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.botao{
+    border: hidden;
+    background-color:rgb(0, 160, 160);
+    color: #fff;
+    height: 40px;
+    width: 80%;
+    border-radius: 10%;
+    margin: auto;
+    align-items: center;
+}
+
+.div-btn h3{
+    padding: 0;
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(0, 160, 160);
+}
+/* dados3 */
+.dados3{
+    margin: auto;
+    background-color: rgba(255, 255, 255,0.897); 
+    width: 400px;
+    min-height: 350px;
+    border-radius: 7%;
+    margin-top: 150px;
+    padding-bottom: 20px;
+    color: rgb(0, 160, 160);
+}
+.dados3 .titulo-caixa{
+    margin-bottom: 20px;
+}
+.dados3 input{
+    height: 25px;
+    width: 95%;
+    border: 2px rgb(0, 160, 160) solid;
+    border-radius: 5px;
+}
+.inserir h4{
+    margin-bottom: 10px;
+}
+
+.inserir input{
+    margin-bottom: 20px;
+}
+.div-btn .botao{
+    margin-top: 5px;
+}
+
+.botaoqvaisumir{
+    margin-left: auto;
+    margin-right: auto;
+    width:90%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-mudar-telas{
+    width: 80%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.mudar-tela1{
+    float:left;
+}
+
+.mudar-tela2{
+    float:right;
+}
