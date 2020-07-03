@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="funcoes.js"></script>
+
+    <link rel="icon" href="../img/logo.png">
+    <link rel="stylesheet" href="../scss/style.css">
+    <link rel="stylesheet" href="../scss/efeitos.css">
+    <link rel="stylesheet" href="../scss/calculadora.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,900&display=swap" rel="stylesheet">
+    <title>Cold Stock</title>
+</head>
+<body>
+    
+    <header>
+        <div class="container">
+          <div class="fixar">
+            <div class="title-header">
+              <a href="indexProduto.html"><img class="logo" src="../img/logo.png" alt=""></a>
+              <h1><a href="indexProduto.html">Cold Stock</a></h1>
+            </div>
+           
+            <div class="nav" style="font-size: 26px; font-weight: bold; padding-top: 10px;">
+                Geladeiras
+            </div>
+          </div>
+        </div>
+      </header>
+
+    <section class="conteudo-geladeira">
+        <div class="container">
+            <div id='divGel' class="w30 geladeiras">
+                
+                
+            </div>
+            <div id="divFil" class="w70 produtos">
+                
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <div class="container">
+            <p>@Copyright <b>Cold Stock.</b> Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+    <script>
+        verificar_autenticacao_localidade()
+        verificar_localidade();
+        function Selecionar(paramGeladeira){
+            divFil.innerHTML = ''
+            var dados = {
+                geladeira: paramGeladeira
+            };
+
+            
+            fetch('/produtos/fileiras',  {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify(dados)
+            })
+            .then(resposta =>{
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        console.log(JSON.stringify(json));
+                        
+                        for (i = 0; i < json.length; i++) {
+                                let nivelSensor = 0;
+                                let sensor = '';
+                                if(json[i].sensor3 == 1){
+                                    nivelSensor +=25;
+                                }
+                                if(json[i].sensor2 == 1){
+                                    nivelSensor +=25;
+                                }
+                                if(json[i].sensor1 == 1){
+                                    nivelSensor +=25;
+                                }
+
+                                if(nivelSensor == 75){
+                                    sensor = 'Cheio'
+                                }else if(nivelSensor == 50){
+                                    sensor = 'Medio'
+                                }else if(nivelSensor == 25){
+                                    sensor = 'Quase vazio'
+                                }else if(nivelSensor == 0){
+                                    sensor = 'Vazio';
+                                }
+                                divFil.innerHTML += `<div class="box-produtos"><div class="w50">${json[i].nomeProduto}</div><div class="w50">${sensor}</div><div class="clear"></div>`
+
+                            }
+                        
+                    });
+
+                } else {
+
+                    console.log('Erro de busca!');
+
+                }
+            })
+
+        }
+    </script>
+</body>
+</html>

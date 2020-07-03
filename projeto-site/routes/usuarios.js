@@ -1,22 +1,53 @@
 var express = require('express');
 var router = express.Router();
 var sequelize = require('../models').sequelize;
-var Usuario = require('../models').Usuario;
+var Fornecedoras = require('../models').Fornecedoras;
+var Consumidores = require('../models').Consumidores;
 
 let sessoes = [];
 
 /* Recuperar usuário por login e senha */
-router.post('/autenticar', function(req, res, next) {
+router.post('/autenticarFornecedora', function(req, res, next) {
 	console.log('Recuperando usuário por login e senha');
 
 	var login = req.body.login; // depois de .body, use o nome (name) do campo em seu formulário de login
 	var senha = req.body.senha; // depois de .body, use o nome (name) do campo em seu formulário de login	
 	
-	let instrucaoSql = `select * from consumidoresFinais where emailConsumidor='${login}' and senhaConsumidor='${senha}'`;
+	let instrucaoSql = `select * from Fornecedoras where emailFornecedora='${login}' and senhaFornecedora='${senha}'`;
 	console.log(instrucaoSql);
 
 	sequelize.query(instrucaoSql, {
-		model: Usuario
+		model: Fornecedoras
+	}).then(resultado => {
+		console.log(`Encontrados: ${resultado.length}`);
+
+		if (resultado.length == 1) {
+			sessoes.push(resultado[0].dataValues.emailFornecedora);
+			console.log('sessoes: ',sessoes);
+			res.json(resultado[0]);
+		} else if (resultado.length == 0) {
+			res.status(403).send('Login e/ou senha inválido(s)');
+		} else {
+			res.status(403).send('Mais de um usuário com o mesmo login e senha!');
+		}
+
+	}).catch(erro => {
+		console.error(erro);
+		res.status(500).send(erro.message);
+  	});
+});
+
+router.post('/autenticarConsumidor', function(req, res, next) {
+	console.log('Recuperando usuário por login e senha');
+
+	var login = req.body.login; // depois de .body, use o nome (name) do campo em seu formulário de login
+	var senha = req.body.senha; // depois de .body, use o nome (name) do campo em seu formulário de login	
+	
+	let instrucaoSql = `select * from consumidores where emailConsumidor='${login}' and senhaConsumidor='${senha}'`;
+	console.log(instrucaoSql);
+
+	sequelize.query(instrucaoSql, {
+		model: Consumidores
 	}).then(resultado => {
 		console.log(`Encontrados: ${resultado.length}`);
 
@@ -104,6 +135,26 @@ router.get('/', function(req, res, next) {
 		console.error(erro);
 		res.status(500).send(erro.message);
   	});
+});
+
+router.post('/cadastrar', async function(req, res, next) {
+	console.log(JSON.stringify(req.body));
+	
+	try {
+        const { nomeConsumidor, senhaConsumidor, emailConsumidor, fklocalidadeConsumidor } = req.body
+        const user = await Consumidores.create({
+            nomeConsumidor,
+            senhaConsumidor,
+			emailConsumidor,
+			fklocalidadeConsumidor
+        })
+    
+        console.log(user);
+        return res.status(201).json({mensagem:"Cadastrado com sucesso!"});
+    } catch (error) {
+        console.log(`Usuario controller - error - ${error}`);
+        return res.status(400).json({mensagem:"Erro ao cadastrar!"});
+    }
 });
 
 module.exports = router;

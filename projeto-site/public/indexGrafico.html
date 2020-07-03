@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cold Stock</title>
+  <link rel="icon" href="../img/logo.png">
+  <link rel="stylesheet" href="../scss/style.css">
+  <link rel="stylesheet" href="../scss/efeitos.css">
+  <link rel="stylesheet" href="../scss/calculadora.css">
+
+  <script type="text/javascript" src="funcoes.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,900&display=swap" rel="stylesheet">
+</head>
+
+<body class="fadeIn">
+
+  <!--Header-->
+  <header>
+    <div class="container">
+      <div class="fixar">
+        <div class="title-header">
+          <a href="indexGrafico.html"><img class="logo" src="../img/logo.png" alt=""></a>
+          <h1><a href="indexGrafico.html">Cold Stock</a></h1>
+        </div>
+        <img src="../img/interface.png">
+        <div class="nav">
+          <ul>
+            <li><a href="#imagem-principal">INICIO</a></li>
+            <li><a href="#vantagens">VANTAGENS</a></li>
+            <li><a href="#funcionalidade">FUNCIONALIDADE</a></li>
+            <li><a href="#calculadora">CALCULADORA</a></li>
+            <li><a href="#grafico">GRÁFICO</a></li>
+            <li><a href="#contato">CONTATO</a></li>
+            <li onclick="logoff()" style="cursor: pointer;">SAIR</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!--Parte da foto bonita-->
+  <div class="imagem-principal" id="imagem-principal">
+    <div class="container">
+      <div class="title-img">
+        <h1>VENHA CONHECER NOSSO PROJETO</h1>
+      </div>
+      <div class="texto-img">
+        <h3>
+          Uma nova <span>solução</span> para processo de estocagem
+        </h3>
+        <button><a href="#vantagens">Vamos lá!</a></button>
+      </div>
+    </div>
+  </div>
+
+  <!--Vantagens-->
+  <div class="vantagens" id="vantagens">
+    <div class="container">
+      <div class="img-vantagem">
+        <img src="../img/vantagem.jpg" alt="">
+      </div>
+      <div class="textos-vantagem">
+        <div class="titulo-vantagem">
+          <h1>Nossas vantagens</h1>
+        </div>
+        <div class="subtextos-vantagem">
+          <div class="box1">
+            <h1>Diferencial de mercado</h1>
+            <p>
+              Você terá um diferencial das outras geladeiras com o nosso sistema de controle de estoque.
+            </p>
+          </div>
+          <div class="box2">
+            <h1>Suporte</h1>
+            <p>Equipe de suporte sempre a postos para atender e sanar qualquer problema referente à nossos
+              produtos (Sensores e plataforma)</p>
+          </div>
+          <div class="box3">
+            <h1>Venda inteligente</h1>
+            <p>Como vendedor, você será capaz de vender produtos que lhe darão lucro,
+              evitando estocar produtos que podem não ser vendidos</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Funcionalidade-->
+  <div class="funcionalidade" id="funcionalidade">
+    <div class="container">
+      <div class="titulo-func">
+        <h1>FUNCIONALIDADE</h1>
+      </div>
+      <div class="conteudo-func animacao">
+        <div class="texto-func">
+          <h3>
+            <p>
+              Nosso projeto auxiliará os fornecedores de produtos de máquinas de vendas a controlar
+              seu
+              estoque nas geladeiras, e os consumidores finais desses produtos, informando-os se o
+              alimento desejado está disponível.
+            </p>
+          </h3>
+        </div>
+        <div class="img-func">
+          <img style="height: 250px; width: 250px" src="../img/funcionalidade.png" alt="">
+        </div>
+      </div>
+      <div class="conteudo-func animacao">
+        <div class="texto-func">
+          <h3>
+            <p>
+              Em relação ao tempo, com o nosso projeto, os clientes evitarão perder
+              tempo com produtos indisponíveis das máquinas de vendas.
+            </p>
+          </h3>
+        </div>
+        <div class="img-func">
+          <img style="height: 250px; width: 250px" src="../img/ampulheta.png" alt="">
+        </div>
+      </div>
+      <div class="conteudo-func animacao">
+        <div class="texto-func">
+          <h3>
+            <p>
+              Nosso projeto, auxiliará os fornecedores, informando-os em tempo real como está a situação
+              das fileiras de cada geladeira, mantendo-os sempre atualizados.
+            </p>
+          </h3>
+        </div>
+        <div class="img-func">
+          <img style="height: 250px; width: 250px" src="../img/realtime.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!--Calculadora-->
+  <div id="calculadora">
+    <div class="calculator">
+
+      <section id="title">
+        <span>Calcule os seus lucros</span>
+
+        <img src="../img/calculator.png" alt="">
+      </section>
+
+      <section id="content">
+        <br>
+        <p>Aqui você pode calcular os lucros que você poderá ter, caso utilize o nosso produto.</p>
+
+        <button onclick="onOff()">CALCULAR</button>
+      </section>
+
+    </div>
+
+  </div>
+
+  <div id="bg" class="hide"></div>
+  <div id="modal" class="hide">
+    <div class="content">
+      <H1>Calcule os seu lucro: </H1>
+
+      <form id="form">
+        <div class="form">
+          <input type="text" name="name" autocomplete="off" required id="qntMaquinas" />
+          <label for="name" class="label-name">
+            <span class="content-name">Quantas maquinas você possui?</span>
+          </label>
+        </div>
+        <div class="form">
+          <input type="text" name="name" autocomplete="off" required id="lucroM" />
+          <label for="name" class="label-name">
+            <span class="content-name">Qual seu lucro por mês?</span>
+          </label>
+        </div>
+
+        <div id="divLucro">
+          <p id="p1">
+
+          </p>
+          <p id="p2">
+
+          </p>
+        </div>
+      </form>
+      <a href="#" onclick="onOff()">Voltar</a>
+
+      <button onclick="calcularLucro()">Calcular</button>
+
+    </div>
+  </div>
+
+  <!-- Geladeira -->
+  <div id="grafico" class="grafico"  style="background-color: #DEF2F1;" >
+    <div class="container">
+      <div class="conteudo-grafico" >
+        <div class="titulo-grafico">
+          <h1 style="color: #17252A">Geladeira</h1>
+        </div>
+        <div class="botao-grafico">
+          <button onclick="cadGeladeira()">Clique aqui para cadastrar uma geladeira nova</button><br><br>
+          <button onclick="cadProduto()">Clique aqui para cadastrar produtos em uma geladeira</button><br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Gráfico-->
+  <div id="grafico" class="grafico">
+    <div class="container">
+      <div class="conteudo-grafico">
+        <div class="titulo-grafico">
+          <h1>Gráfico</h1>
+        </div>
+        <div class="botao-grafico">
+          <button onclick="grafico()">Clique aqui para acessar o gráfico</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Contato-->
+  <div id="contato" class="contato">
+    <div class="container">
+      <div class="tudo-contato">
+        <div class="titulo-contato">
+          <h1>
+            CONTATO
+          </h1>
+        </div>
+        <div class="conteudo-contato">
+          <div class="emailtel-contato">
+            <div class="email-contato">
+              <h1>
+                Email para contato
+              </h1>
+              <p>
+                coldstockcontato@gmail.com
+              </p>
+            </div>
+            <div class="tel-contato">
+              <h1>
+                Telefone para contato
+              </h1>
+              <p>
+                11 99929-0812
+              </p>
+            </div>
+          </div>
+          <div class="enviar-contato">
+            <form action="">
+              <div class="inputs-info">
+                <div class="info-form">
+                  <input placeholder="Nome" type="text">
+                </div>
+                <div class="info-form">
+                  <input placeholder="Email" type="text">
+                </div>
+              </div>
+              <div class="input-assunto">
+                <div class="info-form">
+                  <input placeholder="Assunto" type="text">
+                </div>
+              </div>
+              <div class="input-mensagem">
+                <div class="info-form">
+                  <input placeholder="Mensagem" type="text">
+                </div>
+              </div>
+              <div class="btn-form">
+                <button>Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <p>@Copyright <b>Cold Stock.</b> Todos os direitos reservados.</p>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  verificar_autenticacao_fornecedora();
+  function onOff() {
+    document.querySelector("#modal")
+      .classList.toggle("hide")
+
+    document.querySelector("#bg")
+      .classList.toggle("hide")
+
+    document.querySelector("body").classList.toggle("hideScroll")
+
+    document.querySelector("#modal").classList.toggle("addScroll")
+
+    document.querySelector("#bg").classList.toggle("addScroll")
+
+    var form = document.querySelector('#form');
+
+    form.reset();
+    p1.innerHTML = '';
+    p2.innerHTML = '';
+  }
+
+  function calcularLucro() {
+    var lucroSem = Number(lucroM.value);
+    var maquinas = Number(qntMaquinas.value);
+
+    var lucroPrimeiro = (lucroSem * 1.1) - (maquinas * 160);
+    var lucroMes = (lucroSem * 1.1) - (maquinas * 30);
+
+    p1.innerHTML = `O seu lucro após o primeiro mês será de R$${lucroPrimeiro}, devido ao investimento inicial.`;
+    p2.innerHTML = `A partir do segundo mês seu lucro será de R$${lucroMes} por mês`;
+  }
+
+  function grafico() {
+    window.location.replace("grafico.html");
+  }
+
+  function cadGeladeira() {
+    window.location.replace('cadastrogeladeira.html');
+  }
+  function cadProduto() {
+    window.location.replace('cadastroproduto.html');
+  }
+</script>
+<script type="text/javascript" src="../app.js"></script>

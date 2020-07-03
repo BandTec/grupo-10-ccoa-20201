@@ -490,11 +490,18 @@ section.conteudo-geladeira .w70{
   width: calc(70% - 32px);
 }
 
+section.conteudo-geladeira .w30{
+  width: calc(30% - 32px);
+}
+
 .produtos{
   color: #313131;
   text-align: center;
   font-size: 18px;
   margin-left: 30px;
+  border-top: 2px solid #ccc;
+  border-left: 2px solid #ccc;
+  border-right: 2px solid #ccc;
 }
 
 .box-produtos{

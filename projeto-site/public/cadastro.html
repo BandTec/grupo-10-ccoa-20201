@@ -1,72 +1,161 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Página com exemplo de Cadastro de usuário</title>
-
+    <title>Cadastro</title>
+    <link rel="icon" href="../img/logo.png">
+    <link rel="stylesheet" href="../scss/cadastrologin.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <div class="dados2">
+        <div class="container">
 
-    <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
-        Nome: <input type="text" name="nome" required minlength="4">
-        <br>
-        Usuário: <input type="text" name="login" required minlength="4">
-        <br>
-        Senha: <input type="password" name="senha" required minlength="4">
-        <br>
-        <button id="btn_entrar">Cadastrar</button>
-    </form>
-    
-    <img src="aguarde2.gif" id="img_aguarde" style="display: none;" width="100px">
-    
-    <div id="div_erro" style="background-color: sandybrown; color: maroon; display: none;">
-        Erro no cadastro
-    </div>
+            <div class="caixa">
+                <div class="titulo-caixa">
+                    <h3>CADASTRO</h3>
+                </div>
+                <form id="formCadastro" method="POST">
+                    <input type="text" id="txtNome" name="nome" required placeholder="Nome">
 
+                    <input type="email" id="txtEmail" name="email" required placeholder="E-mail">
+    
+                    <input type="email" id="confEmail" required placeholder="Confirme seu e-mail">
+    
+                    <input type="password" id="txtSenha" name="senha" required placeholder="Senha">
+    
+                    <input type="password" id="confSenha" required placeholder="Confirme sua senha">
+
+                    <input type="number" id="txtLocalidade" placeholder="Localidade" required name="localidade">
+                    
+                
+                <div class="conectadocadastro">
+                    <input type="checkbox" class="chec">
+                    <h5>Concordo com os termos de uso</h5>
+                </div>
+                <div class="div-btn">
+                    <button type="submit" class="botao">Concluir</button>
+                    <div class="div-mudar-telas">
+                        <div class="mudar-tela1">
+                            <h3><a href="index.html">Voltar</a></h3>
+                        </div>
+                        <div class="mudar-tela2">
+                            <h3><a href="login.html">Entrar</a></h3>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <div id="mensagem" class="mensagem" style="display: none;"></div>
+            </div>
+        </div>
 </body>
 
 </html>
+
 <script>
 
-    function cadastrar() {
-        aguardar();
-        var formulario = new URLSearchParams(new FormData(form_cadastro));
-        fetch("/usuarios/cadastrar", {
-            method: "POST",
-            body: formulario
-        }).then(function (response) {
-            
-            if (response.ok) {
+    const form = document.querySelector("#formCadastro");
+    form.addEventListener("submit",(e) => cadastrar(e));
 
-                window.location.href='login.html';
-
-            } else {
-
-                console.log('Erro de cadastro!');
-                response.text().then(function (resposta) {
-                    div_erro.innerHTML = resposta;
-                });
-                finalizar_aguardar();
+    function cadastrar(e){
+            e.preventDefault();
+            Limpar();
+            if(verificar() == true){
+                const valores = pegarValor();
+                requisicao(valores);
+            }else{
+                verificarErro();
             }
-        });
+            
+        }
 
-        return false;
+        function requisicao({nome,senha,email,localidade}){
+            const body = {
+                nomeConsumidor:nome,
+                senhaConsumidor:senha,
+                emailConsumidor:email,
+                fklocalidadeConsumidor:localidade
+            }
+
+            fetch("/usuarios/cadastrar",{
+                method: "POST",
+                headers: {
+                 'Content-Type': 'application/json'
+                 },
+                body: JSON.stringify(body)
+            })
+            .then(async response => {
+                const res = await response.json();
+                if(response.status == 201){
+                    return Sucesso(res.mensagem)
+                }else{
+                    return Erro(res.mensagem)
+                }
+            })
+            .catch(res => {Erro('Não conseguimos cadastrar')})
+        }
+
+    function pegarValor(){
+            const inputNome = document.querySelector("#txtNome").value;
+            const inputEmail = document.querySelector("#txtEmail").value;
+            const inputSenha = document.querySelector("#txtSenha").value;
+            const inputLocalidade = document.querySelector("#txtLocalidade").value;
+
+            return {
+                nome: inputNome,
+                email: inputEmail,
+                senha: inputSenha,
+                localidade: inputLocalidade,
+            }
+        }
+
+    function verificar(){
+            if((txtEmail.value).indexOf(".com") != -1 && txtEmail.value == confEmail.value && txtSenha.value == confSenha.value){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+     function verificarErro(){
+           if((txtEmail.value).indexOf(".com") == -1){
+                mensagem.innerHTML = 'E-mail incorreto'
+            }else if(txtEmail.value != confEmail.value){
+                mensagem.innerHTML = 'Os endereços de e-mail não correspondem.'
+            }else if(txtSenha.value != confSenha.value){
+                mensagem.innerHTML = 'As senhas não correspondem.'
+            }
+
+            mensagem.style.color = '#ff0000';
+            mensagem.style.backgroundColor = '#ff8484'
+            mensagem.style.border = '1px solid #ff5050'
+            mensagem.style.display = 'block';
+        }
+
+    function Limpar(){
+        const msg = document.querySelector(".mensagem");
+        msg.innerHTML = '';
     }
 
-    function aguardar() {
-        btn_entrar.disabled = true;
-        img_aguarde.style.display='block';
-        div_erro.style.display='none';
-    }
+    function Sucesso(mensagem){
+            const msg = document.querySelector(".mensagem");
+            msg.innerHTML = mensagem;
+            msg.style.color = '#1d7c00';
+            msg.style.backgroundColor = '#aeff9e'
+            msg.style.border = '1px solid #56b93d'
+            msg.style.display = 'block';
+            document.getElementById('formCadastro').reset();
+        }
 
-    function finalizar_aguardar() {
-        btn_entrar.disabled = false;
-        img_aguarde.style.display='none';
-        div_erro.style.display='block';
-    }
-
+        function Erro(mensagem){
+            const msg = document.querySelector(".mensagem");
+            msg.innerHTML = mensagem;
+            msg.style.color = '#ff0000';
+            msg.style.backgroundColor = '#ff8484'
+            msg.style.border = '1px solid #ff5050'
+            msg.style.display = 'block';
+        }
 </script>
