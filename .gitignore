@@ -168,4 +168,8 @@ typings/
 .directory
 package-lock.json
 
+windowsenv/
+env/
+
+
 
