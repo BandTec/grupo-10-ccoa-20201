@@ -1,4 +1,4 @@
-#Comandos MySQL
+﻿#Comandos MySQL
 
 CREATE DATABASE PROJETO;
 
@@ -9,7 +9,8 @@ CREATE TABLE DATASET_COMP(
     cpu varchar(5) NOT NULL,
     ram varchar(5) NOT NULL, 
     ram_percent varchar(5) NOT NULL, 
-    disk varchar(5) NOT NULL, 
+    disk varchar(5) NOT NULL,
+    dataehora datetime, 
     PRIMARY KEY (id)
     );
 
