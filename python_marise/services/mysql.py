@@ -24,12 +24,12 @@ class Mysql:
 
     def insert(self, data):
         query = (
-            "INSERT INTO `dataset_comp`(cpu, ram, ram_percent, disk)"
-            "VALUES (%s, %s, %s, %s)"
+            "INSERT INTO `dataset_comp`(cpu, ram, ram_percent, disk, dataehora)"
+            "VALUES (%s, %s, %s, %s, %s)"
         )
         values = data
         try:
-            print('Inserindo Valores')
+            print('Aguarde ...')
             self.cursor.execute(query,values)
             self.mysql.commit()
         except Exception as err:
