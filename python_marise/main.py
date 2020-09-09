@@ -3,11 +3,11 @@ from services.dataGenerator import getData
 import time
 
 #Inserir user, password, host, database
-mysql = Mysql('Vicente','bandtec', 'localhost', 'PROJETO1')
+mysql = Mysql('Anderson','bandtec123', 'localhost', 'projeto')
 
 mysql.connect()
 
 while True:
     values = getData()
     mysql.insert(values)
-    time.sleep(5)
+    time.sleep(2)

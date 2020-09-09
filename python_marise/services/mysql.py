@@ -24,8 +24,8 @@ class Mysql:
 
     def insert(self, data):
         query = (
-            "INSERT INTO `dataset_comp`(cpu, ram, ram_percent, disk, dataehora)"
-            "VALUES (%s, %s, %s, %s, %s)"
+            "INSERT INTO `dataset_comp`(cpu, ram, ram_percent, disk)"
+            "VALUES (%s, %s, %s, %s)"
         )
         values = data
         try:
