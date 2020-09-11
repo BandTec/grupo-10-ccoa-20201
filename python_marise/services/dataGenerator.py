@@ -15,8 +15,8 @@ def getData():
     cpu_media = sum(cpu)/len(cpu)
     memory = (round(psutil.virtual_memory().used/1024**3, 2))
     memory_percent = (psutil.virtual_memory().percent)
-    diskUsado = round(((psutil.disk_usage('/').used)/1024**3),2)
-    diskLivre = round(((psutil.disk_usage('/').free)/1024**3),2)
+    diskUsado = (round(psutil.disk_usage('/').used/1024**3,2))
+    diskLivre = (round(psutil.disk_usage('/').free/1024**3,2))
     data_atual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     cpu_info['cpu'] = round(cpu_media,1)
