@@ -29,7 +29,7 @@ class Mysql:
         )
         values = data
         try:
-            print('Inserindo Valores')
+            print('Aguarde ...')
             self.cursor.execute(query,values)
             self.mysql.commit()
         except Exception as err:
