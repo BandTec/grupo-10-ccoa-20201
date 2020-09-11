@@ -1,17 +1,19 @@
 #Comandos MySQL
 
-CREATE DATABASE PROJETO;
+CREATE DATABASE coldstock;
 
-USE PROJETO;
+USE coldstock;
 
-CREATE TABLE DATASET_COMP( 
+CREATE TABLE dados_servidor( 
     id int NOT NULL AUTO_INCREMENT, 
     cpu varchar(5) NOT NULL,
     ram varchar(5) NOT NULL, 
     ram_percent varchar(5) NOT NULL, 
-    disk varchar(5) NOT NULL, 
+    diskU varchar(5) NOT NULL, 
+    diskL varchar(5) NOT NULL, 
+    dataehora datetime NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
 #Python
 
