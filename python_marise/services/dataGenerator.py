@@ -14,7 +14,6 @@ def getData():
     cpu = psutil.cpu_percent(interval=1, percpu=True)
     cpu_media = sum(cpu)/len(cpu)
     memory = (round(psutil.virtual_memory().used/1024**3, 2))
-    # memory = (psutil.virtual_memory().used >> 30)
     memory_percent = (psutil.virtual_memory().percent)
     diskUsado = round(((psutil.disk_usage('/').used)/1024**3),2)
     diskLivre = round(((psutil.disk_usage('/').free)/1024**3),2)
