@@ -2,6 +2,7 @@ import mysql.connector
 
 
 class Mysql:
+    """ capta as informações dos usuarios"""
     def __init__(self, user, password, host, database):
         self.user = user
         self.password = password
