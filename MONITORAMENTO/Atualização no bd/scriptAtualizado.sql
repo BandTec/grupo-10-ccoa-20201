@@ -1,3 +1,4 @@
+drop database coldstock;
 create database coldStock;
 use coldStock;
 
@@ -20,6 +21,8 @@ create table funcionarios(
 create table fornecedoras(
 	idFornecedora int primary key auto_increment,
     nomeFornecedora varchar(20),
+    email varchar(50),
+    senha varchar(30),
     fkMaquina int
 );
 create table localidades(
@@ -107,9 +110,9 @@ alter table favoritos add foreign key (fkProduto) references produtos(idProduto)
 alter table favoritos add foreign key (fkConsumidor) references consumidoresFinais(idConsumidor);
 
 insert into fornecedoras values
-(null,'HassleFree Food',1),
-(null,'Joaninha Food',1),
-(null,'Food Guerrilla',2);
+(null, 'HassleFree Food', 'HFFood@gmail.com', 'senha123',1),
+(null, 'Joaninha Food', 'JoanaFood@gmail.com', 'senha456',1),
+(null, 'Food Guerrilla', 'GuerrilaFood@gmail.com', 'batman',2);
 
 insert into localidades values
 (null,'OrbiPlan','Camaçari','Vila Alve Verde','Rua Cristo Redentor'),
@@ -168,11 +171,53 @@ insert into abastecimentos values
 (null,'medio','2020-03-25',3,4),
 (null,'vazio','2020-04-04',2,5);
 
+insert into componentes (idComponente, nomeComponente, Metrica) values
+(null, 'CPU', 'GHz'),
+(null, 'RAM', 'GB'),
+(null, 'Disco', 'GB'),
+(null, 'conexaoD', 'Mbps'),
+(null, 'conexaoU', 'Mbps');
+
 insert into maquinas values
 (null, "Servidor 1", "Server"),
 (null,"Maquina 1","PC"),
 (null,"Maquina 2","PC");
 
+insert into configuracaoMaquina (fkMaquina, fkComponente, capacidadeMax) values 
+(1, 1, '3.5'),
+(1, 2, '16'),
+(1, 3, '2000'),
+(1, 4, '1000'),
+(1, 5, '800'),
+(2, 1, '1.8'),
+(2, 2, '6'),
+(2, 3, '240'),
+(3, 1, '2.5'),
+(3, 2, '8');
+
+select * from maquinas;
+
+-- Temos o id da maquina onde a API está rodando
+-- A maquina já está registrada e com componentes relacionados
+-- idMaquina = 1
+select idComponente, nomeComponente from maquinas 
+inner join configuracaoMaquina on idMaquina = fkMaquina
+inner join componentes on idComponente = fkComponente
+where idMaquina = 1;
+
+insert into registros (idRegistro, dataHora, valor, fkMaquina, fkComponente) values
+(null, '2020-09-23 17:45:00', 2.0, 1, 1),
+(null, '2020-09-23 17:45:00', 8.6, 1, 2),
+(null, '2020-09-23 17:45:00', 203.50, 1, 3),
+(null, '2020-09-23 17:45:00', 705.47, 1, 4),
+(null, '2020-09-23 17:45:00', 582.07, 1, 5);
+
+select * from registros order by dataHora desc limit 5;
+
+select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas 
+inner join configuracaoMaquina on idMaquina = fkMaquina
+inner join componentes on idComponente = fkComponente
+where idMaquina = 1;
 
 -- select nomeConsumidor,emailConsumidor,nomelocalidade from consumidoresFinais, localidades where fkLocalidade = idLocalidade;
 
