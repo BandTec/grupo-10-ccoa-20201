@@ -1,4 +1,4 @@
-drop database coldstock;
+-- drop database coldstock;
 create database coldStock;
 use coldStock;
 
@@ -200,7 +200,7 @@ select * from maquinas;
 -- Temos o id da maquina onde a API está rodando
 -- A maquina já está registrada e com componentes relacionados
 -- idMaquina = 1
-select idComponente, nomeComponente from maquinas 
+select nomeComponente from maquinas 
 inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
 where idMaquina = 1;
@@ -212,8 +212,10 @@ insert into registros (idRegistro, dataHora, valor, fkMaquina, fkComponente) val
 (null, '2020-09-23 17:45:00', 705.47, 1, 4),
 (null, '2020-09-23 17:45:00', 582.07, 1, 5);
 
-select * from registros order by dataHora desc limit 5;
+select * from registros where fkMaquina = 1;
 
+
+select * from componentes;
 select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas 
 inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente

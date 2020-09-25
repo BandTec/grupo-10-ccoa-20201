@@ -22,15 +22,35 @@ class Mysql:
             print(err)
             raise
 
-    def insert(self, data):
+    def listarComponente(self, idServer):
         query = (
-            "INSERT INTO `registros`(fkServidor, cpu, ram, rampercent, disku, diskl, datahora)"
-            "VALUES (%s,%s, %s, %s, %s, %s, %s)"
+            "select nomeComponente from maquinas "
+            "inner join configuracaoMaquina on idMaquina = fkMaquina "
+            "inner join componentes on idComponente = fkComponente "
+            "where idMaquina = %s " % (idServer)
         )
-        values = data
+
+        try:
+            print('Selecionando dados do server ID: ', idServer)
+            self.cursor.execute(query)
+            retorno = self.cursor.fetchall()
+
+            print('Retorno do BD: ', retorno)
+            print('quantos pora:', len(retorno))
+            self.mysql.commit()
+            return retorno
+        except Exception as err:
+            print(err)
+            self.mysql.rollback()
+            self.close()
+
+
+
+    def insert(self,valores):
+        query = "insert into registros (dataHora, valor, fkMaquina, fkComponente) values (%s,%s,%s,%s)"
         try:
             print('Aguarde ...')
-            self.cursor.execute(query,values)
+            self.cursor.executemany(query,valores)
             self.mysql.commit()
         except Exception as err:
             print(err)
