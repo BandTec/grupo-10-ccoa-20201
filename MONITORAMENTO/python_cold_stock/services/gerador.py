@@ -47,7 +47,7 @@ class Gerador:
         self.valores.append((self.data_atual, valor, idServidor, idComponente))
 
     def notificacaoSlack(self, values, parametros):
-        url = 'https://hooks.slack.com/services/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'
+        url = 'https://hooks.slack.com/services/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'
 
         # if (values[0]>=65) or (values[1]>=60) or (values[4]>=120):
         print(values, parametros)

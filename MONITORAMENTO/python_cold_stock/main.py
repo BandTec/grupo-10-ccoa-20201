@@ -7,7 +7,7 @@ mysql = Mysql('ColdUser','senha123', 'localhost', 'coldstock')
 gerador = Gerador()
 
 mysql.connect()
-idServidor = 1
+idServidor = 2
 while True:
     #values = getData(idServidor)
     #parametros = mysql.selectServer(idServidor)

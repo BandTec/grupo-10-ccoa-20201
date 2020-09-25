@@ -21,7 +21,7 @@ class Mysql:
             print(err)
             raise
 
-        def listarComponente(self, idServer):
+    def listarComponente(self, idServer):
         query = (
             "select nomeComponente, capacidadeMax from maquinas "
             "inner join configuracaoMaquina on idMaquina = fkMaquina "
@@ -35,7 +35,7 @@ class Mysql:
             retorno = self.cursor.fetchall()
 
             print('Retorno do BD: ', retorno)
-            print('quantos pora:', len(retorno))
+            print('Numero de registros:', len(retorno))
             self.mysql.commit()
             return retorno
         except Exception as err:
