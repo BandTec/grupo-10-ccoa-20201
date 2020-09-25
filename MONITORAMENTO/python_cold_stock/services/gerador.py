@@ -46,3 +46,20 @@ class Gerador:
         
         self.valores.append((self.data_atual, valor, idServidor, idComponente))
 
+    def notificacaoSlack(self, values, parametros):
+        url = 'https://hooks.slack.com/services/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'
+
+        # if (values[0]>=65) or (values[1]>=60) or (values[4]>=120):
+        print(values, parametros)
+        notificacao = ''
+        i = 0
+        
+        while i<len(values):
+            if (values[i][1] >= parametros[i][1] * 0.8):
+                notificacao += "%s em alto uso, " % (parametros[i][0])   
+            i += 1
+
+        notificacao = notificacao[0:-2] + '.'
+        pload = {'text': notificacao}
+        requests.post(url, json = pload)
+        return notificacao

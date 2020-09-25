@@ -1,6 +1,5 @@
 import mysql.connector
 
-
 class Mysql:
     def __init__(self, user, password, host, database):
         self.user = user
@@ -22,9 +21,9 @@ class Mysql:
             print(err)
             raise
 
-    def listarComponente(self, idServer):
+        def listarComponente(self, idServer):
         query = (
-            "select nomeComponente from maquinas "
+            "select nomeComponente, capacidadeMax from maquinas "
             "inner join configuracaoMaquina on idMaquina = fkMaquina "
             "inner join componentes on idComponente = fkComponente "
             "where idMaquina = %s " % (idServer)
