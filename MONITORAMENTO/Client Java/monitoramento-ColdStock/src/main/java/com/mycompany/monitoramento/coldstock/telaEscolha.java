@@ -11,6 +11,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.io.File;
+import javafx.application.Application;
 /**
  *
  * @author Aluno
@@ -243,8 +245,12 @@ public class telaEscolha extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     void carregarImgs(){
-        ImageIcon pingolino = new ImageIcon("C:\\Users\\Aluno\\Desktop\\monitoramento-ColdStock\\src\\main\\java\\Images\\Pingulinomonitoramento.png"); 
-        ImageIcon icone = new ImageIcon("C:\\Users\\Aluno\\Desktop\\monitoramento-ColdStock\\src\\main\\java\\Images\\1601053028644.png");
+//        java.io.File file = new java.io.File("");
+//        System.out.println(file);
+        String path = new File("").getAbsolutePath();
+        System.out.println(path);
+        ImageIcon pingolino = new ImageIcon(path + "\\src\\main\\java\\Images\\Pingulinomonitoramento.png"); 
+        ImageIcon icone = new ImageIcon(path + "\\src\\main\\java\\Images\\1601053028644.png");
         jLabel2.setIcon(icone);
         jLabel1.setIcon(pingolino);
         }
