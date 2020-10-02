@@ -1,0 +1,2 @@
+wsl source criadorFiltrado
+pause
