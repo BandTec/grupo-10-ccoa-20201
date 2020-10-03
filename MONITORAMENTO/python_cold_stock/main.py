@@ -9,11 +9,6 @@ gerador = Gerador()
 mysql.connect()
 idServidor = 2
 while True:
-    #values = getData(idServidor)
-    #parametros = mysql.selectServer(idServidor)
-    #Slack = notificacaoSlack(values, parametros)
-    #print(Slack)
-
     listaComponente = mysql.listarComponente(idServidor)
     valores = gerador.gerarDados(listaComponente, idServidor)
     Slack = gerador.notificacaoSlack(valores, listaComponente)

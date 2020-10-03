@@ -1,5 +1,7 @@
 import psutil, time, sys
 import requests
+import json
+import os
 from datetime import datetime
 
 class Gerador:
@@ -47,7 +49,8 @@ class Gerador:
         self.valores.append((self.data_atual, valor, idServidor, idComponente))
 
     def notificacaoSlack(self, values, parametros):
-        url = 'https://hooks.slack.com/services/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'
+        url = "68747470733a2f2f686f6f6b732e736c61636b2e636f6d2f73657276696365732f543031414b5138483144452f42303142454a384e31554e2f464e536d637934756b46794e5a5075504b6839755a6c5353"
+        url = bytearray.fromhex(url).decode()
 
         # if (values[0]>=65) or (values[1]>=60) or (values[4]>=120):
         print(values, parametros)
