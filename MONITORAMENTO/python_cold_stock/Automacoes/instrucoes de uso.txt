@@ -1,4 +1,5 @@
-1° Execute o BaseCriarVenv.bat para "Filtrar" os demais arquivos e criar a ambiente virtual Linux ColdStock
+1° Execute o BaseCriarVenv.bat para "Filtrar" os demais arquivos e criar a ambiente virtual Linux ColdStock, 
+e aguarde até que a última linha contenha "Pressione qualquer tecla para continuar. . ."
 
 2° Entre na pasta do ambiente virtual -> bin -> editar o arquivo "activate" e adicione ao final do código:
 cd ..
