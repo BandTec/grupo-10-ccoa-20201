@@ -10,13 +10,6 @@ create table consumidoresFinais(
     fkLocalidade int
 );
 
-create table funcionarios(
-    idFuncionario  int primary key auto_increment,
-	emailFuncionario varchar(30),
-    senhaFuncionario varchar(15),
-    nomeFuncionario varchar(40),
-    fkFornecedora int
-);
 
 create table fornecedoras(
 	idFornecedora int primary key auto_increment,
@@ -93,6 +86,14 @@ create table favoritos(
     fkConsumidor int
 );
 
+create table funcionarios(
+	idFuncionario int primary key auto_increment,
+    nomeFuncionario varchar(45),
+    emailFuncionario varchar(45),
+    senhaFuncionario varchar(30),
+    fkMaquina int
+);
+
 alter table consumidoresFinais add foreign key (fkLocalidade) references localidades(idLocalidade);
 alter table funcionarios add foreign key (fkFornecedora) references fornecedoras(idFornecedora);
 alter table geladeiras add foreign key (fkLocador) references localidades(idLocalidade);
@@ -108,6 +109,7 @@ alter table registros add foreign key (fkComponente) references componentes(idCo
 alter table registros add foreign key (fkMaquina) references maquinas(idMaquina);
 alter table favoritos add foreign key (fkProduto) references produtos(idProduto);
 alter table favoritos add foreign key (fkConsumidor) references consumidoresFinais(idConsumidor);
+alter table funcionarios add foreign key (fkMaquina) references maquinas(idMaquina);
 
 insert into fornecedoras values
 (null, 'HassleFree Food', 'HFFood@gmail.com', 'senha123',1),
