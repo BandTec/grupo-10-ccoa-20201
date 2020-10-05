@@ -2,13 +2,16 @@ import requests
 import time
 import json
 import os
-import threading
+from threading import Thread
 
 
-class TelegramBot:
+class TelegramBot(Thread):
+
     def __init__(self):
+        Thread.__init__(self)
         token = '1325809344:AAH4sVx4S9AMMdjKrvhx9Ogt6rdG500Ul_I'
         self.url_base = f'https://api.telegram.org/bot{token}/'
+        self.Iniciar()
 
     def Iniciar(self):
         update_id = None
