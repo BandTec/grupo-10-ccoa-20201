@@ -12,6 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author Aluno
@@ -146,7 +148,7 @@ public class telaEscolha extends javax.swing.JFrame {
 
         cbEscolhaMaquina.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         cbEscolhaMaquina.setForeground(new java.awt.Color(153, 153, 153));
-        cbEscolhaMaquina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- escolha uma máquina --", "Máquina 1", "Máquina 2", "Máquina 3" }));
+        cbEscolhaMaquina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- escolha uma máquina --" }));
 
         btnOk.setBackground(new java.awt.Color(77, 172, 166));
         btnOk.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
@@ -245,7 +247,18 @@ public class telaEscolha extends javax.swing.JFrame {
     
     private void carregarMaquinas(){
         ClsBD objBD = new ClsBD();
-        objBD.consulta();
+        try{
+            objBD.conectar();
+            ResultSet retornoBD = objBD.consultar();
+            while(retornoBD.next()){
+                String nomeMaquina  = retornoBD.getString("nomeMaquina");
+                String Tipo  = retornoBD.getString("tipoMaquina");
+                cbEscolhaMaquina.addItem(nomeMaquina);
+            }
+        }
+        catch(SQLException se){
+            System.out.println(se);
+        }
     }
    
     public static void main(String args[]) {
