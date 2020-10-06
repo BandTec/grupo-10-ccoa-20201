@@ -1,4 +1,4 @@
-from services.mysql import Mysql
+from services.sqlApp import Mysql
 from services.gerador import Gerador
 from services.BotTelegramResponse import TelegramBot
 from threading import Thread

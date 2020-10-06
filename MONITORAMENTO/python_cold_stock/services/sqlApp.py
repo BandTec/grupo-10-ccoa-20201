@@ -6,20 +6,45 @@ class Mysql:
         self.password = password
         self.host = host
         self.database = database
-        self.mysql = None
+        self.objSql = None
         self.cursor = None
 
     #Estabelecendo uma conexão
     def connect(self):
         try:
-            self.mysql = mysql.connector.connect(
+            self.objSql = mysql.connector.connect(
             user=self.user, password=self.password, host=self.host, database=self.database)
             #Criando cursor para manipulação do banco.
-            print(self.mysql)
-            self.cursor = self.mysql.cursor()
+            print(self.objSql)
+            self.cursor = self.objSql.cursor()
         except Exception as err:
             print(err)
             raise
+
+    def cadastrarConversa(self, idMaquina, idConversa):
+        query = ("insert into testeTelegram (idConversa, fkMaquina) "
+                "values (%s, %s)" % (idConversa, idMaquina)
+                )
+        try:
+            print('Registrando Conversa ...')
+            self.cursor.execute(query)
+            self.objSql.commit()
+        except Exception as err:
+            print(err)
+            self.objSql.rollback()
+            self.close()
+
+    def removerConversa(self, idMaquina, idConversa):
+        query=("delete from testeTelegram where "
+                "idMaquina = %s and idConversa = %s" % (idMaquina, idConversa))
+        try:
+            print('Deletando ...')
+            self.cursor.execute(query)
+            self.objSql.commit()
+        except Exception as err:
+            print(err)
+            self.objSql.rollback()
+            self.close()
 
     def listarComponente(self, idServer):
         query = (
@@ -36,26 +61,23 @@ class Mysql:
 
             print('Retorno do BD: ', retorno)
             print('Numero de registros:', len(retorno))
-            self.mysql.commit()
+            self.objSql.commit()
             return retorno
         except Exception as err:
             print(err)
-            self.mysql.rollback()
+            self.objSql.rollback()
             self.close()
-
-
 
     def insert(self,valores):
         query = "insert into registros (dataHora, valor, fkMaquina, fkComponente) values (%s,%s,%s,%s)"
         try:
             print('Aguarde ...')
             self.cursor.executemany(query,valores)
-            self.mysql.commit()
+            self.objSql.commit()
         except Exception as err:
             print(err)
-            self.mysql.rollback()
+            self.objSql.rollback()
             self.close()
-
             
     def selectServer(self, idServer):
         query = (
@@ -69,16 +91,16 @@ class Mysql:
             retorno = self.cursor.fetchall()
 
             print('Retorno do BD: ', retorno[0][3])
-            self.mysql.commit()
+            self.objSql.commit()
             return retorno [0]
         except Exception as err:
             print(err)
-            self.mysql.rollback()
+            self.objSql.rollback()
             self.close()
 
     # Fechando conexão
     def close(self):
-        self.mysql.close()
+        self.objSql.close()
 
         
 
