@@ -72,8 +72,9 @@ class TelegramBot:
             self.flagImagem = True
             resposta['imagem'] = 'AgACAgEAAxkBAAIBwV984H6_g0XSBusM0J6Kxg7uvwlXAAKrqDEbZNLoRxrYU-fRdgVhR-NuBgAEAQADAgADeAADCMwEAAEbBA'
 
-        elif 'notificacao-sim' or 'notificação-sim' in  mensagem:
+        elif 'notificacao-sim' in mensagem or 'notificação-sim' in mensagem:
             mensagem = mensagem.replace('notificacao-sim', '')
+            mensagem = mensagem.replace('notificação-sim', '')
             mensagem = mensagem.strip() #Após isso tudo que resta deve ser o idMaquina
             self.cadastrarNotificacao(mensagem, idChat)
             resposta['texto']='Cadastrando notificações para máquina %s'%(mensagem)

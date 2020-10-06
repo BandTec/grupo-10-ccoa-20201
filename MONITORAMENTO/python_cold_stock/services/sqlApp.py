@@ -23,7 +23,7 @@ class Mysql:
 
     def cadastrarConversa(self, idMaquina, idConversa):
         query = ("insert into testeTelegram (idConversa, fkMaquina) "
-                "values (%s, %s)" % (idConversa, idMaquina)
+                "values ('%s', '%s')" % (idConversa, idMaquina)
                 )
         try:
             print('Registrando Conversa ...')
