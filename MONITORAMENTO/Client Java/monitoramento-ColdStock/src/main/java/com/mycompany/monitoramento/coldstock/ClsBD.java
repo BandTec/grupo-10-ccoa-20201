@@ -5,8 +5,8 @@
  */
 package com.mycompany.monitoramento.coldstock;
 
-import com.mysql.jdbc.Driver;
-import com.mysql.jdbc.*;
+//import com.mysql.jdbc.Driver;
+//import com.mysql.jdbc.*;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;

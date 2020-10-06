@@ -18,12 +18,12 @@ import java.sql.SQLException;
  *
  * @author Aluno
  */
-public class telaEscolha extends javax.swing.JFrame {
+public class TelaEscolha extends javax.swing.JFrame {
 
     /**
      * Creates new form telaEscolha
      */
-    public telaEscolha() {
+    public TelaEscolha() {
         initComponents();
         carregarImgs();
         carregarMaquinas();
@@ -49,7 +49,7 @@ public class telaEscolha extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MONITORAMENTO");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(736, 570));
+        setResizable(false);
         setSize(new java.awt.Dimension(736, 465));
 
         jPanel1.setBackground(new java.awt.Color(31, 40, 45));
@@ -275,20 +275,21 @@ public class telaEscolha extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaEscolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEscolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaEscolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEscolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaEscolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEscolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaEscolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEscolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaEscolha().setVisible(true);
+                new TelaEscolha().setVisible(true);
             }
         });
     }

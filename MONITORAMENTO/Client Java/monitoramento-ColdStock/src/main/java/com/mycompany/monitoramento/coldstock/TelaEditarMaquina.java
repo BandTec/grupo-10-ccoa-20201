@@ -12,12 +12,12 @@ import javax.swing.ImageIcon;
  *
  * @author Aluno
  */
-public class telaEditarMaquina extends javax.swing.JFrame {
+public class TelaEditarMaquina extends javax.swing.JFrame {
 
     /**
      * Creates new form telaEditarMaquina
      */
-    public telaEditarMaquina() {
+    public TelaEditarMaquina() {
         initComponents();
         carregarImgs();
     }
@@ -47,6 +47,7 @@ public class telaEditarMaquina extends javax.swing.JFrame {
         lblNomeMaquina2 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel4.setBackground(new java.awt.Color(31, 40, 45));
 
@@ -262,20 +263,21 @@ public class telaEditarMaquina extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaEditarMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEditarMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaEditarMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEditarMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaEditarMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEditarMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaEditarMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEditarMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaEditarMaquina().setVisible(true);
+                new TelaEditarMaquina().setVisible(true);
             }
         });
     }
