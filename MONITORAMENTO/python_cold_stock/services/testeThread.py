@@ -11,9 +11,12 @@ class TelegramBot(Thread):
         Thread.__init__(self)
         token = '1325809344:AAH4sVx4S9AMMdjKrvhx9Ogt6rdG500Ul_I'
         self.url_base = f'https://api.telegram.org/bot{token}/'
-        self.Iniciar()
 
-    def Iniciar(self):
+    def run(self):
+        print('Inicio da thread')        
+        self.iniciar()
+
+    def iniciar(self):
         update_id = None
         while True:
             atualizacao = self.obter_novas_mensagens(update_id)
@@ -53,11 +56,14 @@ class TelegramBot(Thread):
         if mensagem == '/start':
             resposta = 'Bom dia!'
 
-        if mensagem == 'ping':
+        elif mensagem == 'ping':
             resposta = 'Pong!'
 
-        if mensagem == 'status':
-            resposta = 'O pc explodiu!'
+        elif mensagem == 'status':
+            resposta = 'Qreeeuck!!! ;-; (O pc explodiu!)'
+
+        elif mensagem == 'boa noite' or mensagem == 'boa tarde' or mensagem == 'bom dia' or mensagem == 'olá' or mensagem == 'oi':
+            resposta = 'Qreeeuck! (Bom diaa)'
 
         return resposta
 
@@ -65,3 +71,6 @@ class TelegramBot(Thread):
     def responder(self, resposta, chat_id):
         link_requisicao = f'{self.url_base}sendMessage?chat_id={chat_id}&text={resposta}'
         requests.get(link_requisicao)
+
+obj = TelegramBot()
+obj.start()

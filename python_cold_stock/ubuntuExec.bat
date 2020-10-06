@@ -1,2 +1,0 @@
-wsl source ativadorLinux
-wsl

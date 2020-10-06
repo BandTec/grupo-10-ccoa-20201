@@ -2,8 +2,6 @@ import requests
 import time
 import json
 import os
-import threading
-
 
 class TelegramBot:
     def __init__(self):
@@ -18,22 +16,14 @@ class TelegramBot:
             if dados:
                 for dado in dados:
                     update_id = dado['update_id']
-                    mensagem = str(dado["message"]["text"]).lower()
+                    mensagem = ""
+                    try:
+                        mensagem = str(dado["message"]["text"]).lower()
+                    except:
+                        mensagem = "formato"
                     chat_id = dado["message"]["from"]["id"]
                     resposta = self.criar_resposta(mensagem)
                     self.responder(resposta, chat_id)
-
-    def QuickPlay(self):
-        update_id = None
-        atualizacao = self.obter_novas_mensagens(update_id)
-        dados = atualizacao["result"]
-        if dados:
-            for dado in dados:
-                update_id = dado['update_id']
-                mensagem = str(dado["message"]["text"]).lower()
-                chat_id = dado["message"]["from"]["id"]
-                resposta = self.criar_resposta(mensagem)
-                self.responder(resposta, chat_id)
 
     # Obter mensagens
     def obter_novas_mensagens(self, update_id):
@@ -50,11 +40,17 @@ class TelegramBot:
         if mensagem == '/start':
             resposta = 'Bom dia!'
 
-        if mensagem == 'ping':
+        elif mensagem == 'formato':
+            resposta = 'Formato de mensagem inválido! Qreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeck!!! >:('
+
+        elif mensagem == 'ping':
             resposta = 'Pong!'
 
-        if mensagem == 'status':
+        elif mensagem == 'status':
             resposta = 'O pc explodiu!'
+
+        elif mensagem == 'boa noite' or mensagem == 'boa tarde' or mensagem == 'bom dia' or mensagem == 'olá' or mensagem == 'oi':
+            resposta = 'Qreeeuck! (Bom diaa)'
 
         return resposta
 
@@ -62,3 +58,6 @@ class TelegramBot:
     def responder(self, resposta, chat_id):
         link_requisicao = f'{self.url_base}sendMessage?chat_id={chat_id}&text={resposta}'
         requests.get(link_requisicao)
+
+#ColdTel = TelegramBot()
+#ColdTel.Iniciar()
