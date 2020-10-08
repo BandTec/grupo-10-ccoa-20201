@@ -1,6 +1,7 @@
 from services.mysql import Mysql
 from services.gerador import Gerador
 import time
+import telegram
 
 #Inserir user, password, host, database
 mysql = Mysql('ColdUser','senha123', 'localhost', 'coldstock')
