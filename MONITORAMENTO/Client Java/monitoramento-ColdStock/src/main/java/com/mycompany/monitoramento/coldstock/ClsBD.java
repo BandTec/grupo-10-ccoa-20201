@@ -5,8 +5,8 @@
  */
 package com.mycompany.monitoramento.coldstock;
 
-import com.mysql.jdbc.Driver;
-import com.mysql.jdbc.*;
+//import com.mysql.jdbc.Driver;
+//import com.mysql.jdbc.*;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,29 +27,21 @@ public class ClsBD {
     Connection conn = null;
     Statement stmt = null;
 
-    public void consulta() {
-        conectar();
-        Array retornoArray;
+    public ResultSet consultar() throws SQLException {
+        System.out.println("Criando Statement...");
+        stmt = conn.createStatement();
         
-        System.out.println("Tentando executar query...");
-        try{
-            System.out.println("Creating statement...");
-            stmt = conn.createStatement();
-            String query = "select * from maquinas;";
-            
-            ResultSet retorno = stmt.executeQuery(query);
-            
-            System.out.println("Comando realizado com sucesso!");
-            
-            retornoArray = retorno.getArray("nomeMaquina");
-            System.out.println(retornoArray);
-            
-        } catch (SQLException ex){
-            Logger.getLogger(ClsBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String sql;
+        sql = "SELECT * FROM Maquinas";
+        
+        ResultSet rs = stmt.executeQuery(sql);
+        
+        System.out.println("Comando executado com sucesso!");
+        
+        return rs;
     }
 
-    private void conectar() {
+    public void conectar() {
         System.out.println("Tentando conectar ao BD...");
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);

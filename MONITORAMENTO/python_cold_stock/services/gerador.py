@@ -29,7 +29,7 @@ class Gerador:
             cpu = psutil.cpu_percent(interval=1, percpu=True)
             valor = sum(cpu)/len(cpu)
             idComponente = 1
-            
+
         elif componente == 'RAM':
             valor = (round(psutil.virtual_memory().used/1024**3, 2)) 
             idComponente = 2
