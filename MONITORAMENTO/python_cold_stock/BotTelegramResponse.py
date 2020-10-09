@@ -3,6 +3,7 @@ import requests
 import time
 import json
 import os
+from threading import Thread
 
 class TelegramBot:
     def __init__(self):
@@ -99,5 +100,17 @@ class TelegramBot:
         link_requisicao = f'{self.url_base}sendPhoto?chat_id={chat_id}&photo={imagem}'
         requests.get(link_requisicao)
 
+class ThreadTelegram(Thread):
+    from BotTelegramResponse import TelegramBot
+    def __init__(self):
+        Thread.__init__(self)
+    
+    def run(self):
+        telegram = TelegramBot()
+        telegram.Iniciar()
+
+print("Iniciando Thread para Telegram")
+Telegram = ThreadTelegram()
+Telegram.start()
 # obj = TelegramBot()
 # obj.Iniciar()
