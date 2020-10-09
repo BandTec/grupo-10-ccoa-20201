@@ -10,7 +10,7 @@ def getData(idServidor):
     'memory_percent': 0,
     'diskL': 0.0,
     'diskU': 0.0,
-    'dataehora': 0
+    'dataehora': 0, 
     }
     cpu = psutil.cpu_percent(interval=1, percpu=True)
     cpu_media = sum(cpu)/len(cpu)

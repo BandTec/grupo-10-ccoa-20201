@@ -99,5 +99,5 @@ class TelegramBot:
         link_requisicao = f'{self.url_base}sendPhoto?chat_id={chat_id}&photo={imagem}'
         requests.get(link_requisicao)
 
-obj = TelegramBot()
-obj.Iniciar()
+# obj = TelegramBot()
+# obj.Iniciar()

@@ -48,7 +48,7 @@ class Mysql:
 
     def listarComponente(self, idServer):
         query = (
-            "select nomeComponente, capacidadeMax from maquinas "
+            "select nomeComponente, porcentagemMax from maquinas "
             "inner join configuracaoMaquina on idMaquina = fkMaquina "
             "inner join componentes on idComponente = fkComponente "
             "where idMaquina = %s " % (idServer)

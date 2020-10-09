@@ -3,13 +3,14 @@ import requests
 import json
 import os
 from datetime import datetime
+from services.OpenHM import hardwareMonitor
+hMonitor= hardwareMonitor()
 
 class Gerador:
+     
     def __init__(self):
         self.valores = []
         self.data_atual = ''
-       
-
     def gerarDados(self,listaComponente, idServidor):
         self.data_atual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         i = 0
@@ -26,8 +27,7 @@ class Gerador:
     def conversarComMaquina(self,componente, pontoFinal, idServidor):
         
         if componente == 'CPU':
-            cpu = psutil.cpu_percent(interval=1, percpu=True)
-            valor = sum(cpu)/len(cpu)
+            valor = round(((hMonitor.getinfo()['mediaFreq'])/1000), 2)
             idComponente = 1
 
         elif componente == 'RAM':
@@ -45,6 +45,11 @@ class Gerador:
         elif componente == 'conexaoU':
             valor = round(((psutil.disk_usage('/').used)/1024**3),2)
             idComponente = 5
+
+        elif componente == 'temperatura':
+            valor = hMonitor.getinfo()['mediaTemp']
+            idComponente = 6
+
         
         self.valores.append((self.data_atual, valor, idServidor, idComponente))
 
@@ -53,12 +58,12 @@ class Gerador:
         url = bytearray.fromhex(url).decode()
 
         # if (values[0]>=65) or (values[1]>=60) or (values[4]>=120):
-        print(values, parametros)
+        print(values)
         notificacao = ''
         i = 0
         
         while i<len(values):
-            if (values[i][1] >= parametros[i][1] * 0.8):
+            if (values[i][1] >= parametros[i][1] ):
                 notificacao += "%s em alto uso, " % (parametros[i][0])   
             i += 1
 

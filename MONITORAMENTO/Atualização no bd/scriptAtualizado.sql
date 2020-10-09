@@ -70,7 +70,8 @@ create table componentes(
 create table configuracaoMaquina(
 	fkMaquina int,
     fkComponente int,
-    capacidadeMax float
+    capacidadeMax float,
+    porcentagemMax int
 );
 
 create table registros(
@@ -95,7 +96,6 @@ create table funcionarios(
 );
 
 alter table consumidoresFinais add foreign key (fkLocalidade) references localidades(idLocalidade);
-alter table funcionarios add foreign key (fkFornecedora) references fornecedoras(idFornecedora);
 alter table geladeiras add foreign key (fkLocador) references localidades(idLocalidade);
 alter table geladeiras add foreign key (fkDono) references fornecedoras(idFornecedora);
 alter table fileiras add foreign key (fkGeladeira) references geladeiras(idGeladeira);
@@ -183,20 +183,21 @@ insert into componentes (idComponente, nomeComponente, Metrica) values
 (null, 'RAM', 'GB'),
 (null, 'Disco', 'GB'),
 (null, 'conexaoD', 'Mbps'),
-(null, 'conexaoU', 'Mbps');
+(null, 'conexaoU', 'Mbps'),
+(null, 'temperatura', '°C');
 
-
-insert into configuracaoMaquina (fkMaquina, fkComponente, capacidadeMax) values 
-(1, 1, '3.5'),
-(1, 2, '16'),
-(1, 3, '2000'),
-(1, 4, '1000'),
-(1, 5, '800'),
-(2, 1, '1.8'),
-(2, 2, '6'),
-(2, 3, '240'),
-(3, 1, '2.5'),
-(3, 2, '8');
+insert into configuracaoMaquina (fkMaquina, fkComponente, capacidadeMax, porcentagemMax) values 
+(1, 1, '3.5', 80),
+(1, 2, '16', 78),
+(1, 3, '2000', 90),
+(1, 4, '1000', 45),
+(1, 5, '800', 60),
+(2, 1, '1.8', 85),
+(2, 2, '6', 74),
+(2, 3, '240', 87),
+(3, 1, '2.5', 65),
+(3, 2, '8', 80),
+(1, 6, '90', 100);
 
 select * from maquinas;
 
