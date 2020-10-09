@@ -111,6 +111,11 @@ alter table favoritos add foreign key (fkProduto) references produtos(idProduto)
 alter table favoritos add foreign key (fkConsumidor) references consumidoresFinais(idConsumidor);
 alter table funcionarios add foreign key (fkMaquina) references maquinas(idMaquina);
 
+insert into maquinas values
+(null, "Servidor 1", "Server"),
+(null,"Maquina 1","PC"),
+(null,"Maquina 2","PC");
+
 insert into fornecedoras values
 (null, 'HassleFree Food', 'HFFood@gmail.com', 'senha123',1),
 (null, 'Joaninha Food', 'JoanaFood@gmail.com', 'senha456',1),
@@ -180,10 +185,6 @@ insert into componentes (idComponente, nomeComponente, Metrica) values
 (null, 'conexaoD', 'Mbps'),
 (null, 'conexaoU', 'Mbps');
 
-insert into maquinas values
-(null, "Servidor 1", "Server"),
-(null,"Maquina 1","PC"),
-(null,"Maquina 2","PC");
 
 insert into configuracaoMaquina (fkMaquina, fkComponente, capacidadeMax) values 
 (1, 1, '3.5'),
