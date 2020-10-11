@@ -392,39 +392,39 @@ img {
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .inputs-info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  width: 100%;
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .inputs-info .info-form {
   margin: auto;
+  display: flex;
+  justify-content: space-around;
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .inputs-info .info-form input {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
-  width: 200px;
+  width: 45%;
   border: 1px solid #FEFFFF;
   border-radius: 5px;
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .input-assunto {
   margin-top: 20px;
+  width: 100%;
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .input-assunto .info-form {
-  margin-left: 17px;
+  margin-left: 4px;
+  width: 100%;
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .input-assunto .info-form input {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
-  width: 445px;
+  width: 95%;
   border: 1px solid #FEFFFF;
   border-radius: 5px;
 }
@@ -434,14 +434,14 @@ img {
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .input-mensagem .info-form {
-  margin-left: 17px;
+  margin-left: 4px;
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .input-mensagem .info-form input {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
-  width: 445px;
+  width: 96%;
   height: 137px;
   border: 1px solid #FEFFFF;
   border-radius: 5px;
@@ -449,17 +449,17 @@ img {
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .btn-form {
   margin-top: 20px;
-  display: -webkit-box;
+  /* display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: center;
+          align-items: center; */
+  display: flex;
+  justify-content: center;
 }
-
 section.conteudo-geladeira{
     margin-top: 90px;
     min-height: 600px;
