@@ -1,4 +1,4 @@
-x = 1
+valorInicial = NULL
 
 CPU = valorInicial
 RAM = valorInicial
@@ -6,11 +6,20 @@ DISCO = valorInicial
 CONEXAOU = valorInicial
 CONEXAOD = valorInicial
 TEMP = valorInicial
+maiorQtdItens = 0
+contadoComSucesso = FALSE
 
+#Começando Looping que irá olhar linha por linha do BD
+x = 1
 while (x <= nrow(exportMaisOuMenos)) {
-  linhaAtual = exportMaisOuMenos[x, 1:4]
+
+  #Pegando Linha x do export do BD
+  #Os campos que estão sendo pegos são desde o 1 até o N° total de colunas que tiver [1:final]
+  linhaAtual = exportMaisOuMenos[x, 1:ncol(exportMaisOuMenos)]
   
+  #Identifica a qual componente a linha esta se referindo
   if(linhaAtual$nomeComponente == "CPU"){
+    #Entra no vetor daquele componente e adiciona mais um valor.
     CPU[length(CPU)+1] = linhaAtual$valor
   }
   else if (linhaAtual$nomeComponente == "RAM")
@@ -19,27 +28,57 @@ while (x <= nrow(exportMaisOuMenos)) {
   else if (linhaAtual$nomeComponente == "Disco")
     DISCO[length(DISCO)+1] = linhaAtual$valor
   
-  else if (linhaAtual$nomeComponente == "RAM")
+  else if (linhaAtual$nomeComponente == "ConexaoU")
     CONEXAOU[length(CONEXAOU)+1] = linhaAtual$valor
   
-  else if (linhaAtual$nomeComponente == "RAM")
+  else if (linhaAtual$nomeComponente == "ConexaoD")
     CONEXAOD[length(CONEXAOD)+1] = linhaAtual$valor
   
-  else if (linhaAtual$nomeComponente == "RAM")
+  else if (linhaAtual$nomeComponente == "Temp")
     TEMP[length(TEMP)+1] = linhaAtual$valor
   
-  else
-    print("Componente n�o catalogado :(")
-  
-  x = x + 1
+  #Passando para a próxima linha
+  x <- x + 1
 }
 
-valorFinal = rep(0, exportMaisOuMenos)
+#Conto quantos de Cada Componente veio do BD
+#Isso pois para criar uma nova tabela eu preciso saber quantas linhas ela terá
+#Através do n° presente no maiorQtdDeItens dimensionamos a qtd de linhas em nossa tabela
+if(length(CPU) > maiorQtdItens){
+  maiorQtdItens = length(CPU)
+} if (length(RAM) > maiorQtdItens){
+  maiorQtdItens = length(RAM)
+} if (length(DISCO) > maiorQtdItens){
+  maiorQtdItens = length(DISCO)
+} if (length(CONEXAOD) > maiorQtdItens){
+  maiorQtdItens = length(CONEXAOD)
+} if (length(CONEXAOU) > maiorQtdItens){
+  maiorQtdItens = length(CONEXAOU)
+} if (length(TEMP) > maiorQtdItens){
+  maiorQtdItens = length(TEMP)
+}
 
-novaTabela = data.frame(id = 1:n, 
-                        CPU[2:n], 
-                        RAM[2:n], 
-                        DISCO[2:n], 
-                        CONEXAOD[2:n], 
-                        CONEXAOU[2:n], 
-                        TEMP[2:n])
+#Crio uma nova tabela
+novaTabela = data.frame(ID = 1:maiorQtdDeItens)
+
+#Verifico se eu coletei um determinado componente.
+#Se o vetor do componente está vazio, passa reto
+#Se não, ele adiciona uma coluna à tabela.
+#Coluna esta que terá os mesmos valores do vetor
+if(is.null(CPU) == FALSE)
+  novaTabela$CPU <- CPU
+
+#Mesma verificação, mas escrito diferente
+if(!is.null(RAM))
+  novaTabela$RAM <- RAM
+if(!is.null(DISCO))
+  novaTabela$Disco <- DISCO
+if(!is.null(CONEXAOD))
+  novaTabela$ConexaoD <- CONEXAOD
+if(!is.null(CONEXAOU))
+  novaTabela$ConexaoU <- CONEXAOU
+if(!is.null(TEMP))
+  novaTabela$Temp <- TEMP
+
+
+  jsonSlaoq$nome

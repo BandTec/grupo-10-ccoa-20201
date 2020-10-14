@@ -3,8 +3,6 @@ import requests
 import json
 import os
 from datetime import datetime
-from services.OpenHM import hardwareMonitor
-hMonitor= hardwareMonitor()
 
 class Gerador:
      
@@ -27,6 +25,8 @@ class Gerador:
     def conversarComMaquina(self,componente, pontoFinal, idServidor):
         
         if componente == 'CPU':
+            from services.OpenHM import hardwareMonitor
+            hMonitor= hardwareMonitor()
             valor = round(((hMonitor.getinfo()['mediaFreq'])/1000), 2)
             idComponente = 1
 
@@ -47,6 +47,8 @@ class Gerador:
             idComponente = 5
 
         elif componente == 'temperatura':
+            from services.OpenHM import hardwareMonitor
+            hMonitor= hardwareMonitor()
             valor = hMonitor.getinfo()['mediaTemp']
             idComponente = 6
 
