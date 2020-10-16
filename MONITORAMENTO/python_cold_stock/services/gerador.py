@@ -39,11 +39,11 @@ class Gerador:
             idComponente = 3
 
         elif componente == 'conexaoD':
-            valor = round(((psutil.disk_usage('/').used)/1024**3),2)
+            valor = round(((psutil.net_io_counters().bytes_recv)*8)/10**9 ,2)
             idComponente = 4
 
         elif componente == 'conexaoU':
-            valor = round(((psutil.disk_usage('/').used)/1024**3),2)
+            valor = round(((psutil.net_io_counters().bytes_sent)*8)/10**9 ,2)
             idComponente = 5
 
         elif componente == 'temperatura':

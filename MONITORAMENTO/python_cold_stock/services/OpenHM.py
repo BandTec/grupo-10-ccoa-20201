@@ -4,7 +4,7 @@ import time
 
 class hardwareMonitor:
     def __init__(self):
-        self.url = 'http://192.168.56.1:9000/data.json'
+        self.url = 'http://localhost:9000/data.json'
         self.data=None
     def getData(self):
         Response = requests.get(self.url)
