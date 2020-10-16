@@ -80,11 +80,14 @@ TEMP <- adicionarVazio(TEMP)
 
 #Crio uma nova tabela
 novaTabela = data.frame(ID = 1:maiorQtdItens)
+<<<<<<< HEAD
 
 adicionarColunas <- function(componente) {
   if(is.null(componente) == FALSE)
     return(componente)
 }
+=======
+>>>>>>> 98089d8ac84e48bfed9255aef0909d0f279681de
 
 #Verifico se eu coletei um determinado componente.
 #Se o vetor do componente está vazio, passa reto
