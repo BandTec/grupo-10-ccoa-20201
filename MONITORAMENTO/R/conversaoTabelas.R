@@ -1,5 +1,5 @@
 valorInicial = NULL
-tabela = dadosAPI
+tabela = registro
 
 CPU = valorInicial
 RAM = valorInicial
@@ -45,42 +45,69 @@ while (x <= nrow(tabela)) {
 #Conto quantos de Cada Componente veio do BD
 #Isso pois para criar uma nova tabela eu preciso saber quantas linhas ela terá
 #Através do n° presente no maiorQtdDeItens dimensionamos a qtd de linhas em nossa tabela
-if(length(CPU) > maiorQtdItens){
-  maiorQtdItens = length(CPU)
+
+verificarQtdItens <- function(componente){
+  maiorItens = maiorQtdItens
+  if(length(componente) > maiorItens){
+  maiorItens = length(componente)
 }
-if (length(RAM) > maiorQtdItens){
-  maiorQtdItens = length(RAM)
-}
-if (length(DISCO) > maiorQtdItens){
-  maiorQtdItens = length(DISCO)
-}
-if (length(CONEXAOD) > maiorQtdItens){
-  maiorQtdItens = length(CONEXAOD)
-}
-if (length(CONEXAOU) > maiorQtdItens){
-  maiorQtdItens = length(CONEXAOU)
-}
-if (length(TEMP) > maiorQtdItens){
-  maiorQtdItens = length(TEMP)
+  return(maiorItens)
 }
 
+maiorQtdItens = verificarQtdItens(CPU)
+maiorQtdItens = verificarQtdItens(RAM)
+maiorQtdItens = verificarQtdItens(DISCO)
+maiorQtdItens = verificarQtdItens(CONEXAOD)
+maiorQtdItens = verificarQtdItens(CONEXAOU)
+maiorQtdItens = verificarQtdItens(TEMP)
+
+
+adicionarVazio <- function(componente) {
+  while(length(componente) < maiorQtdItens){
+  componente[length(componente) + 1] = 'Vazio'
+}
+  return(componente)
+}
+
+CPU <- adicionarVazio(CPU)
+RAM <- adicionarVazio(RAM)
+DISCO <- adicionarVazio(DISCO)
+CONEXAOD <- adicionarVazio(CONEXAOD)
+CONEXAOU <- adicionarVazio(CONEXAOU)
+TEMP <- adicionarVazio(TEMP)
+
+
+
 #Crio uma nova tabela
-novaTabela = data.frame(ID = 1:maiorQtdDeItens)
+novaTabela = data.frame(ID = 1:maiorQtdItens)
+
+adicionarColunas <- function(componente) {
+  if(is.null(componente) == FALSE)
+    return(componente)
+}
 
 #Verifico se eu coletei um determinado componente.
 #Se o vetor do componente está vazio, passa reto
 #Se não, ele adiciona uma coluna à tabela.
 #Coluna esta que terá os mesmos valores do vetor
-if(is.null(CPU) == FALSE)
-  novaTabela$CPU <- CPU
-#Mesma verificação, mas escrito diferente
-if(!is.null(RAM))
-  novaTabela$RAM <- RAM
-if(!is.null(DISCO))
-  novaTabela$Disco <- DISCO
-if(!is.null(CONEXAOD))
-  novaTabela$ConexaoD <- CONEXAOD
-if(!is.null(CONEXAOU))
-  novaTabela$ConexaoU <- CONEXAOU
-if(!is.null(TEMP))
-  novaTabela$Temp <- TEMP
+
+novaTabela$CPU <- adicionarColunas(CPU)
+novaTabela$RAM <- adicionarColunas(RAM)
+novaTabela$DISCO <- adicionarColunas(DISCO)
+novaTabela$CONEXAOD <- adicionarColunas(CONEXAOD)
+novaTabela$CONEXAOU <- adicionarColunas(CONEXAOU)
+novaTabela$TEMP <- adicionarColunas(TEMP)
+
+# if(is.null(CPU) == FALSE)
+#   novaTabela$CPU <- CPU
+# #Mesma verificação, mas escrito diferente
+# if(!is.null(RAM))
+#   novaTabela$RAM <- RAM
+# if(!is.null(DISCO))
+#   novaTabela$Disco <- DISCO
+# if(!is.null(CONEXAOD))
+#   novaTabela$ConexaoD <- CONEXAOD
+# if(!is.null(CONEXAOU))
+#   novaTabela$ConexaoU <- CONEXAOU
+# if(!is.null(TEMP))
+#   novaTabela$Temp <- TEMP

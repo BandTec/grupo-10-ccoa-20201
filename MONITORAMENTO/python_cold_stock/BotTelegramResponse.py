@@ -1,5 +1,6 @@
 from services.sqlApp import Mysql
-from services.menu import MenuBot
+from services.suporte import SuporteBot
+from services.maquinaConfig import MaquinaConfigBot
 import requests
 import time
 import json
@@ -17,10 +18,6 @@ class TelegramBot:
         while True:
             atualizacao = self.obter_novas_mensagens(update_id)
             dados = atualizacao["result"]
-            user = {
-                "chat_id": "",
-                "etapa":""
-            }
             if dados:
                 for dado in dados:
                     update_id = dado['update_id']
@@ -87,12 +84,12 @@ class TelegramBot:
 
         elif mensagem == 'boa noite' or mensagem == 'boa tarde' or mensagem == 'bom dia' or mensagem == 'olá' or mensagem == 'oi':
             resposta['texto'] = 'Qreeeuck! (Bom diaa)'
-        elif mensagem == 'menu':
-            resposta['texto'] = '1 - Login \n0 - sair'
-            menu = MenuBot('Login', idChat,self.url_base)
-            menu.enviarMensagem()
-            
-
+        elif mensagem == 'suporte':
+            resposta['texto'] = 'Suporte'
+            suporte = SuporteBot()
+        elif mensagem == 'maquinas':
+            resposta['texto'] = 'Configuração da máquina'
+            maquina = MaquinaConfigBot()
         return resposta
 
     #Cadastrando notificações
