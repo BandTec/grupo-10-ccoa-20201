@@ -65,7 +65,7 @@ if (length(TEMP) > maiorQtdItens){
 }
 
 #Crio uma nova tabela
-novaTabela = data.frame(ID = 1:maiorQtdDeItens)
+novaTabela = data.frame(ID = 1:maiorQtdItens)
 
 #Verifico se eu coletei um determinado componente.
 #Se o vetor do componente está vazio, passa reto
