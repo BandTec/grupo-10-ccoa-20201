@@ -6,6 +6,9 @@
 package com.mycompany.monitoramento.coldstock;
 
 import java.io.File;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -13,7 +16,7 @@ import javax.swing.ImageIcon;
  * @author Aluno
  */
 public class TelaLogin extends javax.swing.JFrame {
-
+    ClsBD banco = new ClsBD();
     /**
      * Creates new form TelaLogin
      */
@@ -167,7 +170,13 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+  
+        try {
+            banco.conectar();
+            banco.consultarFuncionario(txtEmail.getText(), txtSenha.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
     
     void carregarImgs(){

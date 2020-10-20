@@ -89,9 +89,9 @@ create table favoritos(
 
 create table funcionarios(
 	idFuncionario int primary key auto_increment,
-    nomeFuncionario varchar(45),
-    emailFuncionario varchar(45),
+	emailFuncionario varchar(45),
     senhaFuncionario varchar(30),
+    nomeFuncionario varchar(45),
     fkMaquina int
 );
 
