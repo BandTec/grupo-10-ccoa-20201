@@ -127,6 +127,7 @@ insert into localidades values
 (null,'Mercurio','Belém','Vila do Café','Avenida Dezesseis de Novembro');
 
 insert into funcionarios values
+(null,'user@email.com','user123','usuario',3),
 (null,'giovanna.pereira@gmail.com','giovanna743','Giovanna Oliveira Pereira',1),
 (null,'gabrielle.cunha@gmail.com','gabrielle5743','Gabrielle Almeida Cunha',1),
 (null,'rebeca.pereira@gmail.com','rebecaRP356','Rebeca Rocha Pereira',2),

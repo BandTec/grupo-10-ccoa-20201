@@ -7,28 +7,33 @@ package com.mycompany.monitoramento.coldstock;
 
 //import com.mysql.jdbc.Driver;
 //import com.mysql.jdbc.*;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.logging.Level;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import java.util.logging.Logger;
 
 public class ClsBD {
 
     //static final String DB_URL = "jdbc:mysql://localhost:3306/coldstock";
-    static final String DB_URL = "jdbc:mysql://localhost/coldstock?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String DB_URL = "jdbc:mysql://localhost/coldstock?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     //  Database credentials
-    static final String USER = "ColdUser";
-    static final String PASS = "senha123";
-    Connection conn = null;
-    Statement stmt = null;
+    private static final String USER = "ColdUser";
+    private static final String PASS = "senha123";
+    private Connection conn = null;
+    private Statement stmt = null;
+    
+    //login
+    private String frase = "";
+
+
+    public String getFrase() {
+        return frase;
+    }
+    
 
     public ResultSet consultar() throws SQLException {
         System.out.println("Criando Statement...");
@@ -44,7 +49,7 @@ public class ClsBD {
         return rs;
     }
 
-    public ResultSet consultarFuncionario(String funcionario, String senha) throws SQLException {
+    public Boolean consultarFuncionario(String funcionario, String senha) throws SQLException {
         System.out.println("Criando Statement...");
         stmt = conn.createStatement();
 
@@ -53,18 +58,16 @@ public class ClsBD {
         sql = String.format("SELECT * FROM funcionarios where emailFuncionario = '%s' and senhaFuncionario = '%s'", funcionario, senha);
 
         ResultSet rs = stmt.executeQuery(sql);
-
+        System.out.println("Comando executado com sucesso!");
         if (rs.next()) {
             System.out.println("Buenas buenas, cliente encontrado!");
-            TelaEscolha telaEscolha = new TelaEscolha();
-            telaEscolha.setVisible(true);
+            frase = String.format("Bem vindo, %s.",rs.getString("nomeFuncionario"));
+            return true;
         } else {
             System.out.println("Nada encontrado");
+            frase = "Usuário ou senha incorretos.";
+            return false;
         }
-
-        System.out.println("Comando executado com sucesso!");
-
-        return rs;
     }
 
     public void conectar() {

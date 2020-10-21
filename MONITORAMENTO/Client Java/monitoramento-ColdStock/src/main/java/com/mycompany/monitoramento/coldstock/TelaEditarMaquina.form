@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JTextField" name="jTextField1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jTextField1"/>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="resizable" type="boolean" value="false"/>
@@ -50,8 +57,9 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnAdicionarComponente" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblNomeMaquina2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblNomeMaquina1" max="32767" attributes="0"/>
+                          <Component id="txtResumo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtCapacidadeMax" max="32767" attributes="0"/>
+                          <Component id="txtPorcentagemMax1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
@@ -82,10 +90,12 @@
                           <Component id="cbEscolhaComponente" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="btnAdicionarComponente" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="txtCapacidadeMax" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="lblNomeMaquina1" min="-2" pref="39" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                      <Component id="lblNomeMaquina2" min="-2" pref="191" max="-2" attributes="0"/>
+                      <Component id="txtPorcentagemMax1" min="-2" pref="38" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="txtResumo" min="-2" pref="172" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="12" pref="26" max="32767" attributes="0"/>
@@ -336,21 +346,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="java.awt.Label" name="lblNomeMaquina1">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Montserrat" size="15" style="1"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Insira a m&#xe1;xima desse componente"/>
-      </Properties>
-    </Component>
-    <Component class="java.awt.Label" name="lblNomeMaquina2">
+    <Component class="java.awt.Label" name="txtResumo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -363,6 +359,13 @@
         </Property>
         <Property name="text" type="java.lang.String" value="O que voc&#xea; esta inserindo..."/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtCapacidadeMax">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtPorcentagemMax1">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPorcentagemMax1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
