@@ -31,6 +31,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -43,8 +44,11 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         lblNomeMaquina = new java.awt.Label();
         cbEscolhaComponente = new javax.swing.JComboBox<>();
         btnAdicionarComponente = new javax.swing.JButton();
-        lblNomeMaquina1 = new java.awt.Label();
-        lblNomeMaquina2 = new java.awt.Label();
+        txtResumo = new java.awt.Label();
+        txtCapacidadeMax = new javax.swing.JTextField();
+        txtPorcentagemMax1 = new javax.swing.JTextField();
+
+        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -153,15 +157,16 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         btnAdicionarComponente.setText("+");
         btnAdicionarComponente.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(77, 172, 166), 1, true));
 
-        lblNomeMaquina1.setBackground(new java.awt.Color(255, 255, 255));
-        lblNomeMaquina1.setFont(new java.awt.Font("Montserrat", 1, 15)); // NOI18N
-        lblNomeMaquina1.setForeground(new java.awt.Color(153, 153, 153));
-        lblNomeMaquina1.setText("Insira a máxima desse componente");
+        txtResumo.setBackground(new java.awt.Color(255, 255, 255));
+        txtResumo.setFont(new java.awt.Font("Montserrat", 1, 15)); // NOI18N
+        txtResumo.setForeground(new java.awt.Color(153, 153, 153));
+        txtResumo.setText("O que você esta inserindo...");
 
-        lblNomeMaquina2.setBackground(new java.awt.Color(255, 255, 255));
-        lblNomeMaquina2.setFont(new java.awt.Font("Montserrat", 1, 15)); // NOI18N
-        lblNomeMaquina2.setForeground(new java.awt.Color(153, 153, 153));
-        lblNomeMaquina2.setText("O que você esta inserindo...");
+        txtPorcentagemMax1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPorcentagemMax1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,8 +195,9 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
                                 .addComponent(cbEscolhaComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAdicionarComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblNomeMaquina2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNomeMaquina1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtResumo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCapacidadeMax)
+                            .addComponent(txtPorcentagemMax1))
                         .addGap(38, 38, 38))))
         );
         layout.setVerticalGroup(
@@ -214,10 +220,12 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbEscolhaComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAdicionarComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCapacidadeMax, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(lblNomeMaquina1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(lblNomeMaquina2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPorcentagemMax1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtResumo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 26, Short.MAX_VALUE))
         );
 
@@ -239,6 +247,10 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     private void cbEscolhaComponenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaComponenteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbEscolhaComponenteActionPerformed
+
+    private void txtPorcentagemMax1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPorcentagemMax1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPorcentagemMax1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,9 +305,11 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private java.awt.Label lblNomeMaquina;
-    private java.awt.Label lblNomeMaquina1;
-    private java.awt.Label lblNomeMaquina2;
     private javax.swing.JTable tbComponentes;
+    private javax.swing.JTextField txtCapacidadeMax;
+    private javax.swing.JTextField txtPorcentagemMax1;
+    private java.awt.Label txtResumo;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,16 +7,12 @@ package com.mycompany.monitoramento.coldstock;
 
 //import com.mysql.jdbc.Driver;
 //import com.mysql.jdbc.*;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.logging.Level;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import java.util.logging.Logger;
 
 public class ClsBD {
@@ -29,6 +25,10 @@ public class ClsBD {
     static final String PASS = "senha123";
     Connection conn = null;
     Statement stmt = null;
+    
+    //login
+    Boolean confirmacaoLogin = false;
+    String frase = "";
 
     public ResultSet consultar() throws SQLException {
         System.out.println("Criando Statement...");
@@ -56,10 +56,11 @@ public class ClsBD {
 
         if (rs.next()) {
             System.out.println("Buenas buenas, cliente encontrado!");
-            TelaEscolha telaEscolha = new TelaEscolha();
-            telaEscolha.setVisible(true);
+            confirmacaoLogin = true;
+            frase = String.format("Bem vindo, %s.",rs.getString("nomeFuncionario"));
         } else {
             System.out.println("Nada encontrado");
+            frase = "Usuário ou senha incorretos.";
         }
 
         System.out.println("Comando executado com sucesso!");
