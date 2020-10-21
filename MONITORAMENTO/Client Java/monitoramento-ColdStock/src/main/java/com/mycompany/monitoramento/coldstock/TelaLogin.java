@@ -176,18 +176,18 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-  
+ 
+        banco.conectar();
+          
         try {
-            banco.conectar();
-            banco.consultarFuncionario(txtEmail.getText(), txtSenha.getText());
+            if (banco.consultarFuncionario(txtEmail.getText(), txtSenha.getText())){
+                telaEscolha.setVisible(true); 
+            }
         } catch (SQLException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        lblResultado.setText(banco.frase);
-     
-        if (banco.confirmacaoLogin){
-            telaEscolha.setVisible(true);
-        } 
+        
+        lblResultado.setText(banco.getFrase());
         
     }//GEN-LAST:event_btnLoginActionPerformed
     
