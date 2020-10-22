@@ -42,7 +42,7 @@ class hardwareMonitor:
             "TEMPERATURA":[],
 
         }
-        Cpu = []
+        #Cpu = []
         Clocks = []
         temperatures = []
         
@@ -67,7 +67,7 @@ class hardwareMonitor:
                                 if temperature['Text'].find('CPU')>= 0:
                                     temperatures.append(temperature['Value'])
                                     total += conversao(temperature['Value'], '°C')
-                                    info['TEMPERATURA'] = round((total / len(temperatures), 2)
+                                    info['TEMPERATURA'] = round((total / len(temperatures), 2))
                     
                 if desktop['Text'].find('Generic Memory') >=0:
                     #Load
@@ -81,6 +81,7 @@ class hardwareMonitor:
                                     # ram['Value'] = ram['Value'].replace(',', '.')
                                     info['RAM'] = conversao(ram['Value'], ' GB')
                                 #Memoria Livre
+
                 # if desktop['Text'].find('Generic Hard Disk') >= 0:
                 #     #Load
                 #     for disc in desktop['Children']:
