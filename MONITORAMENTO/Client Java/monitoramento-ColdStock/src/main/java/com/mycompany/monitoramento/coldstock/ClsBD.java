@@ -48,6 +48,30 @@ public class ClsBD {
 
         return rs;
     }
+    
+        public ResultSet consultarComponentes() throws SQLException {
+        System.out.println("Criando Statement...");
+        stmt = conn.createStatement();
+
+        String sql;
+        sql = "SELECT * FROM componentes";
+
+        ResultSet rs = stmt.executeQuery(sql);
+        System.out.println("Comando executado com sucesso!");
+        return rs;
+    }
+        
+    public ResultSet consultarConfiguracaoMaquina() throws SQLException {
+        System.out.println("Criando Statement...");
+        stmt = conn.createStatement();
+
+        String sql;
+        sql = "SELECT * FROM configuracaoMaquina";
+
+        ResultSet rs = stmt.executeQuery(sql);
+        System.out.println("Comando executado com sucesso!");
+        return rs;
+    }
 
     public Boolean consultarFuncionario(String funcionario, String senha) throws SQLException {
         System.out.println("Criando Statement...");

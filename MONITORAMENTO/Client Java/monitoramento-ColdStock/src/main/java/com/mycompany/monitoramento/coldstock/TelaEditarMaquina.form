@@ -251,21 +251,19 @@
               <Font name="Montserrat" size="14" style="1"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="3">
-                <Column editable="true" title="COMPONENTE" type="java.lang.Object">
-                  <Data value="CPU"/>
-                  <Data value="RAM"/>
-                  <Data value="DISCO"/>
-                </Column>
-                <Column editable="true" title="M&#xc1;XIMA" type="java.lang.Object">
-                  <Data value="2.40 GHz"/>
-                  <Data value="8 GB"/>
-                  <Data value="224 GB"/>
-                </Column>
+              <Table columnCount="3" rowCount="0">
+                <Column editable="true" title="COMPONENTE" type="java.lang.Object"/>
+                <Column editable="true" title="M&#xc1;XIMA" type="java.lang.Object"/>
+                <Column editable="true" title="PORCENTAGEM MAX" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -308,13 +306,7 @@
           <Color blue="99" green="99" red="99" type="rgb"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="CPU"/>
-            <StringItem index="1" value="RAM"/>
-            <StringItem index="2" value="DISCO"/>
-            <StringItem index="3" value="CONEXAO UPLOAD"/>
-            <StringItem index="4" value="CONEXAO DOWNLOAD"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="-- escolha um componente--"/>
       </Properties>

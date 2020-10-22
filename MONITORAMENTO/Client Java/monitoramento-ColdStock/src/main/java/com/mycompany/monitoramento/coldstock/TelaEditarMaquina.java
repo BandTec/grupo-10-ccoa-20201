@@ -6,7 +6,10 @@
 package com.mycompany.monitoramento.coldstock;
 
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,9 +20,12 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     /**
      * Creates new form telaEditarMaquina
      */
+    ClsBD objBD = new ClsBD();
     public TelaEditarMaquina() {
         initComponents();
         carregarImgs();
+        carregarComponentes();
+        carregarTabela();
     }
 
     /**
@@ -126,12 +132,10 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         tbComponentes.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         tbComponentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"CPU", "2.40 GHz"},
-                {"RAM", "8 GB"},
-                {"DISCO", "224 GB"}
+
             },
             new String [] {
-                "COMPONENTE", "MÁXIMA"
+                "COMPONENTE", "MÁXIMA", "PORCENTAGEM MAX"
             }
         ));
         jScrollPane1.setViewportView(tbComponentes);
@@ -143,7 +147,6 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 
         cbEscolhaComponente.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         cbEscolhaComponente.setForeground(new java.awt.Color(153, 153, 153));
-        cbEscolhaComponente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPU", "RAM", "DISCO", "CONEXAO UPLOAD", "CONEXAO DOWNLOAD" }));
         cbEscolhaComponente.setToolTipText("-- escolha um componente--");
         cbEscolhaComponente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,6 +264,37 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         jLabel6.setIcon(icone);
         }
     
+    private void carregarComponentes(){
+        try{
+            objBD.conectar();
+            ResultSet retornoBD = objBD.consultarComponentes();
+            while(retornoBD.next()){
+                String nomeComponente  = retornoBD.getString("nomeComponente");
+                cbEscolhaComponente.addItem(nomeComponente);
+            }
+        }
+        catch(SQLException se){
+            System.out.println(se);
+        }
+    }
+    
+    private void carregarTabela(){     
+        try{
+            objBD.conectar();
+            ResultSet retornoBD = objBD.consultarConfiguracaoMaquina();
+            while(retornoBD.next()){
+                String fkMaquina = retornoBD.getString("fkMaquina");
+                String capacidadeMax  = retornoBD.getString("capacidadeMax");
+                String porcentagemMax = retornoBD.getString("porcentagemMax");
+                DefaultTableModel tabela = (DefaultTableModel) tbComponentes.getModel();
+                tabela.addRow(new Object[]{fkMaquina, capacidadeMax, porcentagemMax});
+            }
+        }
+        catch(SQLException se){
+            System.out.println(se);
+        }      
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -287,10 +321,8 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaEditarMaquina().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TelaEditarMaquina().setVisible(true);
         });
     }
 

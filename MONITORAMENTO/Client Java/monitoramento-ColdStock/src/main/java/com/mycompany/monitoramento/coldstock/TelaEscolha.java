@@ -77,6 +77,11 @@ public class TelaEscolha extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("COLD STOCK");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -149,6 +154,11 @@ public class TelaEscolha extends javax.swing.JFrame {
         cbEscolhaMaquina.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         cbEscolhaMaquina.setForeground(new java.awt.Color(153, 153, 153));
         cbEscolhaMaquina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- escolha uma máquina --" }));
+        cbEscolhaMaquina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEscolhaMaquinaActionPerformed(evt);
+            }
+        });
 
         btnOk.setBackground(new java.awt.Color(77, 172, 166));
         btnOk.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
@@ -234,6 +244,14 @@ public class TelaEscolha extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnOkActionPerformed
 
+    private void cbEscolhaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaMaquinaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -287,10 +305,8 @@ public class TelaEscolha extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaEscolha().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TelaEscolha().setVisible(true);
         });
     }
 

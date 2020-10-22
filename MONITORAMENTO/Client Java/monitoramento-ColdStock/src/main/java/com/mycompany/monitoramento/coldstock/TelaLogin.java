@@ -181,7 +181,8 @@ public class TelaLogin extends javax.swing.JFrame {
           
         try {
             if (banco.consultarFuncionario(txtEmail.getText(), txtSenha.getText())){
-                telaEscolha.setVisible(true); 
+                telaEscolha.setVisible(true);
+                this.setVisible(false);
             }
         } catch (SQLException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
