@@ -25,10 +25,12 @@ class Gerador:
     def conversarComMaquina(self,componente, pontoFinal, idServidor):
         
         if componente == 'CPU':
-            from services.OpenHM import hardwareMonitor
-            hMonitor= hardwareMonitor()
-            valor = round(((hMonitor.getinfo()['mediaFreq'])/1000), 2)
-            idComponente = 1
+            # from services.OpenHM import hardwareMonitor
+            # hMonitor= hardwareMonitor()
+            # valor = round(((hMonitor.getinfo()['mediaFreq'])/1000), 2)
+            print('CPU requerida e não entregue! para sua captação utilize a outra API')
+            return
+            #idComponente = 1
 
         elif componente == 'RAM':
             valor = (round(psutil.virtual_memory().used/1024**3, 2)) 
@@ -47,10 +49,12 @@ class Gerador:
             idComponente = 5
 
         elif componente == 'temperatura':
-            from services.OpenHM import hardwareMonitor
-            hMonitor= hardwareMonitor()
-            valor = hMonitor.getinfo()['mediaTemp']
-            idComponente = 6
+            # from services.OpenHM import hardwareMonitor
+            # hMonitor= hardwareMonitor()
+            # valor = hMonitor.getinfo()['mediaTemp']
+            print('TEMPERATURA requerida e não entregue! para sua captação utilize a outra API')
+            return
+            #idComponente = 6
 
         
         self.valores.append((self.data_atual, valor, idServidor, idComponente))

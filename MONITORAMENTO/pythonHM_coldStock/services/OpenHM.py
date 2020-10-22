@@ -45,7 +45,12 @@ class hardwareMonitor:
         #Cpu = []
         Clocks = []
         temperatures = []
-        
+        total = 0.0 
+        def converter(componente, metrica):
+            componente = componente.replace(metrica, '')
+            componente = componente.replace(',', '.')
+            componente = float(componente)
+            return componente
         data = self.data
         for i in data['Children']:
             # info['Desktop'] = i['Text']
@@ -58,16 +63,16 @@ class hardwareMonitor:
                             for clock in cpu_metrica['Children']:
                                 if clock['Text'].find('CPU')>= 0:
                                     Clocks.append(clock['Value'])
-                                    total += conversao(clock['Value'], 'MHz')
-                                    info['CPU'] = round((total / len(Clocks)/1000), 2)
+                                    total += converter(clock['Value'], 'MHz')
+                                    info['CPU'] = (total / len(Clocks)/1000)
                                     
                         #Temperature
                         if cpu_metrica['Text'] == "Temperatures":
                             for temperature in cpu_metrica['Children']:
                                 if temperature['Text'].find('CPU')>= 0:
                                     temperatures.append(temperature['Value'])
-                                    total += conversao(temperature['Value'], '°C')
-                                    info['TEMPERATURA'] = round((total / len(temperatures), 2))
+                                    total += converter(temperature['Value'], '°C')
+                                    info['TEMPERATURA'] = (total / len(temperatures))
                     
                 if desktop['Text'].find('Generic Memory') >=0:
                     #Load
@@ -79,7 +84,7 @@ class hardwareMonitor:
                                 if(ram['Text'] == 'Used Memory'):
                                     # ram['Value'] = ram['Value'].replace(' GB', '')
                                     # ram['Value'] = ram['Value'].replace(',', '.')
-                                    info['RAM'] = conversao(ram['Value'], ' GB')
+                                    info['RAM'] = converter(ram['Value'], ' GB')
                                 #Memoria Livre
 
                 # if desktop['Text'].find('Generic Hard Disk') >= 0:
@@ -92,12 +97,8 @@ class hardwareMonitor:
                 #                 if(percent['Text'] == 'Used Space'):
                 #                     info['DISCO'] = percent['Value']
 
-        total = 0.0     
-        def conversao(componente, metrica):
-            componente = componente.replace(metrica, '')
-            componente = componente.replace(',', '.')
-            componente = float(componente)
-            return componente
+            
+       
 
         # contadorTemp = 0
         # contadorFreq = 0
