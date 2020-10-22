@@ -1,4 +1,5 @@
 import mysql.connector
+from datetime import datetime
 
 class Mysql:
     def __init__(self, user, password, host, database):
@@ -41,11 +42,11 @@ class Mysql:
             self.objSql.rollback()
             self.close()
 
-    def insert(self,valores):
+    def insert(self,listaInsert):
         query = "insert into registros (dataHora, valor, fkMaquina, fkComponente) values (%s,%s,%s,%s)"
         try:
             print('Aguarde ...')
-            self.cursor.executemany(query,valores)
+            self.cursor.executemany(query,listaInsert)
             self.objSql.commit()
         except Exception as err:
             print(err)
