@@ -118,8 +118,8 @@ class hardwareMonitor:
         #     total += float(conversao)
         #     contadorFreq += 1
         # info['CPU'] = round((total / len(Cpu[0])/1000), 2)
-        info['CPU'] = (totalClock / len(Clocks)/1000)
-        info['TEMPERATURA'] = (totalTemp / len(temperatures))
+        info['CPU'] = round((totalClock / len(Clocks)/1000),2)
+        info['TEMPERATURA'] = round((totalTemp / len(temperatures)),2)
         novoInfo =[info['CPU'], info['RAM'], info['TEMPERATURA']] 
         print(novoInfo)
         contador = 0
