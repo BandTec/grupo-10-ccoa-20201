@@ -261,6 +261,7 @@ public class TelaEscolha extends javax.swing.JFrame {
         ImageIcon icone = new ImageIcon(path + "\\src\\main\\java\\Images\\1601053028644.png");
         jLabel2.setIcon(icone);
         jLabel1.setIcon(pingolino);
+        getContentPane().setBackground(Color.decode("#EEEEEE"));
         }
     
     private void carregarMaquinas(){

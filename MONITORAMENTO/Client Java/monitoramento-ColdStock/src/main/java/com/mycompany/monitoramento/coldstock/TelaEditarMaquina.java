@@ -5,6 +5,7 @@
  */
 package com.mycompany.monitoramento.coldstock;
 
+import java.awt.Color;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -262,6 +263,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         String path = new File("").getAbsolutePath();
         ImageIcon icone = new ImageIcon(path + "\\src\\main\\java\\Images\\1601053028644.png");
         jLabel6.setIcon(icone);
+        getContentPane().setBackground(Color.decode("#EEEEEE"));
         }
     
     private void carregarComponentes(){
@@ -281,13 +283,14 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     private void carregarTabela(){     
         try{
             objBD.conectar();
-            ResultSet retornoBD = objBD.consultarConfiguracaoMaquina();
+            ResultSet retornoBD = objBD.consultarConfiguracaoMaquina(2);
             while(retornoBD.next()){
-                String fkMaquina = retornoBD.getString("fkMaquina");
+                String nomeComponente = retornoBD.getString("nomeComponente");
                 String capacidadeMax  = retornoBD.getString("capacidadeMax");
+                String metrica  = retornoBD.getString("metrica");
                 String porcentagemMax = retornoBD.getString("porcentagemMax");
                 DefaultTableModel tabela = (DefaultTableModel) tbComponentes.getModel();
-                tabela.addRow(new Object[]{fkMaquina, capacidadeMax, porcentagemMax});
+                tabela.addRow(new Object[]{nomeComponente, capacidadeMax +" "+metrica, porcentagemMax + " %"});
             }
         }
         catch(SQLException se){

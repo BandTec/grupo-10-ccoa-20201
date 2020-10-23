@@ -61,12 +61,12 @@ public class ClsBD {
         return rs;
     }
         
-    public ResultSet consultarConfiguracaoMaquina() throws SQLException {
+    public ResultSet consultarConfiguracaoMaquina(Integer fkMaquina) throws SQLException {
         System.out.println("Criando Statement...");
         stmt = conn.createStatement();
 
         String sql;
-        sql = "SELECT * FROM configuracaoMaquina";
+        sql =String.format("select nomeComponente, capacidadeMax, metrica, porcentagemMax from configuracaoMaquina, componentes where idComponente = fkComponente and fkMaquina = %d",fkMaquina);
 
         ResultSet rs = stmt.executeQuery(sql);
         System.out.println("Comando executado com sucesso!");
