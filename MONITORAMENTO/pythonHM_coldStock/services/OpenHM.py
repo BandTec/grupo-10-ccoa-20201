@@ -45,7 +45,8 @@ class hardwareMonitor:
         #Cpu = []
         Clocks = []
         temperatures = []
-        total = 0.0 
+        totalClock = 0.0
+        totalTemp = 0.0 
         def converter(componente, metrica):
             componente = componente.replace(metrica, '')
             componente = componente.replace(',', '.')
@@ -63,16 +64,16 @@ class hardwareMonitor:
                             for clock in cpu_metrica['Children']:
                                 if clock['Text'].find('CPU')>= 0:
                                     Clocks.append(clock['Value'])
-                                    total += converter(clock['Value'], 'MHz')
-                                    info['CPU'] = (total / len(Clocks)/1000)
+                                    totalClock += converter(clock['Value'], 'MHz')
+                                    
                                     
                         #Temperature
                         if cpu_metrica['Text'] == "Temperatures":
                             for temperature in cpu_metrica['Children']:
                                 if temperature['Text'].find('CPU')>= 0:
                                     temperatures.append(temperature['Value'])
-                                    total += converter(temperature['Value'], '°C')
-                                    info['TEMPERATURA'] = (total / len(temperatures))
+                                    totalTemp += converter(temperature['Value'], '°C')
+                                    
                     
                 if desktop['Text'].find('Generic Memory') >=0:
                     #Load
@@ -117,8 +118,8 @@ class hardwareMonitor:
         #     total += float(conversao)
         #     contadorFreq += 1
         # info['CPU'] = round((total / len(Cpu[0])/1000), 2)
-
-        
+        info['CPU'] = (totalClock / len(Clocks)/1000)
+        info['TEMPERATURA'] = (totalTemp / len(temperatures))
         novoInfo =[info['CPU'], info['RAM'], info['TEMPERATURA']] 
         print(novoInfo)
         contador = 0
