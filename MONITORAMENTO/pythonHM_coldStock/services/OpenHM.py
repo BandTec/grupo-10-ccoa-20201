@@ -38,23 +38,28 @@ class hardwareMonitor:
         info ={
             "CPU":[],
             "RAM":[],
-            # "DISCO":[],
             "TEMPERATURA":[],
-
         }
-        #Cpu = []
-        Clocks = []
+
+        qtdClocks = 0
         temperatures = []
         totalClock = 0.0
         totalTemp = 0.0 
+
+        # Pega um componente EX: "1,8 GHZ"
+        # Pega a métrica a ser removida EX: "GHZ"
+        # Retorna: 1.8
         def converter(componente, metrica):
             componente = componente.replace(metrica, '')
             componente = componente.replace(',', '.')
             componente = float(componente)
             return componente
+
+        # Traz o JSON que veio do site para dentro desta função
         data = self.data
+
+        # Vasculha item por item que veio do site
         for i in data['Children']:
-            # info['Desktop'] = i['Text']
             for desktop in i['Children']:
                 #CPU
                 if desktop['Text'].find('Intel') >= 0 or desktop['Text'].find("AMD") >=0:
@@ -63,9 +68,8 @@ class hardwareMonitor:
                         if cpu_metrica['Text'] == 'Clocks':
                             for clock in cpu_metrica['Children']:
                                 if clock['Text'].find('CPU')>= 0:
-                                    Clocks.append(clock['Value'])
+                                    qtdClocks += 1
                                     totalClock += converter(clock['Value'], 'MHz')
-                                    
                                     
                         #Temperature
                         if cpu_metrica['Text'] == "Temperatures":
@@ -86,59 +90,37 @@ class hardwareMonitor:
                                     # ram['Value'] = ram['Value'].replace(' GB', '')
                                     # ram['Value'] = ram['Value'].replace(',', '.')
                                     info['RAM'] = converter(ram['Value'], ' GB')
-                                #Memoria Livre
 
-                # if desktop['Text'].find('Generic Hard Disk') >= 0:
-                #     #Load
-                #     for disc in desktop['Children']:
-                                        
-                #         if disc['Text'] == 'Load':
-                #             for percent in disc['Children']:
-                #                 #Memoria usada
-                #                 if(percent['Text'] == 'Used Space'):
-                #                     info['DISCO'] = percent['Value']
+        # Pra dentro do dicionario, vai a media dos valores
+        info['CPU'] = round((totalClock / qtdClocks/1000),2)
+        info['TEMPERATURA'] = round((totalTemp / len(temperatures)),2)  
 
-            
-       
-
-        # contadorTemp = 0
-        # contadorFreq = 0
-        
-        
-        # while contadorTemp < len(Cpu[1]):
-        #     conversao = Cpu[1][contadorTemp].replace('°C', '')
-        #     conversao = conversao.replace(',', '.')
-        #     total += float(conversao)
-        #     contadorTemp += 1
-        # info['TEMPERATURA'] = round((total / len(Cpu[1])), 2)    
-
-        # while contadorFreq < len(Cpu[0]):
-        #     conversao = Cpu[0][contadorFreq].replace('MHz', '')
-        #     conversao = conversao.replace(',', '.')
-        #     total += float(conversao)
-        #     contadorFreq += 1
-        # info['CPU'] = round((total / len(Cpu[0])/1000), 2)
-        info['CPU'] = round((totalClock / len(Clocks)/1000),2)
-        info['TEMPERATURA'] = round((totalTemp / len(temperatures)),2)
-        novoInfo =[info['CPU'], info['RAM'], info['TEMPERATURA']] 
+        novoInfo =[info['CPU'], info['RAM'], info['TEMPERATURA']]         
         print(novoInfo)
+
         contador = 0
         listaInsert = []
+
         while contador < len(novoInfo):
-            fkComponente = 0
-            valoresInsert = novoInfo[contador]
+            fkComponente = 0            
+
             if contador == 0:
                 fkComponente = 1
             elif contador == 1:
                 fkComponente = 2
-            elif contador ==2:
+            elif contador == 2:
                 fkComponente = 6
 
+            valorInsert = novoInfo[contador]
+
+            dataRegistro = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
             itemLista = [
-            datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            valoresInsert,
+            dataRegistro,
+            valorInsert,
             idMaquina,
-            fkComponente]
+            fkComponente
+            ]
 
             listaInsert.append(itemLista)
             contador += 1

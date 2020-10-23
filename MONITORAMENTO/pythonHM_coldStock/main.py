@@ -14,9 +14,8 @@ idMaquina = 2
 openHM = hardwareMonitor()
 
 print("Iniciando o loop")
+
 while True:
-    listaComponente = mysql.listarComponente(idMaquina)
     valores = openHM.getInfo(idMaquina)
-    # valores = openHM.personalizarDados(valores, listaComponente, idMaquina)
     mysql.insert(valores)
     time.sleep(5)
