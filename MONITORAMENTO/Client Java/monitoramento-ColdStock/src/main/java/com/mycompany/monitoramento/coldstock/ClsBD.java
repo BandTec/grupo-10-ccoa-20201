@@ -17,31 +17,41 @@ import java.util.logging.Logger;
 
 public class ClsBD {
 
-    //static final String DB_URL = "jdbc:mysql://localhost:3306/coldstock";
+    //link para acessar nosso banco de dados
     private static final String DB_URL = "jdbc:mysql://localhost/coldstock?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
-    //  Database credentials
+    //  Logando em nosso banco de dados
     private static final String USER = "ColdUser";
     private static final String PASS = "senha123";
+    //criando uma variável de conexão
     private Connection conn = null;
+    // criando uma variável que permite dar comandos do mysql
     private Statement stmt = null;
     
-    //login
+    //frase = resultado da tentativa de login
     private String frase = "";
 
-
+    //pega o que estiver dentro da variável "frase" e retorna ela para ser plotada
     public String getFrase() {
         return frase;
     }
     
-
+    //throws SQLException = tem erro? Joga na tela! 
     public ResultSet consultar() throws SQLException {
+        
         System.out.println("Criando Statement...");
+        
+        //estamos mostrando onde iremos realizar os comandos mysql.... 
+        //createStatment =  possibilita que criemos o statement
         stmt = conn.createStatement();
 
+        //criamos uma variável sql do tipo string 
         String sql;
         sql = "SELECT * FROM Maquinas";
-
+        
+        //executando o comando my sql
+        //resultset = retorno do banco de dados
+        
         ResultSet rs = stmt.executeQuery(sql);
 
         System.out.println("Comando executado com sucesso!");
@@ -51,6 +61,7 @@ public class ClsBD {
     
         public ResultSet consultarComponentes() throws SQLException {
         System.out.println("Criando Statement...");
+        
         stmt = conn.createStatement();
 
         String sql;
@@ -72,7 +83,7 @@ public class ClsBD {
         System.out.println("Comando executado com sucesso!");
         return rs;
     }
-
+    // criamos uma função onde dentro dela hávera duas variáveis do tipo string 
     public Boolean consultarFuncionario(String funcionario, String senha) throws SQLException {
         System.out.println("Criando Statement...");
         stmt = conn.createStatement();
@@ -83,6 +94,8 @@ public class ClsBD {
 
         ResultSet rs = stmt.executeQuery(sql);
         System.out.println("Comando executado com sucesso!");
+        
+        //Faz com que passemos para a próxima linha de comando
         if (rs.next()) {
             System.out.println("Buenas buenas, cliente encontrado!");
             frase = String.format("Bem vindo, %s.",rs.getString("nomeFuncionario"));
@@ -97,8 +110,10 @@ public class ClsBD {
     public void conectar() {
         System.out.println("Tentando conectar ao BD...");
         try {
+            //fazendo a conexão
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (SQLException ex) {
+            //plota o erro(usando uma váriavel do tipo "erro no mysql")
             Logger.getLogger(ClsBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Conectado com sucesso ao BD!");
