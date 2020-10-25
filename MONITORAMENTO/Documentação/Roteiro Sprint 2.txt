@@ -1,0 +1,32 @@
+1 - Apresentação (Daniel)
+2 - Contextualização (Daniel)
+	- Geladeiras
+	- + Clientes
+	- Monitoramento
+	- Novas tecnologias
+3 - Diagrama de solução (Daniel) x
+	- HLD x
+4 - Processo bpmn (Daniel)
+	- BPMN geral
+	- BPMN Detalhado
+5 - Site e protótipo (Vicente) xx
+	- Site xx
+	- Protótipos xx
+		- JAVA xx
+		- Dashboard xx
+6 - API (Vicente e Derson) xx
+	- Automatizações xx
+	- Psutil xx
+	- OHM xx
+7 - Java (Duó) xx
+	- Login/outras telas xx
+8 - Client AWS (Gameiro)
+9 - Inovação (Gih) xx
+	- O que é? xx
+	- Bot (pingolino) xx 
+	- Arvore de decisões xx
+	- Zoom na arvore xx
+	- Demonstração(?)
+10 - Encerramento (Derson) xx
+	- Brandão chorando xx
+	- Palmas xx
