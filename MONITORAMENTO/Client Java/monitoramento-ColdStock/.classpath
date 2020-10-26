@@ -24,5 +24,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="F:/EAD/Projeto GIT/grupo-10-ccoa-20201/MONITORAMENTO/Client Java/jar_files.zip"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
