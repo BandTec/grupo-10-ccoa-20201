@@ -285,7 +285,9 @@
           <Color blue="99" green="99" red="99" type="rgb"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="1">
+            <StringItem index="0" value="-- escolha uma m&#xe1;quina --"/>
+          </StringArray>
         </Property>
       </Properties>
       <Events>

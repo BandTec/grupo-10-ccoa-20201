@@ -26,7 +26,6 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         initComponents();
         carregarImgs();
         carregarComponentes();
-        carregarTabela();
     }
 
     /**
@@ -282,8 +281,9 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     void carregarImgs(){
-        String path = new File("").getAbsolutePath();
-        ImageIcon icone = new ImageIcon(path + "\\src\\main\\java\\Images\\1601053028644.png");
+        
+        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("1601053028644.png"));
+        
         jLabel6.setIcon(icone);
         getContentPane().setBackground(Color.decode("#EEEEEE"));
         }
@@ -302,16 +302,18 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         }
     }
     
-    private void carregarTabela(){     
+    void carregarTabela(Integer idMaquina, String nomeMaquina){     
         try{
             objBD.conectar();
-            ResultSet retornoBD = objBD.consultarConfiguracaoMaquina(2);
+            ResultSet retornoBD = objBD.consultarConfiguracaoMaquina(idMaquina);
+            lblNomeMaquina.setText(nomeMaquina);
+            DefaultTableModel tabela = (DefaultTableModel) tbComponentes.getModel();
+            tabela.setRowCount(0);
             while(retornoBD.next()){
                 String nomeComponente = retornoBD.getString("nomeComponente");
                 String capacidadeMax  = retornoBD.getString("capacidadeMax");
                 String metrica  = retornoBD.getString("metrica");
                 String porcentagemMax = retornoBD.getString("porcentagemMax");
-                DefaultTableModel tabela = (DefaultTableModel) tbComponentes.getModel();
                 tabela.addRow(new Object[]{nomeComponente, capacidadeMax +" "+metrica, porcentagemMax + " %"});
             }
         }

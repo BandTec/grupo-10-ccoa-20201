@@ -6,14 +6,10 @@
 package com.mycompany.monitoramento.coldstock;
 
 
-import java.awt.Image;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import java.awt.Color;
-import java.io.File;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 /**
  *
  * @author Aluno
@@ -23,6 +19,11 @@ public class TelaEscolha extends javax.swing.JFrame {
     /**
      * Creates new form telaEscolha
      */
+    TelaEditarMaquina telaEditarMaquina = new TelaEditarMaquina();
+    ClsBD objBD = new ClsBD();
+    List<Maquinas> retornoBD;
+    Maquinas maquina;
+    
     public TelaEscolha() {
         initComponents();
         carregarImgs();
@@ -153,7 +154,6 @@ public class TelaEscolha extends javax.swing.JFrame {
 
         cbEscolhaMaquina.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         cbEscolhaMaquina.setForeground(new java.awt.Color(153, 153, 153));
-        cbEscolhaMaquina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- escolha uma máquina --" }));
         cbEscolhaMaquina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbEscolhaMaquinaActionPerformed(evt);
@@ -241,7 +241,15 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-
+        Integer num = cbEscolhaMaquina.getSelectedIndex();
+        System.out.println(num);
+        maquina = retornoBD.get(num);
+        
+        telaEditarMaquina.carregarTabela(maquina.getIdMaquina(),maquina.getNomeMaquina());
+        telaEditarMaquina.setVisible(true);
+        System.out.println(maquina.getIdMaquina());
+        System.out.println(maquina.getNomeMaquina());    
+        
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void cbEscolhaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaMaquinaActionPerformed
@@ -256,23 +264,25 @@ public class TelaEscolha extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     private void carregarImgs(){
-        String path = new File("").getAbsolutePath();
-        ImageIcon pingolino = new ImageIcon(path + "\\src\\main\\java\\Images\\Pingulinomonitoramento.png"); 
-        ImageIcon icone = new ImageIcon(path + "\\src\\main\\java\\Images\\1601053028644.png");
+        
+        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("1601053028644.png"));
+        ImageIcon pingolino = new ImageIcon(getClass().getClassLoader().getResource("Pingulinomonitoramento.png"));
+        
         jLabel2.setIcon(icone);
         jLabel1.setIcon(pingolino);
         getContentPane().setBackground(Color.decode("#EEEEEE"));
         }
     
     private void carregarMaquinas(){
-        ClsBD objBD = new ClsBD();
+        
         try{
             objBD.conectar();
-            ResultSet retornoBD = objBD.consultar();
-            while(retornoBD.next()){
-                String nomeMaquina  = retornoBD.getString("nomeMaquina");
-                String Tipo  = retornoBD.getString("tipoMaquina");
-                cbEscolhaMaquina.addItem(nomeMaquina);
+            retornoBD = objBD.consultarMaquinas();
+            Integer contador = 0;
+            for(Maquinas maquina : retornoBD){
+                String nomeMaquina  = maquina.getNomeMaquina();
+                String Tipo  = maquina.getTipoMaquina();
+                cbEscolhaMaquina.addItem(nomeMaquina);   
             }
         }
         catch(SQLException se){

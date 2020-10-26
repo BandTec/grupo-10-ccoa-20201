@@ -12,14 +12,22 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class ClsBD {
-
+    
+    BasicDataSource dataSource  = new BasicDataSource();
+        
+   
     //link para acessar nosso banco de dados
     private static final String DB_URL = "jdbc:mysql://localhost/coldstock?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-
+    
+    
     //  Logando em nosso banco de dados
     private static final String USER = "ColdUser";
     private static final String PASS = "senha123";
@@ -57,6 +65,34 @@ public class ClsBD {
         System.out.println("Comando executado com sucesso!");
 
         return rs;
+    }
+    
+    public List consultarMaquinas() throws SQLException{
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        
+        dataSource.setUrl("jdbc:mysql://localhost/coldstock?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        
+        dataSource.setUsername("ColdUser");
+        dataSource.setPassword("senha123");
+        
+        System.out.println("Criando Statement...");
+        
+        //estamos mostrando onde iremos realizar os comandos mysql.... 
+        //createStatment =  possibilita que criemos o statement
+        stmt = conn.createStatement();
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        //criamos uma variável sql do tipo string 
+        String sql;
+        sql = "SELECT * FROM Maquinas";
+        
+        //executando o comando my sql
+        //constultaMaquina = retorno do banco de dados
+        List<Maquinas> consultaMaquina;
+        consultaMaquina = jdbcTemplate.query(
+                sql,
+                new BeanPropertyRowMapper(Maquinas.class));
+        
+        return consultaMaquina;
     }
     
         public ResultSet consultarComponentes() throws SQLException {
