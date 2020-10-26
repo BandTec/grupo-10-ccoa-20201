@@ -1,6 +1,6 @@
 -- drop database coldstock;
-create database coldStock;
-use coldStock;
+create database coldstock;
+use coldstock;
 
 create table consumidoresFinais(
 	idConsumidor  int primary key auto_increment,
@@ -55,7 +55,7 @@ create table abastecimentos(
     check (nivelSensor ='medio' or nivelSensor ='vazio')
 );
 
-create table maquinas(
+create table Maquinas(
 	idMaquina int primary key auto_increment,
     nomeMaquina varchar(30),
     tipoMaquina varchar(30)
@@ -102,16 +102,16 @@ alter table fileiras add foreign key (fkGeladeira) references geladeiras(idGelad
 alter table fileiras add foreign key (fkProduto) references produtos(idProduto);
 alter table abastecimentos add foreign key (fkFornecedora) references fornecedoras(idFornecedora);
 alter table abastecimentos add foreign key (fkFileira) references fileiras(idFileira);
-alter table fornecedoras add foreign key (fkMaquina) references maquinas(idMaquina);
-alter table configuracaoMaquina add foreign key (fkMaquina) references maquinas(idMaquina);
+alter table fornecedoras add foreign key (fkMaquina) references Maquinas(idMaquina);
+alter table configuracaoMaquina add foreign key (fkMaquina) references Maquinas(idMaquina);
 alter table configuracaoMaquina add foreign key (fkComponente) references componentes(idComponente);
 alter table registros add foreign key (fkComponente) references componentes(idComponente);
-alter table registros add foreign key (fkMaquina) references maquinas(idMaquina);
+alter table registros add foreign key (fkMaquina) references Maquinas(idMaquina);
 alter table favoritos add foreign key (fkProduto) references produtos(idProduto);
 alter table favoritos add foreign key (fkConsumidor) references consumidoresFinais(idConsumidor);
-alter table funcionarios add foreign key (fkMaquina) references maquinas(idMaquina);
+alter table funcionarios add foreign key (fkMaquina) references Maquinas(idMaquina);
 
-insert into maquinas values
+insert into Maquinas values
 (null, "Servidor 1", "Server"),
 (null,"Maquina 1","PC"),
 (null,"Maquina 2","PC");
@@ -200,12 +200,12 @@ insert into configuracaoMaquina (fkMaquina, fkComponente, capacidadeMax, porcent
 (3, 2, '8', 80),
 (1, 6, '90', 100);
 
-select * from maquinas;
+select * from Maquinas;
 
 -- Temos o id da maquina onde a API está rodando
 -- A maquina já está registrada e com componentes relacionados
 -- idMaquina = 1
-select nomeComponente from maquinas 
+select nomeComponente from Maquinas 
 inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
 where idMaquina = 1;
@@ -221,7 +221,7 @@ select * from registros where fkMaquina = 1;
 
 
 select * from componentes;
-select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas 
+select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from Maquinas 
 inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
 where idMaquina = 1;
