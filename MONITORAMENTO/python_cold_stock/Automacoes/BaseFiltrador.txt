@@ -1,4 +1,0 @@
-﻿sed $'s/\r$//' BaseFiltrador.txt > FAKE
-sed $'s/\r$//' BaseCriadorVENV > CriadorVENV
-sed $'s/\r$//' BaseAtivadorLinux > AtivadorLinux
-rm FAKE

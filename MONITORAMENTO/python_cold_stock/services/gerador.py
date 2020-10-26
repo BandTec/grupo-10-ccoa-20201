@@ -63,7 +63,6 @@ class Gerador:
         url = "68747470733a2f2f686f6f6b732e736c61636b2e636f6d2f73657276696365732f543031414b5138483144452f42303142454a384e31554e2f464e536d637934756b46794e5a5075504b6839755a6c5353"
         url = bytearray.fromhex(url).decode()
 
-        # if (values[0]>=65) or (values[1]>=60) or (values[4]>=120):
         print(values)
         notificacao = ''
         i = 0
