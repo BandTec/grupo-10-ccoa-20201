@@ -10,7 +10,8 @@ gerador = Gerador()
 
 print("Conectando ao BD")
 mysql.connect()
-idServidor = 2
+idServidor = input(" Digite o id da máquina ")
+# idMaquina = 2
 
 print("Iniciando o loop")
 while True:

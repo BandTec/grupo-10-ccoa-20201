@@ -8,7 +8,8 @@ mysql = Mysql('ColdUser','senha123', 'localhost', 'coldstock')
 
 print("Conectando ao BD")
 mysql.connect()
-idMaquina = 2
+idMaquina = input(" Digite o id da máquina ")
+# idMaquina = 2
 
 #Criando obj do HardwareMonitor
 openHM = hardwareMonitor()
