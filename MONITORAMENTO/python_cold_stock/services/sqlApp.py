@@ -51,12 +51,12 @@ class Mysql:
             "select nomeComponente, porcentagemMax from maquinas "
             "inner join configuracaoMaquina on idMaquina = fkMaquina "
             "inner join componentes on idComponente = fkComponente "
-            "where idMaquina = %s " % (idServer)
+            "where idMaquina = %s "
         )
 
         try:
             print('Selecionando dados do server ID: ', idServer)
-            self.cursor.execute(query)
+            self.cursor.execute(query, (idServer,))
             retorno = self.cursor.fetchall()
 
             print('Retorno do BD: ', retorno)
@@ -102,6 +102,30 @@ class Mysql:
     def close(self):
         self.objSql.close()
 
-        
+    def alterarCamada(self,camada, funcao, idFunc):
+        query = """update funcionarios set camada = %s, funcao = %s where idFuncionario = %s"""
+        valores = (camada,funcao,idFunc)
+        print(type(valores))
+        try:
+            print('Aguarde ...')
+            self.cursor.executemany(query,(valores,))
+            self.objSql.commit()
+        except Exception as err:
+            print(err)
+            self.objSql.rollback()
+            self.close()
 
+    def consultarCamada(self, idFunc):
+        query = "select idFuncionario, nomeFuncionario, camada, funcao from funcionarios where idFuncionario = %s"
+        try:
+            print('Aguarde ...')
+            self.cursor.execute(query,(idFunc,))
+            print(self.cursor.fetchall())
+            self.objSql.commit()
+        except Exception as err:
+            print(err)
+            self.objSql.rollback()
+            self.close()
+
+        
 

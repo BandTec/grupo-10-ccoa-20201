@@ -20,4 +20,5 @@ while True:
     #Slack = gerador.notificacaoSlack(valores, listaComponente)
     mysql.insert(valores)
     gerador.valores = []
+    # mysql.alterarCamada(1,2,1)
     time.sleep(5)

@@ -1,4 +1,4 @@
--- drop database coldstock;
+drop database coldstock;
 create database coldstock;
 use coldstock;
 
@@ -202,13 +202,16 @@ insert into configuracaoMaquina (fkMaquina, fkComponente, capacidadeMax, porcent
 
 select * from Maquinas;
 
+ALTER TABLE funcionarios ADD funcao int default 0;
+ALTER TABLE funcionarios ADD camada int default 0;
+
 -- Temos o id da maquina onde a API está rodando
 -- A maquina já está registrada e com componentes relacionados
 -- idMaquina = 1
 select nomeComponente from Maquinas 
 inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
-where idMaquina = 1;
+where idMaquina = 2;
 
 insert into registros (idRegistro, dataHora, valor, fkMaquina, fkComponente) values
 (null, '2020-09-23 17:45:00', 2.0, 1, 1),
@@ -216,15 +219,25 @@ insert into registros (idRegistro, dataHora, valor, fkMaquina, fkComponente) val
 (null, '2020-09-23 17:45:00', 203.50, 1, 3),
 (null, '2020-09-23 17:45:00', 705.47, 1, 4),
 (null, '2020-09-23 17:45:00', 582.07, 1, 5);
+use coldstock;
+select * from registros where fkMaquina = 2 order by idRegistro desc;
 
-select * from registros where fkMaquina = 1;
+select * from funcionarios;
+
 
 
 select * from componentes;
 select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from Maquinas 
 inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
-where idMaquina = 1;
+where idMaquina = 2;
+
+select * from configuracaoMaquina;
+
+select id,valor, nomeComponente, dataHora  from registros
+inner join Maquinas on idMaquina = fkMaquina
+inner join componentes on idComponente = fkComponente
+where idMaquina = 2 and nomeComponente = 'CPU';
 
 -- select nomeConsumidor,emailConsumidor,nomelocalidade from consumidoresFinais, localidades where fkLocalidade = idLocalidade;
 
