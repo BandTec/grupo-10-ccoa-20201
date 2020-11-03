@@ -108,11 +108,14 @@ class TelegramBot:
     
     #login do usuario
     def logarUser(self):
-        while(True):
-            self.responderTexto('Por favor, Digite o Email cadastrado', self.chat_id)
-            
         
-        
+        self.responderTexto('Por favor, Digite o Email cadastrado', self.chat_id)
+        email = self.obter_novas_mensagens(self.update_id)   
+        time.sleep(5) 
+        self.responderTexto('Senha', self.chat_id)
+        senha = self.obter_novas_mensagens(self.update_id + 1)
+
+        print(email, senha)  
 
     # Responder
     def responderTexto(self, resposta, chat_id):
