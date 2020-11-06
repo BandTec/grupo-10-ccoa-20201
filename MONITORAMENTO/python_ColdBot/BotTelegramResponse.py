@@ -12,15 +12,19 @@ class TelegramBot:
         token = '1325809344:AAH4sVx4S9AMMdjKrvhx9Ogt6rdG500Ul_I'
         self.url_base = f'https://api.telegram.org/bot{token}/'
         self.flagImagem = False
-
+        self.atualizacao = None
+        self.chat_id = None
+        self.update_id = None
     def Iniciar(self):
         update_id = None
         while True:
             atualizacao = self.obter_novas_mensagens(update_id)
-            dados = atualizacao["result"]
+            dados = atualizacao['result']
+            self.atualizacao = atualizacao
             if dados:
                 for dado in dados:
                     update_id = dado['update_id']
+                    self.update_id = dado['update_id']
                     mensagem = ""
                     print("Mensagem obtida: ", dado)
                     try:
@@ -28,6 +32,7 @@ class TelegramBot:
                     except:
                         mensagem = "formato"
                     chat_id = dado["message"]["from"]["id"]
+                    self.chat_id = dado["message"]["from"]["id"]
                     resposta = self.criar_resposta(mensagem, chat_id)
                     self.responderTexto(resposta['texto'], chat_id)
                     if self.flagImagem:
@@ -90,6 +95,9 @@ class TelegramBot:
         elif mensagem == 'maquinas':
             resposta['texto'] = 'Configuração da máquina'
             maquina = MaquinaConfigBot()
+        elif mensagem == "login":
+            self.logarUser()
+            resposta['Texto'] = "Obrigado"
         return resposta
 
     #Cadastrando notificações
@@ -97,6 +105,17 @@ class TelegramBot:
         mysql = Mysql('ColdUser','senha123', 'localhost', 'coldstock')
         mysql.connect()
         mysql.cadastrarConversa(idMaquina, idConversa)
+    
+    #login do usuario
+    def logarUser(self):
+        
+        self.responderTexto('Por favor, Digite o Email cadastrado', self.chat_id)
+        email = self.obter_novas_mensagens(self.update_id)   
+        time.sleep(5) 
+        self.responderTexto('Senha', self.chat_id)
+        senha = self.obter_novas_mensagens(self.update_id + 1)
+
+        print(email, senha)  
 
     # Responder
     def responderTexto(self, resposta, chat_id):
