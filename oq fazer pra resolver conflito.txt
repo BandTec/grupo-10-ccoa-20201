@@ -1,0 +1,1 @@
+execute esse comando --> git resolver tudo pfv
