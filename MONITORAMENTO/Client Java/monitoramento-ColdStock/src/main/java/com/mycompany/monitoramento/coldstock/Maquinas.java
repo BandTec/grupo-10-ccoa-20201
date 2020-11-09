@@ -1,7 +1,14 @@
 
 package com.mycompany.monitoramento.coldstock;
 
-
+/*
+    Essa classe é responsavel por ser o molde para a lista gerada a partir do select das máquinas.
+    A tabela das máquinas possui idMaquina, nomeMaquina e tipoMaquina, por isso essa classe
+    possui os mesmos atributos.
+    Esses atributos são protegidos por get e set, evitando que eles sejam editados sem utilizar os metodos. 
+    Por exemplo, só é possivel editar o idMaquina usando o setIdMaquina, e só é possivel acessar
+    o conteudo do idMaquina usando o getIdMaquina.
+*/
 public class Maquinas {
     private Integer idMaquina;
     private String nomeMaquina;
