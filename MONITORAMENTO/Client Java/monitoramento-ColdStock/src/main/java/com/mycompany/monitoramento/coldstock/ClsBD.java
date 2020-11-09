@@ -44,34 +44,20 @@ public class ClsBD {
         return frase;
     }
     
-    //throws SQLException = tem erro? Joga na tela! 
-    public ResultSet consultar() throws SQLException {
-        
-        System.out.println("Criando Statement...");
-        
-        //estamos mostrando onde iremos realizar os comandos mysql.... 
-        //createStatment =  possibilita que criemos o statement
-        stmt = conn.createStatement();
-
-        //criamos uma variável sql do tipo string 
-        String sql;
-        sql = "SELECT * FROM Maquinas";
-        
-        //executando o comando my sql
-        //resultset = retorno do banco de dados
-        
-        ResultSet rs = stmt.executeQuery(sql);
-
-        System.out.println("Comando executado com sucesso!");
-
-        return rs;
-    }
+  
     
+    //throws SQLException = tem erro? Joga na tela! 
     public List consultarMaquinas() throws SQLException{
+        /*
+            Essa função é responsavel por gerar uma lista com base no resultado do select, 
+            utilizando de molde a classe Maquinas
+        */
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         
+        //link para acessar o banco de dados
         dataSource.setUrl("jdbc:mysql://localhost/coldstock?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         
+        //Logando em nosso banco de dados
         dataSource.setUsername("ColdUser");
         dataSource.setPassword("senha123");
         
@@ -86,12 +72,12 @@ public class ClsBD {
         sql = "SELECT * FROM Maquinas";
         
         //executando o comando my sql
-        //constultaMaquina = retorno do banco de dados
+        //constultaMaquina = lista do retorno do banco de dados
         List<Maquinas> consultaMaquina;
         consultaMaquina = jdbcTemplate.query(
                 sql,
                 new BeanPropertyRowMapper(Maquinas.class));
-        
+        //retorna essa lista gerada
         return consultaMaquina;
     }
     
