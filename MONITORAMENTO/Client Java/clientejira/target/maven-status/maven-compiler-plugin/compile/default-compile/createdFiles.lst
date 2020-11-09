@@ -1,0 +1,6 @@
+br\com\bandtec\clientejira\modelo\Description.class
+br\com\bandtec\clientejira\modelo\IssueField.class
+br\com\bandtec\clientejira\modelo\Issue.class
+br\com\bandtec\clientejira\ClienteJiraApi.class
+br\com\bandtec\clientejira\DemoDeUsoClienteApi.class
+br\com\bandtec\clientejira\modelo\Fields.class
