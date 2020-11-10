@@ -90,8 +90,6 @@ class TelegramBot:
             elif mensagem == 'formato':
                 resposta['texto'] = 'Formato de mensagem inválido! Qreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeck!!! >:('
 
-            elif mensagem == 'ping':
-                resposta['texto'] = 'Pong!'
 
             elif mensagem == 'status':
                 resposta['texto'] = 'O pc explodiu!'
