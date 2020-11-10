@@ -131,7 +131,8 @@ insert into funcionarios values
 (null,'giovanna.pereira@gmail.com','giovanna743','Giovanna Oliveira Pereira',1),
 (null,'gabrielle.cunha@gmail.com','gabrielle5743','Gabrielle Almeida Cunha',1),
 (null,'rebeca.pereira@gmail.com','rebecaRP356','Rebeca Rocha Pereira',2),
-(null,'mateus.alves@gmail.com','mateus79834','Mateus Pereira Alves',3);
+(null,'mateus.alves@gmail.com','mateus79834','Mateus Pereira Alves',3),
+(null,'gabriel.gameiro@gmail.com','senha123','Gabriel Gameiro',1);
 
 insert into consumidoresFinais values
 (null,'vitoria.cavalcanti@gmail.com','vitoria345','Vitória Cunha Cavalcanti',2),
@@ -223,8 +224,6 @@ use coldstock;
 select * from registros where fkMaquina = 2 order by idRegistro desc;
 
 select * from funcionarios;
-
-
 
 select * from componentes;
 select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from Maquinas 
