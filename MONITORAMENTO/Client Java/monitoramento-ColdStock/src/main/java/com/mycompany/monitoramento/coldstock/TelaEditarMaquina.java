@@ -22,9 +22,10 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
      * Creates new form telaEditarMaquina
      */
     ClsBD objBD = new ClsBD();
+    Imagens imagem = new Imagens();
     public TelaEditarMaquina() {
         initComponents();
-        carregarImgs();
+        jLabel6.setIcon(imagem.carregarImgs("/1601053028644.png"));
         carregarComponentes();
     }
 
@@ -280,13 +281,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    void carregarImgs(){
-        
-        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("1601053028644.png"));
-        
-        jLabel6.setIcon(icone);
-        getContentPane().setBackground(Color.decode("#EEEEEE"));
-        }
+
     
     private void carregarComponentes(){
         try{

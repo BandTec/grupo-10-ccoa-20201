@@ -5,7 +5,11 @@
  */
 package com.mycompany.monitoramento.coldstock;
 
+import java.awt.Image;
 import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,12 +22,13 @@ import javax.swing.ImageIcon;
 public class TelaLogin extends javax.swing.JFrame {
     ClsBD banco = new ClsBD();
     TelaEscolha telaEscolha = new TelaEscolha();
+    Imagens imagem = new Imagens();
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
-        carregarImgs();
+        jLabel4.setIcon(imagem.carregarImgs("/1601947020378.png"));
     }
 
     /**
@@ -192,10 +197,14 @@ public class TelaLogin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnLoginActionPerformed
     
+<<<<<<< HEAD
+
+=======
     void carregarImgs(){   
         ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("1601947020378.png"));
         jLabel4.setIcon(icone);
         }
+>>>>>>> 00c33d14480b73c0bbb0ec42335a435b56911caa
     /**
      * @param args the command line arguments
      */

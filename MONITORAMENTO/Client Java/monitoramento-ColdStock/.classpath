@@ -24,10 +24,10 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/EAD/Projeto GIT/grupo-10-ccoa-20201/MONITORAMENTO/Client Java/jar_files/spring-beans-5.2.8.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/EAD/Projeto GIT/grupo-10-ccoa-20201/MONITORAMENTO/Client Java/jar_files/spring-core-5.2.8.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/EAD/Projeto GIT/grupo-10-ccoa-20201/MONITORAMENTO/Client Java/jar_files/spring-jcl-5.2.8.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/EAD/Projeto GIT/grupo-10-ccoa-20201/MONITORAMENTO/Client Java/jar_files/spring-jdbc-5.2.8.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/EAD/Projeto GIT/grupo-10-ccoa-20201/MONITORAMENTO/Client Java/jar_files/spring-tx-5.2.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="MONITORAMENTO/Client Java/jar_files/spring-beans-5.2.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="MONITORAMENTO/Client Java/jar_files/spring-core-5.2.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="MONITORAMENTO/Client Java/jar_files/spring-jcl-5.2.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="MONITORAMENTO/Client Java/jar_files/spring-jdbc-5.2.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="MONITORAMENTO/Client Java/jar_files/spring-tx-5.2.8.RELEASE.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

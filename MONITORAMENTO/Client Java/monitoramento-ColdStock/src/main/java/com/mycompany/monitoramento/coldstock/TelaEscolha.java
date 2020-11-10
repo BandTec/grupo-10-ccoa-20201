@@ -23,10 +23,12 @@ public class TelaEscolha extends javax.swing.JFrame {
     ClsBD objBD = new ClsBD();
     List<Maquinas> retornoBD;
     Maquinas maquina;
+    Imagens imagem = new Imagens();
     
     public TelaEscolha() {
         initComponents();
-        carregarImgs();
+        jLabel2.setIcon(imagem.carregarImgs("/1601053028644.png"));
+        jLabel1.setIcon(imagem.carregarImgs("/Pingulinomonitoramento.png"));
         carregarMaquinas();
         }
 
@@ -263,22 +265,13 @@ public class TelaEscolha extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    private void carregarImgs(){
-        
-        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("1601053028644.png"));
-        ImageIcon pingolino = new ImageIcon(getClass().getClassLoader().getResource("Pingulinomonitoramento.png"));
-        
-        jLabel2.setIcon(icone);
-        jLabel1.setIcon(pingolino);
-        getContentPane().setBackground(Color.decode("#EEEEEE"));
-        }
+
     
     private void carregarMaquinas(){
         
         try{
             objBD.conectar();
             retornoBD = objBD.consultarMaquinas();
-            Integer contador = 0;
             for(Maquinas maquina : retornoBD){
                 String nomeMaquina  = maquina.getNomeMaquina();
                 String Tipo  = maquina.getTipoMaquina();
