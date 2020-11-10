@@ -192,8 +192,7 @@ public class TelaLogin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnLoginActionPerformed
     
-    void carregarImgs(){
-        
+    void carregarImgs(){   
         ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("1601947020378.png"));
         jLabel4.setIcon(icone);
         }
