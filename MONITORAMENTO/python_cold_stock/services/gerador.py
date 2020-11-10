@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import psutil, time, sys
 import requests
 import json
