@@ -115,12 +115,16 @@ class Mysql:
             self.objSql.rollback()
             self.close()
 
-    def consultarCamada(self, idFunc):
-        query = "select idFuncionario, nomeFuncionario, camada, funcao from funcionarios where idFuncionario = %s"
+    def consultarFuncionario(self, emailFunc, senhaFunc):
+        query = "select idFuncionario, nomeFuncionario, camada, funcao from funcionarios where emailFuncionario = %s and  senhaFuncionario = %s"
         try:
             print('Aguarde ...')
-            self.cursor.execute(query,(idFunc,))
-            print(self.cursor.fetchall())
+            self.cursor.execute(query,(emailFunc, senhaFunc,))
+            retorno = self.cursor.fetchall()
+            if len(retorno) == 0:
+                print('Email ou Senha incorretos!!')
+            else:
+                print(retorno)
             self.objSql.commit()
         except Exception as err:
             print(err)
