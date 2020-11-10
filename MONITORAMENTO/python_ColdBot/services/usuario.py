@@ -1,12 +1,13 @@
 from services.sqlApp import Mysql
 # import time
-users = []
 class Usuario:
     def __init__(self, idChat):
         self.idChat = idChat
         self.login = None
         self.senha = None
-        self.loginEstagio = 0;
+        self.loginEstagio = 0
+        self.camada = 0
+        self.funcao = 0
     # def verificarUsuario(self):
     #     if self.idChat in users:
     #         print('Usuario ja cadastrado')

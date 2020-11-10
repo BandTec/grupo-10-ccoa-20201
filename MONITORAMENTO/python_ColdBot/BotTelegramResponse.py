@@ -2,6 +2,7 @@ from services.sqlApp import Mysql
 from services.suporte import SuporteBot
 from services.maquinaConfig import MaquinaConfigBot
 from services.usuario import Usuario
+from services.arvoreDeDecisao import Menu
 import requests
 import time
 import json
@@ -53,15 +54,6 @@ class TelegramBot:
                         self.flagImagem = False
                         self.responderImg(resposta['imagem'], chat_id)
 
-    # editar mensagem
-    def editar_mensagem(self):
-        message = self.atualizacao['result']
-        if message:
-            for dados in message:
-                message_id = dados['message']['message_id']
-        edicao = '*'*10
-        link_requisicao = f'{self.url_base}editMessageText?chat_id={self.chat_id}&message_id={message_id}&text={edicao}'
-        requests.get(link_requisicao)
     
     # Obter mensagens
     def obter_novas_mensagens(self, update_id):
@@ -98,8 +90,6 @@ class TelegramBot:
             elif mensagem == 'formato':
                 resposta['texto'] = 'Formato de mensagem inválido! Qreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeck!!! >:('
 
-            elif mensagem == 'ping':
-                resposta['texto'] = 'Pong!'
 
             elif mensagem == 'status':
                 resposta['texto'] = 'O pc explodiu!'
@@ -134,7 +124,13 @@ class TelegramBot:
                    usuario.senha = None
                    resposta['texto'] = 'Você não está mais Logado'
         else:
-            resposta['texto'] = self.logarUser(usuario, mensagem)
+            if usuario.login == None or usuario.senha == None:
+                resposta['texto'] = self.logarUser(usuario, mensagem)
+            else:
+                print(usuario)
+                resposta['texto'] = self.gerenciarMenu(usuario, mensagem)
+                print(usuario)
+                
         return resposta
 
     #Cadastrando notificações
@@ -145,6 +141,7 @@ class TelegramBot:
     
     #login do usuario
     def logarUser(self, usuario, mensagem):
+
         if usuario.loginEstagio == 0:
             usuario.loginEstagio = 1
             return 'Digite o email:'
@@ -156,7 +153,6 @@ class TelegramBot:
             usuario.loginEstagio = 3
             usuario.senha = mensagem
             retorno = usuario.Login()
-            self.editar_mensagem()
             if len(retorno) == 0:
                 
                 usuario.loginEstagio = 0
@@ -164,9 +160,13 @@ class TelegramBot:
                 usuario.senha = None
                 return 'Login ou senha Inválido(s)'
             else:
-                usuario.loginEstagio = 0
-                return 'Login efetuado com sucesso \n' + retorno[0][3] + ', bem-vindo'
+                usuario.loginEstagio = 4
+                return self.gerenciarMenu(usuario, mensagem)
 
+    def gerenciarMenu(self, usuario, mensagem):
+        menu = Menu(usuario, mensagem)
+        return menu.mostrarMenu()
+        # return 'Seleciona um dos itens abaixo \n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'
 
     # Responder
     def responderTexto(self, resposta, chat_id):
