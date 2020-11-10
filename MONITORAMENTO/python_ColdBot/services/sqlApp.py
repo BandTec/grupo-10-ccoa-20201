@@ -128,7 +128,7 @@ class Mysql:
             self.close()
     
     def consultarUsuario(self,email, senha):
-        query = ("select nomeFuncionario,emailFuncionario, senhaFuncionario from funcionarios where emailFuncionario = '%s' and senhaFuncionario = '%s'" %(email, senha)) 
+        query = ("select * from funcionarios where emailFuncionario = '%s' and senhaFuncionario = '%s'" %(email, senha)) 
         print(query)
         try:
             print('Aguarde ...')

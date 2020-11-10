@@ -23,7 +23,7 @@ class TelegramBot:
             atualizacao = self.obter_novas_mensagens(update_id)
             dados = atualizacao['result']
             self.atualizacao = atualizacao
-
+            
             if dados:
                 for dado in dados:
                     update_id = dado['update_id']
@@ -45,7 +45,7 @@ class TelegramBot:
                     for a in list(self.sessoesUsuario):
                         if(a.idChat == self.chat_id):
                             usuario = a;
-                    print(usuario.loginEstagio)
+                    
                     
                     resposta = self.criar_resposta(mensagem, chat_id, usuario)
                     self.responderTexto(resposta['texto'], chat_id)
@@ -53,12 +53,19 @@ class TelegramBot:
                         self.flagImagem = False
                         self.responderImg(resposta['imagem'], chat_id)
 
-
+    # editar mensagem
+    def editar_mensagem(self):
+        message = self.atualizacao['result']
+        if message:
+            for dados in message:
+                message_id = dados['message']['message_id']
+        edicao = '*'*10
+        link_requisicao = f'{self.url_base}editMessageText?chat_id={self.chat_id}&message_id={message_id}&text={edicao}'
+        requests.get(link_requisicao)
     
     # Obter mensagens
     def obter_novas_mensagens(self, update_id):
         link_requisicao = f'{self.url_base}getUpdates?timeout=1000'
-        print(link_requisicao)
         if update_id:
             link_requisicao = f'{link_requisicao}&offset={update_id+1}'
             
@@ -118,8 +125,14 @@ class TelegramBot:
                 if usuario.login == None and usuario.senha == None:
                     resposta['texto'] = self.logarUser(usuario, '')
                 else:
-                    resposta['texto'] = 'Você já efetuou Login'
-                
+                    resposta['texto'] = 'Você já efetuou o Login'
+            elif mensagem == 'deslogin':
+                if usuario.login == None and usuario.senha == None:
+                    resposta['texto'] = 'Você não está logado'
+                else:
+                   usuario.login = None 
+                   usuario.senha = None
+                   resposta['texto'] = 'Você não está mais Logado'
         else:
             resposta['texto'] = self.logarUser(usuario, mensagem)
         return resposta
@@ -143,7 +156,7 @@ class TelegramBot:
             usuario.loginEstagio = 3
             usuario.senha = mensagem
             retorno = usuario.Login()
-            print(retorno)
+            self.editar_mensagem()
             if len(retorno) == 0:
                 
                 usuario.loginEstagio = 0
@@ -152,7 +165,7 @@ class TelegramBot:
                 return 'Login ou senha Inválido(s)'
             else:
                 usuario.loginEstagio = 0
-                return 'Login efetuado com sucesso \n' + retorno[0][0] + ', bem-vindo'
+                return 'Login efetuado com sucesso \n' + retorno[0][3] + ', bem-vindo'
 
 
     # Responder
