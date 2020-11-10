@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
-from services.sqlApp import Mysql
+from services.sqlApp import ClsSql
 from services.gerador import Gerador
 import time
 
 print("Configurando BD")
 #Inserir user, password, host, database
-mysql = Mysql('ColdUser','senha123', 'localhost', 'coldstock')
+mysql = ClsSql('ColdUser','senha123', 'localhost', 'coldstock')
 gerador = Gerador()
 
 print("Conectando ao BD")
