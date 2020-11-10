@@ -17,7 +17,7 @@
     stroke-dashoffset: 0;
     stroke-dasharray: 2256;
     stroke-width: 2px;
-    animation: desenhar 5s forwards reverse ;
+    animation: desenhar 2s forwards reverse ;
     }
 
     .pingolino{
@@ -25,10 +25,15 @@
         width: 400px;
         height: 400px;
         transition: transform 0s;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        
     }
 
     .andar{
-        transform: scaleX(-1);
+        transform: scaleX(-1) translate(50%,-50%);
     }
     @keyframes desenhar{
         to{
@@ -58,7 +63,7 @@
     }
 </style>
 <script>
-    setTimeout(animacao, 5000 )
+    setTimeout(animacao, 2000 )
 
     function animacao(){
     setInterval(() => {
