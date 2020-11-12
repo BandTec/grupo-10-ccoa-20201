@@ -1,6 +1,7 @@
+# -*- coding: UTF-8 -*-
 import mysql.connector
 
-class Mysql:
+class ClsSql:
     def __init__(self, user, password, host, database):
         self.user = user
         self.password = password
@@ -79,26 +80,6 @@ class Mysql:
             self.objSql.rollback()
             self.close()
             
-    # def selectServer(self, idServer):
-    #     query = (
-    #         "SELECT * FROM servidores "
-    #         "where idServidor = %s" % (idServer) 
-    #     )
-
-    #     try:
-    #         print('Selecionando dados do server ID: ', idServer)
-    #         self.cursor.execute(query)
-    #         retorno = self.cursor.fetchall()
-
-    #         print('Retorno do BD: ', retorno[0][3])
-    #         self.objSql.commit()
-    #         return retorno [0]
-    #     except Exception as err:
-    #         print(err)
-    #         self.objSql.rollback()
-    #         self.close()
-
-    # Fechando conexão
     def close(self):
         self.objSql.close()
 
