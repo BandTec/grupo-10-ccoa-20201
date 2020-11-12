@@ -3,8 +3,8 @@ from requests.auth import HTTPBasicAuth
 import json
 
 class SuporteBot:
-    def __init__(self):
-        print(self)
+    def __init__(self, usuario):
+        self.usuario = usuario
     
     def jira(self):
         url = "https://your-domain.atlassian.com/rest/api/3/issue"

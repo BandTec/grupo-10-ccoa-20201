@@ -105,12 +105,6 @@ class TelegramBot:
 
             elif mensagem == 'boa noite' or mensagem == 'boa tarde' or mensagem == 'bom dia' or mensagem == 'olá' or mensagem == 'oi':
                 resposta['texto'] = 'Qreeeuck! (Bom diaa)'
-            elif mensagem == 'suporte':
-                resposta['texto'] = 'Suporte'
-                suporte = SuporteBot()
-            elif mensagem == 'maquinas':
-                resposta['texto'] = 'Configuração da máquina'
-                maquina = MaquinaConfigBot()
             elif mensagem == "login": 
                 if usuario.login == None and usuario.senha == None:
                     resposta['texto'] = self.logarUser(usuario, '')

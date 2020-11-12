@@ -1,4 +1,6 @@
 from services.sqlApp import Mysql
+from services.maquinaConfig import MaquinaConfigBot
+from services.suporte import SuporteBot
 # import time
 class Usuario:
     def __init__(self, idChat):
@@ -8,6 +10,8 @@ class Usuario:
         self.loginEstagio = 0
         self.camada = 0
         self.funcao = 0
+        self.maquina = MaquinaConfigBot(self)
+        self.suporte = SuporteBot(self)
     # def verificarUsuario(self):
     #     if self.idChat in users:
     #         print('Usuario ja cadastrado')
