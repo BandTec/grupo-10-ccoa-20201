@@ -140,5 +140,19 @@ class Mysql:
             print(err)
             self.objSql.rollback()
             self.close()
+    
+    def consultarMaquinas(self,idMaquina):
+        query = ("select * from funcionarios where emailFuncionario = '%s' and senhaFuncionario = '%s'" %(idMaquina)) 
+        print(query)
+        try:
+            print('Aguarde ...')
+            self.cursor.execute(query)
+            retorno = self.cursor.fetchall()
+            self.objSql.commit()
+            return retorno
+        except Exception as err:
+            print(err)
+            self.objSql.rollback()
+            self.close()
         
 

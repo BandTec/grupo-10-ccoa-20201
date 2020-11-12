@@ -12,7 +12,8 @@ class Menu:
             ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar', ''],
             ['\n1 - escolher máquina \n2 - maquina BD \n0 - voltar','\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
             [self.usuario.maquina.maquinasId ,'\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
-            [self.usuario.maquina.maquinasId, '']
+            [self.usuario.maquina.consultarBD, ''],
+            [self.usuario.maquina.consultarBD,'']
             ]
     def mostrarMenu(self):
         
@@ -27,11 +28,11 @@ class Menu:
                 retorno = 'Você foi deslogado com sucesso'
             elif self.mensagem == '1':
                 self.usuario.funcao = 1
-                self.usuario.camada = 2
+                self.usuario.camada = 1
                 retorno += self.menu[1][0]
             elif self.mensagem == '2':
                 self.usuario.funcao = 2 
-                self.usuario.camada = 2
+                self.usuario.camada = 1
                 retorno += self.menu[1][1] 
             else:
                 retorno = self.textoErro()
@@ -57,17 +58,36 @@ class Menu:
                     retorno += self.voltar()
             else:
                 retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
+
+        elif self.testeDeCamadas(1,3):
+            if self.mensagem == '0':
+                    retorno += self.voltar()
+            else:
+                print(self.usuario.camada)
+                retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
+                self.usuario.camada += 1
+                print(self.usuario.camada)
+        elif self.testeDeCamadas(1,4):
+            if self.mensagem == '0':
+                if self.usuario.maquina.pedirId: 
+                    self.usuario.maquina.pedirId = False
+                    retorno += self.voltar()
+                else:
+                    retorno += self.voltar()
+            else:
+                retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
+                self.usuario.camada += 1
         
         # Suporte  
         elif self.testeDeCamadas(2,1):
             if self.mensagem == '0':
                 retorno += self.voltar()
             elif self.mensagem == '1':
-                self.usuario.camada = 2
-                retorno += self.menu[1]
+                # self.usuario.camada = 2
+                retorno += self.menu[self.usuario.camada][self.usuario.funcao - 1]
             elif self.mensagem == '2': 
-                self.usuario.camada = 2
-                retorno += self.menu[2] 
+                # self.usuario.camada = 2
+                retorno += self.menu[self.usuario.camada][self.usuario.funcao - 1] 
             else:
                 retorno = self.textoErro()
         return retorno
