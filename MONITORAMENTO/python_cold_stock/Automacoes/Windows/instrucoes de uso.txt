@@ -1,0 +1,6 @@
+1° Execute o BaseCriarVenv.bat para "Filtrar" os demais arquivos e criar a ambiente virtual Linux ColdStock, 
+e aguarde até que a última linha contenha "Pressione qualquer tecla para continuar. . ."
+
+2° Execute o BaseExecMain para colocar aplicação em funcionamento
+
+3° Seja feliz, beba água :D

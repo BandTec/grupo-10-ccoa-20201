@@ -1,0 +1,3 @@
+cd virtualColdStockLinux/bin
+source activate
+deactivate
