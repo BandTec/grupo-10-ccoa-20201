@@ -3,8 +3,14 @@ package com.mycompany.monitoramento.coldstock.jiraexecutavel;
 import com.mycompany.monitoramento.coldstock.jiramodelos.Issue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mycompany.monitoramento.coldstock.jiramodelos.Fields;
+import java.awt.SystemColor;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DemoDeUsoClienteApi {
 
@@ -20,7 +26,26 @@ public class DemoDeUsoClienteApi {
         );
 
         Issue issue = clienteJiraApi.getIssue("CK-1");
-        System.out.println("Issue recuperada: "+gson.toJson(issue));
+        
+        System.out.println(issue.getKey());
+        System.out.println(issue.getFields().getSummary());
+        System.out.println(issue.getFields().getDescription().getContent()
+                .get(0).get("content"));
+        System.out.println(issue.getFields().getLabels());
+        
+        String testeFull = issue.getFields().getDescription().getContent()
+                .get(0).get("content").toString();
+        String lixo = "[{type=text, text=";
+        String nada = "";
+        String testeNovo = testeFull.replace(lixo, nada);
+        testeNovo = testeNovo.replace("}]", "");
+        
+        System.out.println(testeNovo);
+        
+//        Map json;
+//        json = gson.fromJson(issue, Issue);
+//        ((Map) json.get("contatos")).get("telefone"))
+
 
         // Exemplo de objeto para novo chamado (Issue)
 //        Issue novaIssue = new Issue();

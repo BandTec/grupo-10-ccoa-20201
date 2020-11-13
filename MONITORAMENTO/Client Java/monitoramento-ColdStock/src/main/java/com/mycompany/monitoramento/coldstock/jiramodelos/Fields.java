@@ -47,4 +47,10 @@ public class Fields {
     public Set<String> getLabels() {
         return labels;
     }
+
+    public String getSummary() {
+        return summary;
+    }
+    
+    
 }
