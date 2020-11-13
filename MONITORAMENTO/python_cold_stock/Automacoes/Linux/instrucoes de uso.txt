@@ -1,6 +1,8 @@
-1° Execute o BaseCriarVenv.bat para "Filtrar" os demais arquivos e criar a ambiente virtual Linux ColdStock, 
-e aguarde até que a última linha contenha "Pressione qualquer tecla para continuar. . ."
+﻿1° Execute o arquivo CriadorVENV através do comando:
+	source CriadorVENV
+	Obs: use o comando ls, pra visualizar se houve a criação do ambiente virtual, ele fica azul!!!
 
-2° Execute o BaseExecMain para colocar aplicação em funcionamento
+2° Execute o arquivo AtivadorLinux através do comando:
+	source AtivadorVENV
 
-3° Seja feliz, beba água :D
+Obs: Se houver algum erro ou dúvida, entrar em contato: andersartorio27@gmail.com
