@@ -1,5 +1,5 @@
 valorInicial = NULL
-tabela = exportBD
+tabela = tabelaMarise2
 
 CPU = valorInicial
 RAM = valorInicial

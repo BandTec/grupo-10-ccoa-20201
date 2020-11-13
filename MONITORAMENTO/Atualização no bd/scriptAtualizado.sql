@@ -55,7 +55,7 @@ create table abastecimentos(
     check (nivelSensor ='medio' or nivelSensor ='vazio')
 );
 
-create table Maquinas(
+create table maquinas(
 	idMaquina int primary key auto_increment,
     nomeMaquina varchar(30),
     tipoMaquina varchar(30)
@@ -102,16 +102,16 @@ alter table fileiras add foreign key (fkGeladeira) references geladeiras(idGelad
 alter table fileiras add foreign key (fkProduto) references produtos(idProduto);
 alter table abastecimentos add foreign key (fkFornecedora) references fornecedoras(idFornecedora);
 alter table abastecimentos add foreign key (fkFileira) references fileiras(idFileira);
-alter table fornecedoras add foreign key (fkMaquina) references Maquinas(idMaquina);
-alter table configuracaoMaquina add foreign key (fkMaquina) references Maquinas(idMaquina);
+alter table fornecedoras add foreign key (fkMaquina) references maquinas(idMaquina);
+alter table configuracaoMaquina add foreign key (fkMaquina) references maquinas(idMaquina);
 alter table configuracaoMaquina add foreign key (fkComponente) references componentes(idComponente);
 alter table registros add foreign key (fkComponente) references componentes(idComponente);
-alter table registros add foreign key (fkMaquina) references Maquinas(idMaquina);
+alter table registros add foreign key (fkMaquina) references maquinas(idMaquina);
 alter table favoritos add foreign key (fkProduto) references produtos(idProduto);
 alter table favoritos add foreign key (fkConsumidor) references consumidoresFinais(idConsumidor);
-alter table funcionarios add foreign key (fkMaquina) references Maquinas(idMaquina);
+alter table funcionarios add foreign key (fkMaquina) references maquinas(idMaquina);
 
-insert into Maquinas values
+insert into maquinas values
 (null, "Servidor 1", "Server"),
 (null,"Maquina 1","PC"),
 (null,"Maquina 2","PC");
@@ -201,7 +201,7 @@ insert into configuracaoMaquina (fkMaquina, fkComponente, capacidadeMax, porcent
 (3, 2, '8', 80),
 (1, 6, '90', 100);
 
-select * from Maquinas;
+select * from maquinas;
 
 ALTER TABLE funcionarios ADD funcao int default 0;
 ALTER TABLE funcionarios ADD camada int default 0;
@@ -209,7 +209,7 @@ ALTER TABLE funcionarios ADD camada int default 0;
 -- Temos o id da maquina onde a API está rodando
 -- A maquina já está registrada e com componentes relacionados
 -- idMaquina = 1
-select nomeComponente from Maquinas 
+select nomeComponente from maquinas 
 inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
 where idMaquina = 2;
@@ -226,7 +226,7 @@ select * from registros where fkMaquina = 2 order by idRegistro desc;
 select * from funcionarios;
 
 select * from componentes;
-select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from Maquinas 
+select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas 
 inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
 where idMaquina = 2;
@@ -234,7 +234,7 @@ where idMaquina = 2;
 select * from configuracaoMaquina;
 
 select id,valor, nomeComponente, dataHora  from registros
-inner join Maquinas on idMaquina = fkMaquina
+inner join maquinas on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
 where idMaquina = 2 and nomeComponente = 'CPU';
 

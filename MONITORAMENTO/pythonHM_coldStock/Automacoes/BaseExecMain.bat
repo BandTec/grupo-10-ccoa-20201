@@ -1,2 +1,2 @@
-wsl source AtivadorLinux
+source AtivadorLinux
 pause

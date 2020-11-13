@@ -21,10 +21,10 @@ CREATE TABLE registros(
     foreign key (fkServidor) references servidores(idServidor)
     );
     
-alter table Fornecedoras add column 
+alter table fornecedoras add column 
 fkServidor int;
     
-alter table Fornecedoras add foreign key 
-(fkServidor) references Servidores(idServidor);
+alter table fornecedoras add foreign key 
+(fkServidor) references servidores(idServidor);
 
 insert into servidores values (null, 'Server 3232', 4.0, 120.00, 1.8);
