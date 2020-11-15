@@ -1,8 +1,5 @@
 from services.sqlApp import Mysql
 
-
-
-
 class Menu:
     def __init__(self, usuario, mensagem):
         self.usuario = usuario
@@ -12,8 +9,9 @@ class Menu:
             ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar', ''],
             ['\n1 - escolher máquina \n2 - maquina BD \n0 - voltar','\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
             [self.usuario.maquina.maquinasId ,'\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
-            [self.usuario.maquina.consultarBD, ''],
-            [self.usuario.maquina.consultarBD,'']
+            [self.usuario.maquina.consultarBD, self.usuario.suporte.criandoTipo],
+            [self.usuario.maquina.consultarBD, self.usuario.suporte.criandoTitulo],
+            ['', self.usuario.suporte.criandoDescricao]
             ]
     def mostrarMenu(self):
         
@@ -75,20 +73,35 @@ class Menu:
                 else:
                     retorno += self.voltar()
             else:
-                retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
+                retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1]
                 self.usuario.camada += 1
         
         # Suporte  
         elif self.testeDeCamadas(2,1):
             if self.mensagem == '0':
                 retorno += self.voltar()
+            
             elif self.mensagem == '1':
-                # self.usuario.camada = 2
-                retorno += self.menu[self.usuario.camada][self.usuario.funcao - 1]
-            elif self.mensagem == '2': 
-                # self.usuario.camada = 2
-                retorno += self.menu[self.usuario.camada][self.usuario.funcao - 1] 
-            else:
+                retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
+                self.usuario.camada += 1
+                print(self.menu)
+            # elif self.mensagem == '2': 
+            #     self.usuario.camada = 2
+            #     retorno += self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
+        elif self.testeDeCamadas(2,2):
+            retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
+            self.usuario.camada += 1
+        elif self.testeDeCamadas(2,3):
+            if self.mensagem == 'incident' or self.mensagem == 'problem':
+                retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
+                self.usuario.camada += 1
+        elif self.testeDeCamadas(2,4):
+            #self.usuario.suporte.criandoDescricao(self.mensagem)
+            retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
+            self.usuario.camada += 1
+        elif self.testeDeCamadas(2,5):
+            retorno = "Ok"
+        else:
                 retorno = self.textoErro()
         return retorno
     

@@ -1,5 +1,5 @@
 from services.sqlApp import Mysql
-from services.suporte import SuporteBot
+from services.suportebot import SuporteBot
 from services.maquinaConfig import MaquinaConfigBot
 from services.usuario import Usuario
 from services.arvoreDeDecisao import Menu

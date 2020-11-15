@@ -1,6 +1,6 @@
 from services.sqlApp import Mysql
 from services.maquinaConfig import MaquinaConfigBot
-from services.suporte import SuporteBot
+from services.suportebot import SuporteBot
 # import time
 class Usuario:
     def __init__(self, idChat):

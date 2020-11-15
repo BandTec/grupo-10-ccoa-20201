@@ -40,7 +40,7 @@ class hardwareMonitor:
             "RAM":[],
             "TEMPERATURA":[],
         }
-
+        
         qtdClocks = 0
         temperatures = []
         totalClock = 0.0
