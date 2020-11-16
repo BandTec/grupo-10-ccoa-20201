@@ -49,15 +49,12 @@ class MaquinaConfigBot:
             self.historico = 1
             return '1 - últimos 7 dias \n2 - últimos 15 dias\n3 - últimos 30 dias'
         elif int(mensagem) >= 1 and int(mensagem) <= 3:
-            return 'Relatorio dos últimos ' + ("7" if mensagem == '1' else  "15" if mensagem == '2' else '30')
+            return 'Relatorio dos últimos ' + ("7" if mensagem == '1' else  "15" if mensagem == '2' else '30') + '\n0 - voltar'
 
     
     def escolherComponentes(self, mensagem):
         if not self.componente:
-            self.componente = 1
-            return '1 - CPU \n2 - RAM \n0 - voltar'
-        elif int(mensagem) >= 1 and int(mensagem) <= 2:
-            return 'Relatorio \nCPU - 80% \n RAM - 90%'
+            return 'Relatorio \nCPU - 80% \n RAM - 90% \n0 - voltar'
             
 
     def consultarMaquinas(self, idMaquina):

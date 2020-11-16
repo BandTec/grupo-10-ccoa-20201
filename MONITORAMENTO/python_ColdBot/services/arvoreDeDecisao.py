@@ -23,6 +23,7 @@ class Menu:
                 self.usuario.login = None
                 self.usuario.senha = None
                 self.usuario.loginEstagio = 0
+                self.usuario.anterior = []
                 retorno = 'Você foi deslogado com sucesso'
             elif self.mensagem == '1':
                 self.usuario.funcao = 1
@@ -103,6 +104,8 @@ class Menu:
             retorno = "Ok"
         else:
                 retorno = self.textoErro()
+        if not retorno in self.usuario.anterior:
+             self.usuario.anterior.append(retorno)
         return retorno
     
     def testeDeCamadas(self, funcao, camada):
@@ -114,6 +117,7 @@ class Menu:
         if self.usuario.camada == 0:
             self.usuario.funcao = 0 
             return self.menu[self.usuario.camada][self.usuario.funcao]
+        self.usuario.anterior.pop()
         return self.menu[self.usuario.camada][self.usuario.funcao - 1]
     def textoErro(self):
         return 'Erro - Selecione um dos itens abaixo' + self.menu[self.usuario.camada - 1]
