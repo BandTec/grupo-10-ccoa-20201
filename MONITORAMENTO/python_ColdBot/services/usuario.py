@@ -12,6 +12,7 @@ class Usuario:
         self.funcao = 0
         self.maquina = MaquinaConfigBot(self)
         self.suporte = SuporteBot(self)
+        self.anterior = []
     # def verificarUsuario(self):
     #     if self.idChat in users:
     #         print('Usuario ja cadastrado')
