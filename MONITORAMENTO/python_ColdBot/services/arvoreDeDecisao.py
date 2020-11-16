@@ -82,23 +82,23 @@ class Menu:
                 retorno += self.voltar()
             
             elif self.mensagem == '1':
-                retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
                 self.usuario.camada += 1
+                retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
                 print(self.menu)
             # elif self.mensagem == '2': 
             #     self.usuario.camada = 2
             #     retorno += self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
         elif self.testeDeCamadas(2,2):
             retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
-            self.usuario.camada += 1
+            
         elif self.testeDeCamadas(2,3):
             if self.mensagem == 'incident' or self.mensagem == 'problem':
                 retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
-                self.usuario.camada += 1
+                
         elif self.testeDeCamadas(2,4):
             #self.usuario.suporte.criandoDescricao(self.mensagem)
             retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
-            self.usuario.camada += 1
+            
         elif self.testeDeCamadas(2,5):
             retorno = "Ok"
         else:
