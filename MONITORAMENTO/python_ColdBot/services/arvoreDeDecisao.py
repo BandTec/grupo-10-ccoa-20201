@@ -118,6 +118,6 @@ class Menu:
             self.usuario.funcao = 0 
             return self.menu[self.usuario.camada][self.usuario.funcao]
         self.usuario.anterior.pop()
-        return self.menu[self.usuario.camada][self.usuario.funcao - 1]
+        return self.usuario.anterior[len(self.usuario.anterior) - 1]
     def textoErro(self):
         return 'Erro - Selecione um dos itens abaixo' + self.menu[self.usuario.camada - 1]
