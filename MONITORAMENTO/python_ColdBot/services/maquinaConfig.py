@@ -15,11 +15,11 @@ class MaquinaConfigBot:
             if(mensagem == '1'):
                 
                 self.pedirId = True
-                return 'Digite o Id da máquina que deseja visualizar \n 0 - voltar'
+                return '\nDigite o Id da máquina que deseja visualizar \n0 - voltar'
             elif mensagem == '2':
                 
                 self.usuario.camada += 1
-                return '1 - verificar histórico \n 2 - escolher componentes \n 0 - voltar'
+                return '\n1 - verificar histórico \n2 - escolher componentes \n 0 - voltar'
             else:
                 return 'Deu erro'
         else:
@@ -27,7 +27,7 @@ class MaquinaConfigBot:
                 self.usuario.camada += 1
                 self.pedirId = False
                 self.id = mensagem
-                return '1 - verificar histórico \n 2 - escolher componentes \n 0 - voltar'
+                return '\n1 - verificar histórico \n2 - escolher componentes \n0 - voltar'
             
     
 

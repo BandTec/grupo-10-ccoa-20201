@@ -41,7 +41,7 @@ class Menu:
             
             if self.mensagem == '0':
                 
-                retorno += self.voltar() 
+                retorno = self.voltar() 
             elif self.mensagem == '1' or self.mensagem == '2':
                 self.usuario.camada += 1
                 retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
@@ -52,15 +52,15 @@ class Menu:
             if self.mensagem == '0':
                 if self.usuario.maquina.pedirId: 
                     self.usuario.maquina.pedirId = False
-                    retorno += self.voltar()
+                    retorno = self.voltar()
                 else:
-                    retorno += self.voltar()
+                    retorno = self.voltar()
             else:
                 retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
 
         elif self.testeDeCamadas(1,3):
             if self.mensagem == '0':
-                    retorno += self.voltar()
+                    retorno = self.voltar()
             else:
                 print(self.usuario.camada)
                 retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
@@ -70,9 +70,9 @@ class Menu:
             if self.mensagem == '0':
                 if self.usuario.maquina.pedirId: 
                     self.usuario.maquina.pedirId = False
-                    retorno += self.voltar()
+                    retorno = self.voltar()
                 else:
-                    retorno += self.voltar()
+                    retorno = self.voltar()
             else:
                 retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1]
                 self.usuario.camada += 1
@@ -80,7 +80,7 @@ class Menu:
         # Suporte  
         elif self.testeDeCamadas(2,1):
             if self.mensagem == '0':
-                retorno += self.voltar()
+                retorno = self.voltar()
             
             elif self.mensagem == '1':
                 self.usuario.camada += 1
@@ -116,7 +116,7 @@ class Menu:
         self.usuario.camada -=1
         if self.usuario.camada == 0:
             self.usuario.funcao = 0 
-            return self.menu[self.usuario.camada][self.usuario.funcao]
+            # return self.menu[self.usuario.camada][self.usuario.funcao]
         self.usuario.anterior.pop() # retira o ultimo item do array.
         return self.usuario.anterior[len(self.usuario.anterior) - 1] # pega o ultimo item, no caso a mensagem anterior e retorna ela.
     def textoErro(self):
