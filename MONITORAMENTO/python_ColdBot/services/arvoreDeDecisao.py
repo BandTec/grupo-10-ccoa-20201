@@ -12,11 +12,11 @@ class Menu:
             [self.usuario.maquina.consultarBD, self.usuario.suporte.criandoTipo],
             [self.usuario.maquina.consultarBD, self.usuario.suporte.criandoTitulo],
             ['', self.usuario.suporte.criandoDescricao]
-            ]
+            ] # matriz para controlar o menu. 
     def mostrarMenu(self):
         
-        retorno = 'Selecione um dos itens abaixo'
-        if self.testeDeCamadas(0,0) and not self.mensagem.isnumeric(): 
+        retorno = 'Selecione um dos itens abaixo' # variavel que retorna texto.
+        if self.testeDeCamadas(0,0) and not self.mensagem.isnumeric(): # teste para ver se é a primeira mensagem.
             retorno += self.menu[0][0]
         elif self.testeDeCamadas(0,0) and  self.mensagem.isnumeric():
             if self.mensagem == '0':
@@ -24,7 +24,7 @@ class Menu:
                 self.usuario.senha = None
                 self.usuario.loginEstagio = 0
                 self.usuario.anterior = []
-                retorno = 'Você foi deslogado com sucesso'
+                retorno = 'Você foi deslogado com sucesso' 
             elif self.mensagem == '1':
                 self.usuario.funcao = 1
                 self.usuario.camada = 1
@@ -98,14 +98,14 @@ class Menu:
                 
         elif self.testeDeCamadas(2,4):
             #self.usuario.suporte.criandoDescricao(self.mensagem)
-            retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
+            retorno = self.menu[self.usuario.camada][self.usuario.funcao-1] 
             
         elif self.testeDeCamadas(2,5):
             retorno = "Ok"
         else:
                 retorno = self.textoErro()
-        if not retorno in self.usuario.anterior:
-             self.usuario.anterior.append(retorno)
+        if not retorno in self.usuario.anterior: # ele verifica se o array contem o mesmo texto que o retorno.
+             self.usuario.anterior.append(retorno) # caso não tenha ele adiciona
         return retorno
     
     def testeDeCamadas(self, funcao, camada):
@@ -117,7 +117,7 @@ class Menu:
         if self.usuario.camada == 0:
             self.usuario.funcao = 0 
             return self.menu[self.usuario.camada][self.usuario.funcao]
-        self.usuario.anterior.pop()
-        return self.usuario.anterior[len(self.usuario.anterior) - 1]
+        self.usuario.anterior.pop() # retira o ultimo item do array.
+        return self.usuario.anterior[len(self.usuario.anterior) - 1] # pega o ultimo item, no caso a mensagem anterior e retorna ela.
     def textoErro(self):
         return 'Erro - Selecione um dos itens abaixo' + self.menu[self.usuario.camada - 1]
