@@ -10,37 +10,39 @@ class MaquinaConfigBot:
         self.historico = 0
         self.componente = 0
         print(usuario)
+
     def maquinasId(self, mensagem):
         if self.pedirId == False:
-            if(mensagem == '1'):
-                
+            if(mensagem == '1'):                
                 self.pedirId = True
                 return '\nDigite o Id da máquina que deseja visualizar \n0 - voltar'
-            elif mensagem == '2':
-                
+
+            elif mensagem == '2':                
                 self.usuario.camada += 1
                 return '\n1 - verificar histórico \n2 - escolher componentes \n 0 - voltar'
+
             else:
-                return 'Deu erro'
+                return 'Digite um núero válido!'
+
         else:
-            if self.pedirId == True:
-                self.usuario.camada += 1
-                self.pedirId = False
-                self.id = mensagem
-                return '\n1 - verificar histórico \n2 - escolher componentes \n0 - voltar'
+            self.usuario.camada += 1
+            self.pedirId = False
+            self.id = mensagem
+            return '\n1 - verificar histórico \n2 - escolher componentes \n0 - voltar'
             
     
 
     def consultarBD(self, mensagem):
         if not self.componente and not self.historico:
             if(mensagem == '1'):
-
                 return self.pegarHistorico(mensagem)
-            elif mensagem == '2':
 
+            elif mensagem == '2':
                 return self.escolherComponentes(mensagem)
+
         elif self.historico:
             return self.pegarHistorico(mensagem)
+
         elif self.componente:
             return self.escolherComponentes(mensagem)
 

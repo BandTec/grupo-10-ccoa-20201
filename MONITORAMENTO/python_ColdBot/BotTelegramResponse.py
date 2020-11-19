@@ -45,7 +45,7 @@ class TelegramBot:
                         self.sessoesUsuario.append(Usuario(self.chat_id))
                     for a in list(self.sessoesUsuario):
                         if(a.idChat == self.chat_id):
-                            usuario = a;
+                            usuario = a
                     
                     
                     resposta = self.criar_resposta(mensagem, chat_id, usuario)

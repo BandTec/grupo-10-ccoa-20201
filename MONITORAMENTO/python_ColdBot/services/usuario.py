@@ -12,7 +12,7 @@ class Usuario:
         self.funcao = 0
         self.maquina = MaquinaConfigBot(self)
         self.suporte = SuporteBot(self)
-        self.anterior = [] #vetor que guarda as ultimas mensagens.
+        self.anterior = ['teste'] #vetor que guarda as ultimas mensagens.
     # def verificarUsuario(self):
     #     if self.idChat in users:
     #         print('Usuario ja cadastrado')
