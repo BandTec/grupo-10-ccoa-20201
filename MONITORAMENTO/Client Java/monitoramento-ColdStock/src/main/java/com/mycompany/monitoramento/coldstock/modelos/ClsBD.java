@@ -44,7 +44,18 @@ public class ClsBD {
         return frase;
     }
     
-  
+    public void conectar() {
+        // função responsavel por fazer a conexão com o BD
+        System.out.println("Tentando conectar ao BD...");
+        try {
+            //fazendo a conexão
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        } catch (SQLException ex) {
+            //plota o erro(usando uma váriavel do tipo "erro no mysql")
+            Logger.getLogger(ClsBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Conectado com sucesso ao BD!");
+    }
     
     //throws SQLException = tem erro? Joga na tela! 
     public List consultarMaquinas() throws SQLException{
@@ -82,6 +93,12 @@ public class ClsBD {
     }
     
         public ResultSet consultarComponentes() throws SQLException {
+        /*
+            Essa função é responsavel por selecionar todos os componentes que estão cadastrados 
+            no Banco de dados, e criando um ResultSet, que é como uma lista.
+            Essas informações 
+            O funcionamento dessa função é similar ao de consultarFuncionario()
+        */
         System.out.println("Criando Statement...");
         
         stmt = conn.createStatement();
@@ -95,6 +112,10 @@ public class ClsBD {
     }
         
     public ResultSet consultarConfiguracaoMaquina(Integer fkMaquina) throws SQLException {
+        /*
+            Essa função é responsavel por selecionar as informações utilizadas para criar a tabela da tela 
+            TelaEditarMaquina. Ele também retorna um ResultSet
+        */
         System.out.println("Criando Statement...");
         stmt = conn.createStatement();
 
@@ -107,6 +128,10 @@ public class ClsBD {
     }
     // criamos uma função onde dentro dela hávera duas variáveis do tipo string 
     public Boolean consultarFuncionario(String funcionario, String senha) throws SQLException {
+        /*
+            Essa função é responsavel por selecionar todos os funcionarios que estão cadastrados 
+            no Banco de dados, e criando um ResultSet, que é como uma lista.
+        */
         System.out.println("Criando Statement...");
         stmt = conn.createStatement();
 
@@ -129,15 +154,4 @@ public class ClsBD {
         }
     }
 
-    public void conectar() {
-        System.out.println("Tentando conectar ao BD...");
-        try {
-            //fazendo a conexão
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-        } catch (SQLException ex) {
-            //plota o erro(usando uma váriavel do tipo "erro no mysql")
-            Logger.getLogger(ClsBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("Conectado com sucesso ao BD!");
-    }
 }

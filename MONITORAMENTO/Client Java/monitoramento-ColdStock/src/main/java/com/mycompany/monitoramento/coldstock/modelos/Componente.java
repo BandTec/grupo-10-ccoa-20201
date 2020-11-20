@@ -4,7 +4,11 @@ public class Componente {
     private String nomeComponente;
     private Double valor;
     private String dataHora;
-
+    /* Essa classe é utilizada de molde para receber as informações que foram buscadas
+    na função trazerLista da classe Conexao.
+    */
+    
+    
 //    public Componente(String nomeComponente, Double valor, String dataValor) {
 //        this.nomeComponente = nomeComponente;
 //        this.valor = valor;

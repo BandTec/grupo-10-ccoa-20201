@@ -22,6 +22,8 @@ public class TelaEscolha extends javax.swing.JFrame {
     /**
      * Creates new form telaEscolha
      */
+    
+    // aqui criamos objetos das classes que iremos utilizar
     TelaEditarMaquina telaEditarMaquina = new TelaEditarMaquina();
     ClsBD objBD = new ClsBD();
     List<Maquinas> retornoBD;
@@ -246,11 +248,16 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        //para saber quais informações teremos que passar pra proxima tela, temos que saber qual é a maquina
+        //aqui iremos pegar qual o indice do item da combo box que foi escolhido
         Integer num = cbEscolhaMaquina.getSelectedIndex();
         System.out.println(num);
+       // aqui pegamos um item especifico da lista, sendo aquele que é equivalente ao indice selecionado da combobox
         maquina = retornoBD.get(num);
         
+        //por fim, passamos o item buscado para a proxima tela, mandando o id e o nome da maquina
         telaEditarMaquina.carregarTabela(maquina.getIdMaquina(),maquina.getNomeMaquina());
+        // e deixamos a proxima tela visivel
         telaEditarMaquina.setVisible(true);
         System.out.println(maquina.getIdMaquina());
         System.out.println(maquina.getNomeMaquina());    
@@ -271,13 +278,18 @@ public class TelaEscolha extends javax.swing.JFrame {
 
     
     private void carregarMaquinas(){
-        
+        //essa função popul o combo box que tem todas as maquinas
         try{
+            //realizamos a conexao
             objBD.conectar();
+            //pegamos o resultado do select das maquinas
             retornoBD = objBD.consultarMaquinas();
             for(Maquinas maquina : retornoBD){
+                //separamos cada item da lista que foi gerada
+                //separamos de cada item, o nome da maquina e o tipo(se é servidor ou maquina comum)
                 String nomeMaquina  = maquina.getNomeMaquina();
                 String Tipo  = maquina.getTipoMaquina();
+                //e criamos um item na combo box que ira receber o nome da maquina
                 cbEscolhaMaquina.addItem(nomeMaquina);   
             }
         }

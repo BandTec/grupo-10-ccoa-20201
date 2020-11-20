@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
  * @author Aluno
  */
 public class TelaLogin extends javax.swing.JFrame {
+    // aqui criamos objetos das classes que iremos utilizar
     ClsBD banco = new ClsBD();
     TelaEscolha telaEscolha = new TelaEscolha();
     Imagens imagem = new Imagens();
@@ -183,27 +184,27 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
- 
+        //conectamos no banco
         banco.conectar();
-          
+        //tentamos realizar a interação com o banco
         try {
+            //no if, utilizamos a função que realiza o select na tabela dos funcionarios com o login que esta sendo passado como parametros
+            // se ele existe:
             if (banco.consultarFuncionario(txtEmail.getText(), txtSenha.getText())){
+                // deixamos a telaEscolha visivel, e deixamos a tela do login invisivel
                 telaEscolha.setVisible(true);
                 this.setVisible(false);
             }
         } catch (SQLException ex) {
+            //caso de algum erro nesse processo, ele ira imprimir o erro no log
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        //e por fim, mostramos na tela uma frase de bem vindo
         lblResultado.setText(banco.getFrase());
         
     }//GEN-LAST:event_btnLoginActionPerformed
     
 
-    void carregarImgs(){   
-        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("1601947020378.png"));
-        jLabel4.setIcon(icone);
-        }
 
     /**
      * @param args the command line arguments

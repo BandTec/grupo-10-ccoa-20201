@@ -23,6 +23,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     /**
      * Creates new form telaEditarMaquina
      */
+    // criamos objetos novamente
     ClsBD objBD = new ClsBD();
     Imagens imagem = new Imagens();
     public TelaEditarMaquina() {
@@ -287,10 +288,12 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     
     private void carregarComponentes(){
         try{
+            // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
             objBD.conectar();
             ResultSet retornoBD = objBD.consultarComponentes();
             while(retornoBD.next()){
                 String nomeComponente  = retornoBD.getString("nomeComponente");
+                // na combo box, adicionamos o nome dos componentes
                 cbEscolhaComponente.addItem(nomeComponente);
             }
         }
@@ -304,13 +307,17 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
             objBD.conectar();
             ResultSet retornoBD = objBD.consultarConfiguracaoMaquina(idMaquina);
             lblNomeMaquina.setText(nomeMaquina);
+            // aqui criamos um objeto de tabela, que ira popular nossa tbComponentes
             DefaultTableModel tabela = (DefaultTableModel) tbComponentes.getModel();
+            //aqui deixamos o numero de linhas como 0, para poder reiniciar a tabela sempre que a tela for recarregada
             tabela.setRowCount(0);
             while(retornoBD.next()){
+                // aqui separamos as informações em variaveis
                 String nomeComponente = retornoBD.getString("nomeComponente");
                 String capacidadeMax  = retornoBD.getString("capacidadeMax");
                 String metrica  = retornoBD.getString("metrica");
                 String porcentagemMax = retornoBD.getString("porcentagemMax");
+                // para cada proximo item da lista, nos adicionamos na lista as informações anteriores
                 tabela.addRow(new Object[]{nomeComponente, capacidadeMax +" "+metrica, porcentagemMax + " %"});
             }
         }

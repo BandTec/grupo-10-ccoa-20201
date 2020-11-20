@@ -23,8 +23,13 @@ public class Grafico {
     
     public CategoryDataset createDataset(ArrayList<Componente> listaGrafico){
         
+        /*
+        Essa função cria itens da lista gerada na classe Conexao.
+        */
+        // aqui criamos um DataSet que ira popular o grafico
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
         
+        // aqui separamos a lista(listaGrafico) em itens (componente) e adiconamos esses itens no DataSet criado 
         for(Componente componente : listaGrafico){
             dataSet.addValue(componente.getValor(), componente.getNomeComponente()
                     , componente.getDataHora());
@@ -35,7 +40,7 @@ public class Grafico {
     }
     
     public JFreeChart createChart(CategoryDataset dataSet){
-        
+        // aqui criamos o gráfico, colocando as legendas, passando os valores (dataSet) e dizemos que a orientação dele sera vertical
         JFreeChart graficoLinha = ChartFactory.createLineChart("CPU", 
                 "Horário", "Valor", dataSet, PlotOrientation.VERTICAL,
                 false, false, false);
