@@ -20,6 +20,7 @@ class TelegramBot:
         self.sessoesUsuario = []
     def Iniciar(self):
         update_id = None
+
         while True:
             atualizacao = self.obter_novas_mensagens(update_id)
             dados = atualizacao['result']
@@ -46,7 +47,6 @@ class TelegramBot:
                     for a in list(self.sessoesUsuario):
                         if(a.idChat == self.chat_id):
                             usuario = a
-                    
                     
                     resposta = self.criar_resposta(mensagem, chat_id, usuario)
                     self.responderTexto(resposta['texto'], chat_id)
@@ -152,7 +152,7 @@ class TelegramBot:
                 usuario.loginEstagio = 0
                 usuario.login = None
                 usuario.senha = None
-                return 'Login ou senha Inválido(s)'
+                return 'Login ou senha Inválido(s) \nDigite "Login" novamente'
             else:
                 usuario.loginEstagio = 4
                 return self.gerenciarMenu(usuario, mensagem)

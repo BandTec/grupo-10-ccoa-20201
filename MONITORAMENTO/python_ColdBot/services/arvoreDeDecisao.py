@@ -7,10 +7,10 @@ class Menu:
 
         self.menu = [
             ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'],
-            ['\n1 - escolher máquina \n2 - maquina BD \n0 - voltar','\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
+            [self.usuario.maquina.iniciarMaquinas,'\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
             [self.usuario.maquina.maquinasId ,'\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
-            [self.usuario.maquina.consultarBD, self.usuario.suporte.criandoTipo],
-            [self.usuario.maquina.consultarBD, self.usuario.suporte.criandoTitulo],
+            ['', self.usuario.suporte.criandoTipo],
+            ['', self.usuario.suporte.criandoTitulo],
             ['', self.usuario.suporte.criandoDescricao]
             ] # matriz para controlar o menu. 
 
@@ -33,7 +33,7 @@ class Menu:
             elif self.mensagem == '1':
                 self.usuario.funcao = 1
                 self.usuario.camada = 1
-                retorno += self.menu[1][0]
+                retorno += self.menu[1][0]('1')
 
             #Setando camada para suporte
             elif self.mensagem == '2':
@@ -47,12 +47,10 @@ class Menu:
         elif self.usuario.funcao > 0 and self.usuario.funcao == 1:
             
             if self.mensagem == '0':
-                if self.testeDeCamadas(1,2) or self.testeDeCamadas(1,4):
-                    self.usuario.maquina.pedirId = False
                 retorno = self.voltar() 
                 
             elif self.mensagem.isnumeric():
-                self.usuario.camada += 1
+                #Chamando o arquivo das maquinas para responder
                 retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
 
             else:

@@ -13,11 +13,7 @@ class Usuario:
         self.maquina = MaquinaConfigBot(self)
         self.suporte = SuporteBot(self)
         self.anterior = ['teste'] #vetor que guarda as ultimas mensagens.
-    # def verificarUsuario(self):
-    #     if self.idChat in users:
-    #         print('Usuario ja cadastrado')
-    #     else:
-    #         users.append(self.idChat)
+        
     def Login(self):
         mysql = Mysql('ColdUser','senha123', 'localhost', 'coldstock')
         mysql.connect()
