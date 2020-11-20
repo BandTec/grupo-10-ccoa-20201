@@ -109,7 +109,7 @@ Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         jLabel5.setText("Descrição chamado:");
 
-        jLabel6.setText("Tipo chamdo:");
+        jLabel6.setText("Tipo chamado:");
 
         cbTipoChamado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALERTA-CPU", "ALERTA-MEMÓRIA", "ALERTA-DISCO", "ALERTA-CONEXÃO", "ALERTA-TEMPERATURA" }));
         cbTipoChamado.addComponentListener(new java.awt.event.ComponentAdapter() {

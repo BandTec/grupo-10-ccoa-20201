@@ -184,7 +184,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tipo chamdo:"/>
+        <Property name="text" type="java.lang.String" value="Tipo chamado:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbTipoChamado">

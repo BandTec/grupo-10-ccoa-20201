@@ -29,17 +29,22 @@ public class JanelaGrafico extends javax.swing.JFrame {
      */
     public JanelaGrafico() throws SQLException {
         initComponents();
+        // criamos um temporizador, que irá executar uma ação com um determinado intervalo de tempo
         Timer temporizador = new Timer();
-    
+        
+        //aqui setamos o intervalo de tempo
         Integer tempo = 5000;
-
+        
+        //aqui criamos uma tarefa, essa tarefa sera executar a função atualizarGrafico()
         TimerTask tarefa = new TimerTask() {
             @Override
             public void run() {
                 atualizarGrafico();
             }
         };
-
+        
+        //aqui executamos o temporizador, especificamos a tarefa, o tempo que vai demorar pra ela começar a rodar,
+        //e o tempo do intervalo entre uma execução e outra.
         temporizador.scheduleAtFixedRate(tarefa, 0, tempo);
     }
     
@@ -54,10 +59,13 @@ public class JanelaGrafico extends javax.swing.JFrame {
         Conexao campo2 = new Conexao();
         Conexao campo3 = new Conexao();
         
+        //primeiramente, criamos listas que irão receber o resultado dos selects executados
         List<Componente> listaComponente = null;
         List<Componente> listaComponente2 = null;
         List<Componente> listaComponente3 = null;
         
+        //aqui executamos os devidos selects, passando como parametro o objeto que vai realizar
+        //a conexao, o id do 
         listaComponente = campo1.trazerLista(campo1.conectar(), 1, "CPU");
         listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, "CPU");
         listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, "CPU");
