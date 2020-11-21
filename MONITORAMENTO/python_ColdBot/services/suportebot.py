@@ -5,8 +5,8 @@ class SuporteBot:
         self.usuario = usuario
         self.chamado = {
         "chave": None,
-        "resumo" : None,
         "tipo" : None,
+        "resumo" : None,
         "descricao" : None
         }
 
@@ -19,14 +19,15 @@ class SuporteBot:
             return 'Não existe nenhum projeto com esse nome \nDigite Corretamente a chave do projeto'
 
     def pegarTipoChamado(self, mensagem):
-        if mensagem.isnumeric():
-            if mensagem == 1:
-                self.usuario.camada += 1
-                self.chamado["tipo"] = mensagem
-                return 'Digite o resumo do seu chamado:'
+        if mensagem == '1' :
+            self.usuario.camada += 1
+            self.chamado["tipo"] = mensagem
+            return 'Digite o resumo do seu chamado:'
+            
         else: 
-            return 'Não existe esse tipo de chamado \nDigite de novo o tipo de chamado'
+            return 'Não existe esse tipo de chamado \nDigite novamente o tipo de chamado'
 
+    # def pegarResumo(self, mensagem):
 
 
 

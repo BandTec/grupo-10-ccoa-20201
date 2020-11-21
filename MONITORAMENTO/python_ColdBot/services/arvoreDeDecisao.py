@@ -7,7 +7,7 @@ class Menu:
 
         self.menu = [
             ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'],
-            [self.usuario.maquina.iniciarMaquinas,  '\n1 - Abrir Chamado \n2 - FAQ\n 0 - Voltar'],
+            [self.usuario.maquina.iniciarMaquinas,  '\n1 - Abrir Chamado \n2 - FAQ \n0 - Voltar'],
             [self.usuario.maquina.maquinasId,       '\nDigite a chave do Projeto'],
             ['',                                    self.usuario.suporte.pegarChave],
             ['',                                    self.usuario.suporte.pegarTipoChamado],
