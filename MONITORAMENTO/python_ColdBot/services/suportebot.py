@@ -7,6 +7,7 @@ class SuporteBot:
         "chave": None,
         "tipo" : None,
         "resumo" : None,
+        "label": None,
         "descricao" : None
         }
 
@@ -19,15 +20,35 @@ class SuporteBot:
             return 'Não existe nenhum projeto com esse nome \nDigite Corretamente a chave do projeto'
 
     def pegarTipoChamado(self, mensagem):
-        if mensagem == '1' :
+        if mensagem == '1':
             self.usuario.camada += 1
             self.chamado["tipo"] = mensagem
-            return 'Digite o resumo do seu chamado:'
-            
+            return 'Escolha uma label: \n1 - Alerta-CPU \n2 - Alerta-Memória \n3 - Alerta-Disco'
+
         else: 
             return 'Não existe esse tipo de chamado \nDigite novamente o tipo de chamado'
 
-    # def pegarResumo(self, mensagem):
+    def pegarLabel(self, mensagem):
+        if mensagem == '1':
+            self.usuario.camada += 1
+            self.chamado["label"] = "Alerta-CPU"
+            return 'Digite um breve resumo do seu chamado'
+
+        elif mensagem == "2":
+            self.usuario.camada += 1
+            self.chamado["label"] = "Alerta-Memória"
+            return 'Digite um breve resumo do seu chamado'
+
+        elif mensagem == "3":
+            self.usuario.camada += 1
+            self.chamado["label"] = "Alerta-Disco"
+            return 'Digite um breve resumo do seu chamado'
+        else: return 'Escolha uma label válida'
+        
+    def pegarResumo(self, mensagem):
+        self.usuario.camada += 1
+        self.chamado["resumo"]
+        return "Digite por fim uma descrição do seu chamado"
 
 
 
