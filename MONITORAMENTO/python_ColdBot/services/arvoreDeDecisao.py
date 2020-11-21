@@ -7,11 +7,11 @@ class Menu:
 
         self.menu = [
             ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'],
-            [self.usuario.maquina.iniciarMaquinas,'\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
-            [self.usuario.maquina.maquinasId ,'\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
-            ['', self.usuario.suporte.criandoTipo],
-            ['', self.usuario.suporte.criandoTitulo],
-            ['', self.usuario.suporte.criandoDescricao]
+            [self.usuario.maquina.iniciarMaquinas,  'retonro de texto camda 1'],
+            [self.usuario.maquina.maquinasId,       '\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
+            ['',                                    self.usuario.suporte.criandoTipo],
+            ['',                                    self.usuario.suporte.criandoTitulo],
+            ['',                                    self.usuario.suporte.criandoDescricao]
             ] # matriz para controlar o menu. 
 
     def mostrarMenu(self):       
@@ -42,9 +42,9 @@ class Menu:
                 retorno += self.menu[1][1] 
             else:
                 retorno = self.textoErro()
-
+                
         # MaquinaDeConfig
-        elif self.usuario.funcao > 0 and self.usuario.funcao == 1:
+        elif self.usuario.funcao == 1:
             
             if self.mensagem == '0':
                 retorno = self.voltar() 
@@ -59,7 +59,7 @@ class Menu:
         # Suporte  
         elif self.testeDeCamadas(2,1):
             if self.mensagem == '0':
-                retorno = self.voltar()
+                retorno = self.voltar() 
             
             elif self.mensagem == '1':
                 self.usuario.camada += 1

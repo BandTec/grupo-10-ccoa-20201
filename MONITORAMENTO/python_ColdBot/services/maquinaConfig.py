@@ -49,10 +49,10 @@ class MaquinaConfigBot:
             self.relatorio = 2
             return '1 - Últimos 7 dias \n2 - Últimos 15 dias\n3 - Últimos 30 dias \n0 - Voltar'
 
-        if self.relatorio == 2:
+        elif self.relatorio == 2:
             self.relatorio = 3
             self.prazo = ("7" if mensagem == '1' else  "15" if mensagem == '2' else '30')
-            #Fazer select
+            self.consultarRelatorio(self.id, int(self.prazo))
             return 'Prazo selecionado é de: ' + self.prazo
 
     
@@ -62,9 +62,10 @@ class MaquinaConfigBot:
         componentes = mysql.listarComponente(idMaquina)
         mensagem = 'Componentes registrados: \n'
         for componente in componentes:
-            mensagem += "%s \nCapacidade max: %s \nPorcentagem para alertas: %s" % (componente[0], componente[1], componente[2])
+            mensagem += "%s \nCapacidade max: %s \nPorcentagem para alertas: %s\n \n" % (componente[0], componente[1], componente[2])
         return mensagem
             
-    def consultarMaquinas(self, idMaquina):
+    def consultarRelatorio(self, idMaquina, prazo):
         mysql = Mysql('ColdUser','senha123', 'localhost', 'coldstock')
-        return 'Esse é o Id da sua maquina: ' + idMaquina
+        mensagem = '-- relatório --'
+        return mensagem
