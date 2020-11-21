@@ -7,10 +7,10 @@ class Menu:
 
         self.menu = [
             ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'],
-            [self.usuario.maquina.iniciarMaquinas,  '\nDigite 1 para seguir'],
+            [self.usuario.maquina.iniciarMaquinas,  '\n1 - Abrir Chamado \n2 - FAQ\n 0 - Voltar'],
             [self.usuario.maquina.maquinasId,       '\nDigite a chave do Projeto'],
             ['',                                    self.usuario.suporte.pegarChave],
-            ['',                                    self.usuario.suporte.criandoTitulo],
+            ['',                                    self.usuario.suporte.pegarTipoChamado],
             ['',                                    self.usuario.suporte.criandoDescricao]
             ] # matriz para controlar o menu. 
 
@@ -59,13 +59,15 @@ class Menu:
         # Suporte  
         elif self.usuario.funcao == 2:
 
-            self.usuario.camada += 1
+            
 
             if self.mensagem == '0':
                 retorno = self.voltar() 
 
             if self.usuario.camada < 3:
                 retorno = self.menu[self.usuario.camada][1]
+                self.usuario.camada += 1
+
             else:
                 retorno = self.menu[self.usuario.camada][1](self.mensagem)
             

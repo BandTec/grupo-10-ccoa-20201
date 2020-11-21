@@ -3,16 +3,29 @@ import requests
 class SuporteBot:
     def __init__(self, usuario):
         self.usuario = usuario
-        self.chave = None
         self.chamado = {
+        "chave": None,
+        "resumo" : None,
         "tipo" : None,
-        "titulo" : None,
         "descricao" : None
         }
 
     def pegarChave(self, mensagem):
-        self.chave = mensagem
-        return 'Digite o resumo do chamado'
+        if mensagem.upper() == 'CK':
+            self.chamado["chave"] = '10003'
+            self.usuario.camada += 1
+            return 'Escolha o tipo de chamado\n 1 - Chamado Comum'
+        else:
+            return 'Não existe nenhum projeto com esse nome \nDigite Corretamente a chave do projeto'
+
+    def pegarTipoChamado(self, mensagem):
+        if mensagem.isnumeric():
+            if mensagem == 1:
+                self.usuario.camada += 1
+                self.chamado["tipo"] = mensagem
+                return 'Digite o resumo do seu chamado:'
+        else: 
+            return 'Não existe esse tipo de chamado \nDigite de novo o tipo de chamado'
 
 
 
