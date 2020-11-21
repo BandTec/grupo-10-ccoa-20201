@@ -62,8 +62,8 @@ class MaquinaConfigBot:
         componentes = mysql.listarComponente(idMaquina)
         mensagem = 'Componentes registrados: \n'
         for componente in componentes:
-            mensagem += (componente[0] + 'Capacidade Max: ' + componente[1] +
-            'Porcentagem de alerta: ' + componente[2] + '\n')
+            mensagem += "%s \nCapacidade max: %s \nPorcentagem para alertas: %s" % (componente[0], componente[1], componente[2])
+        return mensagem
             
     def consultarMaquinas(self, idMaquina):
         mysql = Mysql('ColdUser','senha123', 'localhost', 'coldstock')

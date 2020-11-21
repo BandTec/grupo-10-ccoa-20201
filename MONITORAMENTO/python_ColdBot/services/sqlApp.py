@@ -68,6 +68,8 @@ class Mysql:
             "where idMaquina = %s "
         )
 
+        self.connect()
+
         try:
             print('Selecionando dados do server ID: ', idMaquina)
             self.cursor.execute(query, (idMaquina,))
