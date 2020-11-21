@@ -3,12 +3,30 @@ import requests
 class SuporteBot:
     def __init__(self, usuario):
         self.usuario = usuario
-        print(usuario)
+        self.chave = None
         self.chamado = {
         "tipo" : None,
         "titulo" : None,
         "descricao" : None
         }
+
+    def pegarChave(self, mensagem):
+        self.chave = mensagem
+        return 'Digite o resumo do chamado'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def criandoChamado(self, mensagem):
         self.chamado["tipo"] = mensagem

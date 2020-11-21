@@ -7,9 +7,9 @@ class Menu:
 
         self.menu = [
             ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'],
-            [self.usuario.maquina.iniciarMaquinas,  'retonro de texto camda 1'],
-            [self.usuario.maquina.maquinasId,       '\n1 - abrir chamado \n2 - FAQ \n0 - voltar'],
-            ['',                                    self.usuario.suporte.criandoTipo],
+            [self.usuario.maquina.iniciarMaquinas,  '\nDigite 1 para seguir'],
+            [self.usuario.maquina.maquinasId,       '\nDigite a chave do Projeto'],
+            ['',                                    self.usuario.suporte.pegarChave],
             ['',                                    self.usuario.suporte.criandoTitulo],
             ['',                                    self.usuario.suporte.criandoDescricao]
             ] # matriz para controlar o menu. 
@@ -51,40 +51,25 @@ class Menu:
                 
             elif self.mensagem.isnumeric():
                 #Chamando o arquivo das maquinas para responder
-                retorno = self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
+                retorno = self.menu[self.usuario.camada][0](self.mensagem)
 
             else:
                 retorno = self.textoErro()
         
         # Suporte  
-        elif self.testeDeCamadas(2,1):
+        elif self.usuario.funcao == 2:
+
+            self.usuario.camada += 1
+
             if self.mensagem == '0':
                 retorno = self.voltar() 
+
+            if self.usuario.camada < 3:
+                retorno = self.menu[self.usuario.camada][1]
+            else:
+                retorno = self.menu[self.usuario.camada][1](self.mensagem)
             
-            elif self.mensagem == '1':
-                self.usuario.camada += 1
-                retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
-                print(self.menu)
-            # elif self.mensagem == '2': 
-            #     self.usuario.camada = 2
-            #     retorno += self.menu[self.usuario.camada][self.usuario.funcao - 1](self.mensagem)
-        elif self.testeDeCamadas(2,2):
-            retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
-            
-        elif self.testeDeCamadas(2,3):
-            if self.mensagem == 'incident' or self.mensagem == 'problem':
-                retorno = self.menu[self.usuario.camada][self.usuario.funcao-1]
-                
-        elif self.testeDeCamadas(2,4):
-            #self.usuario.suporte.criandoDescricao(self.mensagem)
-            retorno = self.menu[self.usuario.camada][self.usuario.funcao-1] 
-            
-        elif self.testeDeCamadas(2,5):
-            retorno = "Ok"
-        else:
-                retorno = self.textoErro()
-        if not retorno in self.usuario.anterior: # ele verifica se o array contem o mesmo texto que o retorno.
-            self.usuario.anterior.append(retorno) # caso não tenha ele adiciona
+        #Devolvendo pro bot o texto de resposta
         return retorno
     
     #Verifica onde esta o usuario.
