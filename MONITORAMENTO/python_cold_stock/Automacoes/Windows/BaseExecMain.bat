@@ -1,2 +1,2 @@
-wsl source AtivadorLinux
+python AtivadorLinux
 pause

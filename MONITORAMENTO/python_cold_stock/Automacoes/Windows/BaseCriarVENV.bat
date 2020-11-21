@@ -5,6 +5,6 @@ sed $'s/\r$//' BaseAtivadorLinux > AtivadorLinux
 
 echo "Criar VENV"
 pause
-source CriadorVENV
+python BaseCriadorVENV
 
 pause

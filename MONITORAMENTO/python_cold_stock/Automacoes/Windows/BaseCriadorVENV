@@ -1,9 +1,9 @@
-sudo pip install virtualenv
-virtualenv virtualColdStockLinux
-cd virtualColdStockLinux/bin/
-source activate
+print(exit())
+python get-pip.py
+pip install virtualenv
+python -m virtualColdStockWindows
+virtualColdStockWindows/Scripts/activate.bat
 
-sudo apt install python3-pip
 pip install mysql-connector-python
 pip install psutil
 pip install requests
