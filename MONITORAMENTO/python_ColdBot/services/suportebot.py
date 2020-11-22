@@ -5,15 +5,17 @@ class SuporteBot:
         self.usuario = usuario
         self.chamado = {
         "chave": None,
+        "keyNumber": None,
         "tipo" : None,
-        "resumo" : None,
         "label": None,
+        "resumo" : None,
         "descricao" : None
         }
 
     def pegarChave(self, mensagem):
         if mensagem.upper() == 'CK':
-            self.chamado["chave"] = '10003'
+            self.chamado["chave"] = 'CK'
+            self.chamado["keyNumber"] = '10003'
             self.usuario.camada += 1
             return 'Escolha o tipo de chamado\n 1 - Chamado Comum'
         else:
@@ -22,11 +24,11 @@ class SuporteBot:
     def pegarTipoChamado(self, mensagem):
         if mensagem == '1':
             self.usuario.camada += 1
-            self.chamado["tipo"] = mensagem
+            self.chamado["tipo"] = 'Chamado comum'
             return 'Escolha uma label: \n1 - Alerta-CPU \n2 - Alerta-Memória \n3 - Alerta-Disco'
 
         else: 
-            return 'Não existe esse tipo de chamado \nDigite novamente o tipo de chamado'
+            return 'Não existe esse tipo de chamado \n\nDigite novamente o tipo de chamado'
 
     def pegarLabel(self, mensagem):
         if mensagem == '1':
@@ -43,47 +45,23 @@ class SuporteBot:
             self.usuario.camada += 1
             self.chamado["label"] = "Alerta-Disco"
             return 'Digite um breve resumo do seu chamado'
+
         else: return 'Escolha uma label válida'
         
     def pegarResumo(self, mensagem):
         self.usuario.camada += 1
-        self.chamado["resumo"]
+        self.chamado["resumo"] = mensagem
         return "Digite por fim uma descrição do seu chamado"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    def criandoChamado(self, mensagem):
-        self.chamado["tipo"] = mensagem
+    def pegarDescricao(self, mensagem):
         self.usuario.camada += 1
-        return 'Insira o titulo'
-    
-    def criandoTipo(self, mensagem):
-        self.chamado["tipo"] = mensagem
-        self.usuario.camada += 1
-        return 'Insira a descricao'
-
-    def criandoTitulo(self, mensagem):
-        self.chamado["titulo"] = mensagem
-        self.usuario.camada += 1
-        return "ok"
-
-    def criandoDescricao(self, mensagem):
         self.chamado["descricao"] = mensagem
-        self.usuario.camada += 1
-        chamadoFinal = self.chamado["tipo"] + "\n" + self.chamado["titulo"] + "\n" + self.chamado["descricao"]
-        return "Esses dados estão corretos? " + chamadoFinal
+        chamadoCompleto = 'Chave: ' +self.chamado['chave'] + '\nTipo: ' + self.chamado['tipo'] + '\nLabel: '+ self.chamado['label'] + '\nResumo: ' + self.chamado['resumo'] + '\nDescrição: ' + self.chamado['descricao']
+        return 'Estes dados estão corretos:\n'+chamadoCompleto+'\n(s/n)' 
 
+    def confirmar(self, mensagem):
+        if mensagem.upper() == 'S':
+            return enviarChamado()
 
-
-        
+    def enviarChamado():
+        return 'teste'    

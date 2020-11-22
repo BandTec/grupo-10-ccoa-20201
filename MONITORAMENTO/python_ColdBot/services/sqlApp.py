@@ -85,12 +85,10 @@ class Mysql:
         query = ("select * from ")
 
         for data in datas:
-            query += 
-            (
-                "((select truncate(avg(valor),2), max(valor), min(valor), count(valor) "
-                "from registros where "
-                "fkMaquina = %s and "
-                "dataHora between '2020-10-01 00:01:00' and '2020-11-30 00:00:00') as tabela1;)")
+            query += "((select truncate(avg(valor),2), max(valor), min(valor), count(valor) from registros where fkMaquina = %s and dataHora between '2020-10-01 00:01:00' and '2020-11-30 00:00:00') as tabela1;)"
+                
+                
+                
 
         self.connect()
         try:

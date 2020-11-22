@@ -11,7 +11,9 @@ class Menu:
             [self.usuario.maquina.maquinasId,       '\nDigite a chave do Projeto'],
             ['',                                    self.usuario.suporte.pegarChave],
             ['',                                    self.usuario.suporte.pegarTipoChamado],
-            ['',                                    self.usuario.suporte.pegarLabel]
+            ['',                                    self.usuario.suporte.pegarLabel],
+            ['',                                    self.usuario.suporte.pegarResumo],
+            ['',                                    self.usuario.suporte.pegarDescricao],
             ] # matriz para controlar o menu. 
 
     def mostrarMenu(self):       
