@@ -14,6 +14,7 @@ class Menu:
             ['',                                    self.usuario.suporte.pegarLabel],
             ['',                                    self.usuario.suporte.pegarResumo],
             ['',                                    self.usuario.suporte.pegarDescricao],
+            ['',                                    self.usuario.suporte.confirmar]
             ] # matriz para controlar o menu. 
 
     def mostrarMenu(self):       

@@ -1,4 +1,6 @@
 import requests
+from requests.auth import HTTPBasicAuth
+import json
 
 class SuporteBot:
     def __init__(self, usuario):
@@ -56,12 +58,71 @@ class SuporteBot:
     def pegarDescricao(self, mensagem):
         self.usuario.camada += 1
         self.chamado["descricao"] = mensagem
-        chamadoCompleto = 'Chave: ' +self.chamado['chave'] + '\nTipo: ' + self.chamado['tipo'] + '\nLabel: '+ self.chamado['label'] + '\nResumo: ' + self.chamado['resumo'] + '\nDescrição: ' + self.chamado['descricao']
-        return 'Estes dados estão corretos:\n'+chamadoCompleto+'\n(s/n)' 
+        chamadoCompleto = 'Chave: ' +self.chamado['chave'] + '\n\nTipo: ' + self.chamado['tipo'] + '\n\nLabel: '+ self.chamado['label'] + '\n\nResumo: ' + self.chamado['resumo'] + '\n\nDescrição: ' + self.chamado['descricao']
+        return 'Estes dados estão corretos:\n\n'+chamadoCompleto+'\n(s/n)' 
 
     def confirmar(self, mensagem):
         if mensagem.upper() == 'S':
-            return enviarChamado()
+            return self.usuario.suporte.enviarChamado(self.chamado)
 
-    def enviarChamado():
-        return 'teste'    
+    def enviarChamado(self, chamado):
+
+        if chamado["tipo"] == 'Chamado comum':
+            chamado["tipo"] = '10003'
+
+        url = "https://coldstock.atlassian.net/rest/api/3/issue"
+
+        auth = HTTPBasicAuth("201grupo10c@bandtec.com.br", "xYT7D7fZZRvpKWl0svMyC6C9")
+
+        headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+        }
+
+        payload = json.dumps( {
+        "update": {},
+        "fields": {
+
+            "summary": chamado["resumo"],
+            
+            "issuetype": {
+            "id": chamado["tipo"]
+            },
+
+            "project": {
+            "id": chamado["keyNumber"]
+            },
+
+            "description": {
+            "type": "doc",
+            "version": 1,
+            "content": [
+                {
+                "type": "paragraph",
+                "content": [
+                    {
+                    "text": chamado["descricao"],
+                    "type": "text"
+                    }
+                ]
+                }
+            ]
+            },
+            
+            "labels": [chamado["label"]],
+        }
+        })
+
+
+
+        response = requests.request(
+        "POST",
+        url,
+        data=payload,
+        headers=headers,
+        auth=auth
+        )
+
+        print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+        return 'Chamado Criado com sucesso'
+    
