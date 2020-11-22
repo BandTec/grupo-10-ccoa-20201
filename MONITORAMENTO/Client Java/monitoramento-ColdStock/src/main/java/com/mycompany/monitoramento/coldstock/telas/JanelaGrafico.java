@@ -54,7 +54,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
         
         this.jpnGrafico.setLayout(new BorderLayout());
         this.jpnGrafico2.setLayout(new BorderLayout());
-
+            
+        //criamos 3 objetos da classe conexao, para poder utilizar cada objeto para um grafico
         Conexao campo1 = new Conexao();
         Conexao campo2 = new Conexao();
         Conexao campo3 = new Conexao();
@@ -69,11 +70,16 @@ public class JanelaGrafico extends javax.swing.JFrame {
         listaComponente = campo1.trazerLista(campo1.conectar(), 1, "CPU");
         listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, "CPU");
         listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, "CPU");
-
+        
+        //agora vamos começar o processo de converter essas listas para arralists
+        //primeiro, criamos as arraylists
         ArrayList<Componente> listaGrafico = new ArrayList<>();
         ArrayList<Componente> listaGrafico2 = new ArrayList<>();
         ArrayList<Componente> listaGrafico3 = new ArrayList<>();
 
+        //e começamosa rodar FORs que vao passar por cada item da listaComponente,
+        //e adicionando esses itens na arraylist
+        //fazemos isso para as 3 listas
         for (Componente componente : listaComponente) {
             listaGrafico.add(componente);
         }
@@ -83,12 +89,15 @@ public class JanelaGrafico extends javax.swing.JFrame {
         for (Componente componente : listaComponente3) {
             listaGrafico3.add(componente);
         }
-
+        
+        //agora criamos 2 objetos de grafico
         Grafico graficoLinha = new Grafico();
         Grafico graficoLinha2 = new Grafico();
-
+        
+        //e populamos o grafico com a arraylist
         this.jpnGrafico.add(graficoLinha.criargrafico(listaGrafico));
         this.jpnGrafico2.add(graficoLinha2.criargrafico(listaGrafico2));
+        
         lbMedida.setText(listaGrafico3.get(0).getValor().toString());
 
         pack();

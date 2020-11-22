@@ -26,22 +26,25 @@ public class ViewChamado extends javax.swing.JFrame {
         initComponents();
         
     }
-
+    //Este "gson" é opcional. Apenas para imprimir os objetos na saída padrão, caso queira.
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+    // aqui passamos as informações para realizar a conexao
     ClienteJiraApi clienteJiraApi = new ClienteJiraApi(
             "coldstock.atlassian.net",
             "201grupo10c@bandtec.com.br",
             "xYT7D7fZZRvpKWl0svMyC6C9"
     );
-    
+    //e criamos um objeto da classe Issue, mas vazio
     Issue issue = null;
+    //tambem criamos uma String que guardara a chave para pesquisar a issue
     String chave;
     
+    //essa função ira "limpar" a issue, para exibi-la melhor no log
     public String filtrar(String stringSuja){
         
         String stringNova = stringSuja.replace("[{type=text, text=", "");
         stringNova = stringNova.replace("}]", "");
+        //e depois de realizar a limpa, nos retornamos a string limpa
         return stringNova;
         
     };
@@ -290,18 +293,24 @@ public class ViewChamado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnConsultar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultar1ActionPerformed
-        chave = tfChave.getText();       
+        //aqui setamos o valor da chave como o valor que foi digitado pelo usuario
+        chave = tfChave.getText();  
+        //e tentamos realizar a pesquisa da issue
         try {
             issue = clienteJiraApi.getIssue(chave);
         } catch (IOException ex) {
+            //caso de erro, ele imprime o erro
             Logger.getLogger(ViewChamado.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        //aqui nos passamos o valor da issue para a stringSuja
         String stringSuja = issue.getFields().getDescription().getContent()
             .get(0).get("content").toString();
         
+        //e setamos o valor das labels com os valores especificos da issue
         lbChave.setText(issue.getKey());
         lbSummary.setText(issue.getFields().getSummary());
+        //aqui filtramos a issue, usando a função filtrar
         lbDescricao.setText(filtrar(stringSuja));
         lbTipo.setText(issue.getFields().getLabels().toString());
         

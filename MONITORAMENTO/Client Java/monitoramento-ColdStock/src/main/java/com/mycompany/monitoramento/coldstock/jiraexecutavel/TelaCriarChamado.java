@@ -26,9 +26,9 @@ public class TelaCriarChamado extends javax.swing.JFrame {
         initComponents();
         
     }
-    
+    // Este "gson" é opcional. Apenas para imprimir os objetos na saída padrão, caso queira.
 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+    // aqui passamos as informações para realizar a conexao
     ClienteJiraApi clienteJiraApi = new ClienteJiraApi(
             "coldstock.atlassian.net",
             "201grupo10c@bandtec.com.br",
@@ -228,19 +228,22 @@ Gson gson = new GsonBuilder().setPrettyPrinting().create();
     }//GEN-LAST:event_cbTipoChamadoActionPerformed
 
     private void btCriarChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarChamadoActionPerformed
-
+        //criaremos um objeto da classe Issue
         Issue novaIssue = new Issue();
-       novaIssue.setProjectKey(tfNomeChave.getText().toUpperCase());
+        //e setamos as informações como Key, Titulo, Descricao e Labels
+        novaIssue.setProjectKey(tfNomeChave.getText().toUpperCase());
         novaIssue.setSummary(tfResumo.getText());
         novaIssue.setDescription(taDescricao.getText());
         novaIssue.setLabels(cbTipoChamado.getActionCommand());
         
-
+        //e tentamos fazer a conexao e criar o chamado no jira
         try {
+            //e com essas informações setadas, podemos criar uma issue no jira
             clienteJiraApi.criarIssue(novaIssue);
             lbResultado.setText("Chamado criado com sucesso!!!");
             
         } catch (IOException ex) {
+            //caso não seja possivel, imprimos para no log o erro
             Logger.getLogger(TelaCriarChamado.class.getName()).log(Level.SEVERE, null, ex);
             
             lbResultado.setText("Erro ao criar chamado,tente novaCkCKsmente!!");

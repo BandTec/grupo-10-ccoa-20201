@@ -18,7 +18,8 @@ public class DemoDeUsoClienteApi {
 
         // Este "gson" é opcional. Apenas para imprimir os objetos na saída padrão, caso queira.
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+        
+        // aqui passamos as informações para realizar a conexao
         ClienteJiraApi clienteJiraApi = new ClienteJiraApi(
                 "coldstock.atlassian.net",
                 "201grupo10c@bandtec.com.br",
@@ -48,12 +49,16 @@ public class DemoDeUsoClienteApi {
 
 
         // Exemplo de objeto para novo chamado (Issue)
+        
+        //criaremos um objeto da classe Issue
         Issue novaIssue = new Issue();
+        //e setamos as informações como Key, Titulo, Descricao e Labels
         novaIssue.setProjectKey("CK");
         novaIssue.setSummary("Chamado de teste");
         novaIssue.setDescription("Chamado 1 \nChamado 2 \nChamado 3");
         novaIssue.setLabels("alerta-cpu", "alerta-disco");
-
+        
+        //e com essas informações setadas, podemos criar uma issue no jira
         clienteJiraApi.criarIssue(novaIssue);
         System.out.println("Issue criada: "+gson.toJson(novaIssue));
 

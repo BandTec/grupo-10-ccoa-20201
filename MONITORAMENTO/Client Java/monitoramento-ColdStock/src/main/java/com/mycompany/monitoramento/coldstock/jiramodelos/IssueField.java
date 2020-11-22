@@ -1,6 +1,7 @@
 package com.mycompany.monitoramento.coldstock.jiramodelos;
 
 public class IssueField {
+    //Esse objeto é utilizado como forma para criar os chamados
 
     protected String id;
     protected String key;
