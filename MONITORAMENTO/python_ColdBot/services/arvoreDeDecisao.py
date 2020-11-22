@@ -59,8 +59,6 @@ class Menu:
         # Suporte  
         elif self.usuario.funcao == 2:
 
-            
-
             if self.mensagem == '0':
                 retorno = self.voltar() 
 

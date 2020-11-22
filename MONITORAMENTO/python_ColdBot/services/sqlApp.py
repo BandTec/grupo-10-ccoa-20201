@@ -67,9 +67,32 @@ class Mysql:
             "inner join componentes on idComponente = fkComponente "
             "where idMaquina = %s "
         )
+        self.connect()
+        try:
+            print('Selecionando dados do server ID: ', idMaquina)
+            self.cursor.execute(query, (idMaquina,))
+            retorno = self.cursor.fetchall()
+
+            print('Retorno do BD: ', retorno)
+            self.objSql.commit()
+            return retorno
+        except Exception as err:
+            print(err)
+            self.objSql.rollback()
+            self.close()
+
+    def consultarDatas(self, datas, idMaquina):
+        query = ("select * from ")
+
+        for data in datas:
+            query += 
+            (
+                "((select truncate(avg(valor),2), max(valor), min(valor), count(valor) "
+                "from registros where "
+                "fkMaquina = %s and "
+                "dataHora between '2020-10-01 00:01:00' and '2020-11-30 00:00:00') as tabela1;)")
 
         self.connect()
-
         try:
             print('Selecionando dados do server ID: ', idMaquina)
             self.cursor.execute(query, (idMaquina,))
