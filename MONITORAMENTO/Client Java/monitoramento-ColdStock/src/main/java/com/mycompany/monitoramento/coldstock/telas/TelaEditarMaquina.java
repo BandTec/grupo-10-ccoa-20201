@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,8 +20,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Aluno
  */
+
 public class TelaEditarMaquina extends javax.swing.JFrame {
 
+     List<Configuracao>carrinho = new ArrayList<>();
+        
     /**
      * Creates new form telaEditarMaquina
      */
@@ -166,6 +171,11 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         btnAdicionarComponente.setForeground(new java.awt.Color(255, 255, 255));
         btnAdicionarComponente.setText("+");
         btnAdicionarComponente.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(77, 172, 166), 1, true));
+        btnAdicionarComponente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarComponenteActionPerformed(evt);
+            }
+        });
 
         txtResumo.setBackground(new java.awt.Color(255, 255, 255));
         txtResumo.setFont(new java.awt.Font("Montserrat", 1, 15)); // NOI18N
@@ -280,6 +290,46 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     private void txtPorcentagemMax1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPorcentagemMax1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPorcentagemMax1ActionPerformed
+
+                
+    private void btnAdicionarComponenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarComponenteActionPerformed
+       
+        Configuracao novaConfiguracao = new Configuracao();
+        
+        novaConfiguracao.setComp(cbEscolhaComponente.getSelectedItem().toString());
+        novaConfiguracao.setMaximaComponente(txtCapacidadeMax.getText());
+        novaConfiguracao.setPorcentagem(txtPorcentagemMax1.getText());
+        
+        
+       
+        
+        System.out.println(novaConfiguracao.getComp());
+        System.out.println(novaConfiguracao.getMaximaComponente());
+        System.out.println(novaConfiguracao.getPorcentagem());
+        
+        
+       
+        
+       carrinho.add(novaConfiguracao);
+       
+          String Frase = "Itens adicionados: ";
+      
+        for (Configuracao configuracao : carrinho){
+            
+           
+            Frase+=configuracao.getComp()+",";
+            Frase+=configuracao.getMaximaComponente()+",";
+            Frase+=configuracao.getPorcentagem();
+            
+                   
+         txtResumo.setText(Frase);   
+        }
+        
+         
+     
+        
+        
+    }//GEN-LAST:event_btnAdicionarComponenteActionPerformed
 
     /**
      * @param args the command line arguments

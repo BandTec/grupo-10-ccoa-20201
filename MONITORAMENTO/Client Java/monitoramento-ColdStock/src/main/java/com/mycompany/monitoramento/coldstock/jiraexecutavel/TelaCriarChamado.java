@@ -236,6 +236,8 @@ Gson gson = new GsonBuilder().setPrettyPrinting().create();
         novaIssue.setDescription(taDescricao.getText());
         novaIssue.setLabels(cbTipoChamado.getActionCommand());
         
+        
+        
         //e tentamos fazer a conexao e criar o chamado no jira
         try {
             //e com essas informações setadas, podemos criar uma issue no jira
