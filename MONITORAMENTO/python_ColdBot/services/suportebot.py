@@ -95,6 +95,9 @@ class SuporteBot:
 
     def enviarChamado(self, chamado):
 
+        self.usuario.camada = 0
+        self.usuario.funcao = 0
+
         if chamado["tipo"] == 'Chamado comum':
             chamado["tipo"] = '10003'
 
@@ -150,8 +153,8 @@ class SuporteBot:
         headers=headers,
         auth=auth
         )
-
-        oPrint = json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": "))
-        print(oPrint["key"])
-        return 'Chamado Criado com sucesso'
+ 
+        print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+        return ('Chamado Criado com sucesso\n\n'
+        'Selecione outra opção: \n1 - máquinas \n2 - suporte \n0 - voltar/deslogar')
     
