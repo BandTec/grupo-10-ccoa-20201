@@ -20,6 +20,7 @@ class SuporteBot:
             return 'Digite a chave do seu projeto: '
         elif mensagem == '2':
             self.usuario.camada = 0
+            self.usuario.funcao = 0
             return ('Perguntas Frequentes: \n\n'
 
             '1 - Qual prof tá com corona?\n'
