@@ -60,5 +60,8 @@ response = requests.request(
    auth=auth
 )
 
+
 print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
 
+oPrint = json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": "))
+print(oPrint[1][1] + "Toma seu chamadinho!")

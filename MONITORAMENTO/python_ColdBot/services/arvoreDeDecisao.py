@@ -8,7 +8,7 @@ class Menu:
         self.menu = [
             ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'],
             [self.usuario.maquina.iniciarMaquinas,  '\n1 - Abrir Chamado \n2 - FAQ \n0 - Voltar'],
-            [self.usuario.maquina.maquinasId,       '\nDigite a chave do Projeto'],
+            [self.usuario.maquina.maquinasId,       self.usuario.suporte.callOuFaq],
             ['',                                    self.usuario.suporte.pegarChave],
             ['',                                    self.usuario.suporte.pegarTipoChamado],
             ['',                                    self.usuario.suporte.pegarLabel],
@@ -65,10 +65,10 @@ class Menu:
             if self.mensagem == '0':
                 retorno = self.voltar() 
 
-            if self.usuario.camada < 3:
+            if self.usuario.camada < 2:
                 retorno = self.menu[self.usuario.camada][1]
                 self.usuario.camada += 1
-
+                
             else:
                 retorno = self.menu[self.usuario.camada][1](self.mensagem)
             
