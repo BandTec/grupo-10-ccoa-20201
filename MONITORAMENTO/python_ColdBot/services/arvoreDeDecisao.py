@@ -7,14 +7,14 @@ class Menu:
 
         self.menu = [
             ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'],
-            [self.usuario.maquina.iniciarMaquinas,  '\n1 - Abrir Chamado \n2 - FAQ \n0 - Voltar'],
-            [self.usuario.maquina.maquinasId,       self.usuario.suporte.callOuFaq],
-            ['',                                    self.usuario.suporte.pegarChave],
-            ['',                                    self.usuario.suporte.pegarTipoChamado],
-            ['',                                    self.usuario.suporte.pegarLabel],
-            ['',                                    self.usuario.suporte.pegarResumo],
-            ['',                                    self.usuario.suporte.pegarDescricao],
-            ['',                                    self.usuario.suporte.confirmar]
+            [self.usuario.maquina.iniciarMaquinas,   '\n1 - Abrir Chamado \n2 - FAQ \n0 - Voltar'],
+            [self.usuario.maquina.maquinasId,        self.usuario.suporte.callOuFaq],
+            [self.usuario.maquina.direcionarCaminho, self.usuario.suporte.pegarChave],
+            ['',                                     self.usuario.suporte.pegarTipoChamado],
+            ['',                                     self.usuario.suporte.pegarLabel],
+            ['',                                     self.usuario.suporte.pegarResumo],
+            ['',                                     self.usuario.suporte.pegarDescricao],
+            ['',                                     self.usuario.suporte.confirmar]
             ] # matriz para controlar o menu. 
 
     def mostrarMenu(self):       

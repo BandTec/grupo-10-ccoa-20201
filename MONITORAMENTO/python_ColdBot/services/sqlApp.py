@@ -81,19 +81,19 @@ class Mysql:
             self.objSql.rollback()
             self.close()
 
-    def consultarDatas(self, datas, idMaquina):
-        query = ("select * from ")
-
-        for data in datas:
-            query += "((select truncate(avg(valor),2), max(valor), min(valor), count(valor) from registros where fkMaquina = %s and dataHora between '2020-10-01 00:01:00' and '2020-11-30 00:00:00') as tabela1;)"
-                
-                
-                
+    def consultarRelatorio(self, datas, idMaquina):
+        query = ("SELECT day(dataHora) as 'dia', month(dataHora) as 'mes', nomeComponente, truncate(avg(valor),2) as 'media', "
+            "max(valor) as 'max', min(valor) as 'min' "
+            "FROM registros, componentes "
+            "where fkMaquina = %s and idComponente = fkComponente and "
+            "dataHora between '%s' and '%s' "
+            "GROUP BY fkComponente, day(dataHora) "
+            "order by dia desc;"%(idMaquina, datas[1], datas[0]))
 
         self.connect()
         try:
             print('Selecionando dados do server ID: ', idMaquina)
-            self.cursor.execute(query, (idMaquina,))
+            self.cursor.execute(query)
             retorno = self.cursor.fetchall()
 
             print('Retorno do BD: ', retorno)
