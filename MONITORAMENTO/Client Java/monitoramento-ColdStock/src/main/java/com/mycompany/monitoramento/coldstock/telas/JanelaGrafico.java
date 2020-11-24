@@ -23,12 +23,19 @@ import java.util.Timer;
  * @author Carlos Alberto
  */
 public class JanelaGrafico extends javax.swing.JFrame {
+    private Integer fkMaquina = 0; //Essa é o atributo de instancia que recebera o valor da ComboBox
 
+    public void setFkMaquina(Integer fkMaquina) {
+        this.fkMaquina = fkMaquina;
+    }
     /**
      * Creates new form JanelaGrafico
      */
+    
+    
     public JanelaGrafico() throws SQLException {
         initComponents();
+        
         // criamos um temporizador, que irá executar uma ação com um determinado intervalo de tempo
         Timer temporizador = new Timer();
         
@@ -67,9 +74,9 @@ public class JanelaGrafico extends javax.swing.JFrame {
         
         //aqui executamos os devidos selects, passando como parametro o objeto que vai realizar
         //a conexao, o id do 
-        listaComponente = campo1.trazerLista(campo1.conectar(), 1, "CPU");
-        listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, "CPU");
-        listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, "CPU");
+        listaComponente = campo1.trazerLista(campo1.conectar(), 1, "CPU", fkMaquina);
+        listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, "CPU", fkMaquina);
+        listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, "CPU", fkMaquina);
         
         //agora vamos começar o processo de converter essas listas para arralists
         //primeiro, criamos as arraylists
@@ -163,18 +170,17 @@ public class JanelaGrafico extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 285, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 393, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(47, 47, 47))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(3, 3, 3))
+                    .addComponent(jLabel7)))
         );
 
         jPanel1.setBackground(new java.awt.Color(31, 40, 45));
@@ -191,12 +197,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
         );
 
         jLabel8.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Medida Atual:");
 
-        lbMedida.setForeground(new java.awt.Color(0, 0, 0));
-
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("GHz");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,7 +206,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(24, 24, 24)
                 .addComponent(jpnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jpnGrafico2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,8 +225,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnGrafico2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -239,7 +241,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(jLabel2)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         pack();

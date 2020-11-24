@@ -48,7 +48,7 @@ public class Conexao {
         return dataSource;
     };
     
-    public List trazerLista(BasicDataSource dataSource, Integer idComando, String componente){
+    public List trazerLista(BasicDataSource dataSource, Integer idComando, String componente, Integer fkMaquina){
         /*
             Essa função é a responsavel por trazer uma lista de dados que será usada para
         gerar o grafico.
@@ -60,18 +60,18 @@ public class Conexao {
         // Aqui verificamos qual lista devemos gerar. A lista que recebera o resultado desse select ira especificar qual sera o id
         if (idComando == 1) {
             sql = String.format("select nomeComponente, valor, dataHora from registros INNER JOIN "
-                + "componentes on fkComponente = idComponente where fkMaquina = 1 "
-                + "and nomeComponente = '%s' order by dataHora desc limit 10", componente);
+                + "componentes on fkComponente = idComponente where fkMaquina = %d "
+                + "and nomeComponente = '%s' order by dataHora desc limit 10",fkMaquina, componente);
         }
         if (idComando == 2) {
             sql = String.format("select nomeComponente, valor, dataHora from registros INNER JOIN "
-                + "componentes on fkComponente = idComponente where fkMaquina = 1 "
-                + "and nomeComponente = '%s' order by dataHora desc ", componente);
+                + "componentes on fkComponente = idComponente where fkMaquina = %d "
+                + "and nomeComponente = '%s' order by dataHora desc ", fkMaquina, componente);
         }
         if (idComando == 3) {
             sql = String.format("select nomeComponente, valor, dataHora from registros INNER JOIN "
-                + "componentes on fkComponente = idComponente where fkMaquina = 1 "
-                + "and nomeComponente = '%s' order by dataHora desc limit 1", componente);
+                + "componentes on fkComponente = idComponente where fkMaquina = %d "
+                + "and nomeComponente = '%s' order by dataHora desc limit 1", fkMaquina,componente);
         }
         
         List<Componente> listaComponentes;

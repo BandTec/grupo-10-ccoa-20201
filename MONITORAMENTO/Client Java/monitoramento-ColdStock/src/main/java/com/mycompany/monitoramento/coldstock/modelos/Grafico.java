@@ -43,7 +43,7 @@ public class Grafico {
         // aqui criamos o gráfico, colocando as legendas, passando os valores (dataSet) e dizemos que a orientação dele sera vertical
         JFreeChart graficoLinha = ChartFactory.createLineChart("CPU", 
                 "Horário", "Valor", dataSet, PlotOrientation.VERTICAL,
-                false, false, false);
+                true, false, false);
         
         return graficoLinha;
         
@@ -56,7 +56,7 @@ public class Grafico {
         JFreeChart grafico = this.createChart(dataSet);
         
         ChartPanel painelGrafico = new ChartPanel(grafico);
-        painelGrafico.setPreferredSize(new Dimension(270, 213));
+        painelGrafico.setPreferredSize(new Dimension(700, 313));
         
         return painelGrafico;
     }
