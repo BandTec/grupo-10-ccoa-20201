@@ -1,2 +1,0 @@
-python AtivadorLinux
-pause
