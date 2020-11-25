@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Aluno
@@ -53,6 +55,7 @@ public class TelaEscolha extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         cbEscolhaMaquina = new javax.swing.JComboBox<>();
         btnOk = new javax.swing.JButton();
+        btnOk1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MONITORAMENTO");
@@ -179,22 +182,22 @@ public class TelaEscolha extends javax.swing.JFrame {
             }
         });
 
+        btnOk1.setBackground(new java.awt.Color(77, 172, 166));
+        btnOk1.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
+        btnOk1.setForeground(new java.awt.Color(255, 255, 255));
+        btnOk1.setText("Dashboard");
+        btnOk1.setMaximumSize(new java.awt.Dimension(131, 29));
+        btnOk1.setMinimumSize(new java.awt.Dimension(131, 29));
+        btnOk1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOk1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbEscolhaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
@@ -206,6 +209,18 @@ public class TelaEscolha extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnOk1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbEscolhaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,8 +243,10 @@ public class TelaEscolha extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbEscolhaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnOk1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57))))
         );
 
         pack();
@@ -272,6 +289,29 @@ public class TelaEscolha extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    private void btnOk1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOk1ActionPerformed
+        /*
+        Aqui é onde iremos mandar o valor da comboBox para o grafico
+        Pegando o Index dela, que por enquanto Varia de 0 e 1, mas precisamos de
+        1 e 2, e por isso somamos mais um, e tambem eu fiz uma alteração na função
+        trazerGrafico();
+        onde ele recebe mais um parametro, que seria a FkMaquina
+
+        */
+        JanelaGrafico grafico = null;
+        String[] separador =  String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        Integer idMaquina = Integer.valueOf(separador[1]);
+        try {
+            grafico = new JanelaGrafico();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(idMaquina);
+        grafico.setFkMaquina(idMaquina);
+        grafico.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOk1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -289,8 +329,9 @@ public class TelaEscolha extends javax.swing.JFrame {
                 //separamos de cada item, o nome da maquina e o tipo(se é servidor ou maquina comum)
                 String nomeMaquina  = maquina.getNomeMaquina();
                 String Tipo  = maquina.getTipoMaquina();
+                Integer idMaquina = maquina.getIdMaquina();
                 //e criamos um item na combo box que ira receber o nome da maquina
-                cbEscolhaMaquina.addItem(nomeMaquina);   
+                cbEscolhaMaquina.addItem(nomeMaquina + " - " + idMaquina);   
             }
         }
         catch(SQLException se){
@@ -335,6 +376,7 @@ public class TelaEscolha extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnOk;
+    private javax.swing.JButton btnOk1;
     private javax.swing.JComboBox<String> cbEscolhaMaquina;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

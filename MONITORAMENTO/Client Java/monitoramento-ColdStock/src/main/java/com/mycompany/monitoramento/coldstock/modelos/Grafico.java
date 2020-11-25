@@ -5,13 +5,20 @@
  */
 package com.mycompany.monitoramento.coldstock.modelos;
 
+import com.sun.javafx.charts.Legend;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.LegendItemCollection;
+import org.jfree.chart.LegendItemSource;
+import org.jfree.chart.block.LabelBlock;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -44,7 +51,6 @@ public class Grafico {
         JFreeChart graficoLinha = ChartFactory.createLineChart("CPU", 
                 "Horário", "Valor", dataSet, PlotOrientation.VERTICAL,
                 true, false, false);
-        
         return graficoLinha;
         
     }
@@ -54,10 +60,8 @@ public class Grafico {
         CategoryDataset dataSet = this.createDataset(listaGrafico);
         
         JFreeChart grafico = this.createChart(dataSet);
-        
         ChartPanel painelGrafico = new ChartPanel(grafico);
-        painelGrafico.setPreferredSize(new Dimension(700, 313));
-        
+        //painelGrafico.setPreferredSize(new Dimension(700, 313));
         return painelGrafico;
     }
     

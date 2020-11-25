@@ -111,6 +111,49 @@ public class ClsBD {
         return rs;
     }
         
+    public ResultSet consultarComponentes(Integer fkMaquina) throws SQLException {
+        /*
+            Essa função é responsavel por selecionar todos os componentes que estão cadastrados 
+            no Banco de dados, e criando um ResultSet, que é como uma lista.
+            Essas informações 
+            O funcionamento dessa função é similar ao de consultarFuncionario()
+        */
+        System.out.println("Criando Statement...");
+        
+        stmt = conn.createStatement();
+
+        String sql;
+        sql = String.format("select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas \n" +
+                "inner join configuracaoMaquina on idMaquina = fkMaquina\n" +
+                "inner join componentes on idComponente = fkComponente\n" +
+                "where idMaquina = %d", fkMaquina);
+        
+        ResultSet rs = stmt.executeQuery(sql);
+        return rs;
+    }
+    
+    public ResultSet consultarComponentes(Integer fkMaquina, String Componente) throws SQLException {
+        /*
+            Essa função é responsavel por selecionar todos os componentes que estão cadastrados 
+            no Banco de dados, e criando um ResultSet, que é como uma lista.
+            Essas informações 
+            O funcionamento dessa função é similar ao de consultarFuncionario()
+        */
+        System.out.println("Criando Statement...");
+        System.out.println(Componente);
+        
+        stmt = conn.createStatement();
+
+        String sql;
+        sql = String.format("select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas \n" +
+                "inner join configuracaoMaquina on idMaquina = fkMaquina\n" +
+                "inner join componentes on idComponente = fkComponente\n" +
+                "where idMaquina = %d and nomeComponente = '%s'", fkMaquina, Componente);
+        
+        ResultSet rs = stmt.executeQuery(sql);
+        return rs;
+    }
+        
     public ResultSet consultarConfiguracaoMaquina(Integer fkMaquina) throws SQLException {
         /*
             Essa função é responsavel por selecionar as informações utilizadas para criar a tabela da tela 

@@ -5,10 +5,13 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
+import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
 import com.mycompany.monitoramento.coldstock.modelos.Componente;
 import com.mycompany.monitoramento.coldstock.modelos.Conexao;
 import com.mycompany.monitoramento.coldstock.modelos.Grafico;
+import com.mycompany.monitoramento.coldstock.modelos.Maquinas;
 import java.awt.BorderLayout;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,10 +26,14 @@ import java.util.Timer;
  * @author Carlos Alberto
  */
 public class JanelaGrafico extends javax.swing.JFrame {
+    ClsBD objBD = new ClsBD();
+    List<Maquinas> retornoBD;
     private Integer fkMaquina = 0; //Essa é o atributo de instancia que recebera o valor da ComboBox
+    private String metrica = "";
 
     public void setFkMaquina(Integer fkMaquina) {
         this.fkMaquina = fkMaquina;
+        carregarComponentes(); //Carregar os componentes da Tela
     }
     /**
      * Creates new form JanelaGrafico
@@ -47,6 +54,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
             @Override
             public void run() {
                 atualizarGrafico();
+                
             }
         };
         
@@ -55,7 +63,21 @@ public class JanelaGrafico extends javax.swing.JFrame {
         temporizador.scheduleAtFixedRate(tarefa, 0, tempo);
     }
     
-    
+    private void carregarComponentes(){
+        try{
+            // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
+            objBD.conectar();
+            ResultSet retornoBD = objBD.consultarComponentes(fkMaquina);
+            while(retornoBD.next()){
+                String nomeComponente  = retornoBD.getString("nomeComponente");
+                cbComponentes.addItem(nomeComponente);
+                // na combo box, adicionamos o nome dos componentes
+            }
+        }
+        catch(SQLException se){
+            System.out.println(se);
+        }
+    }
     
     void atualizarGrafico() {
         
@@ -127,7 +149,9 @@ public class JanelaGrafico extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         lbMedida = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblMetrica = new javax.swing.JLabel();
+        btVisualizar = new javax.swing.JButton();
+        cbComponentes = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,7 +163,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
         );
         jpnGraficoLayout.setVerticalGroup(
             jpnGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 213, Short.MAX_VALUE)
+            .addGap(0, 260, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jpnGrafico2Layout = new javax.swing.GroupLayout(jpnGrafico2);
@@ -180,7 +204,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7)))
+                    .addComponent(jLabel7))
+                .addGap(56, 56, 56))
         );
 
         jPanel1.setBackground(new java.awt.Color(31, 40, 45));
@@ -199,54 +224,93 @@ public class JanelaGrafico extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         jLabel8.setText("Medida Atual:");
 
-        jLabel2.setText("GHz");
+        lblMetrica.setText("GHz");
+
+        btVisualizar.setBackground(new java.awt.Color(77, 172, 166));
+        btVisualizar.setText("Visualizar");
+        btVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVisualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(30, 30, 30)
                 .addComponent(jpnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jpnGrafico2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMetrica))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(cbComponentes, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(btVisualizar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btVisualizar)
+                    .addComponent(cbComponentes, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnGrafico2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(91, 91, 91)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel8)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addComponent(lblMetrica)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel2)))
-                .addContainerGap(83, Short.MAX_VALUE))
+                        .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
+        MudarMetrica();
+        
+        
+    }//GEN-LAST:event_btVisualizarActionPerformed
+    
+    private void MudarMetrica(){
+        try{
+            // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
+            objBD.conectar();
+            ResultSet retornoBD = objBD.consultarComponentes(fkMaquina, String.valueOf(cbComponentes.getSelectedItem()));
+            while(retornoBD.next()){
+                lblMetrica.setText(retornoBD.getString("metrica"));
+            }
+        }
+        catch(SQLException se){
+            System.out.println(se);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -288,7 +352,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btVisualizar;
+    private javax.swing.JComboBox<String> cbComponentes;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -297,5 +362,6 @@ public class JanelaGrafico extends javax.swing.JFrame {
     private javax.swing.JPanel jpnGrafico;
     private javax.swing.JPanel jpnGrafico2;
     private javax.swing.JLabel lbMedida;
+    private javax.swing.JLabel lblMetrica;
     // End of variables declaration//GEN-END:variables
 }
