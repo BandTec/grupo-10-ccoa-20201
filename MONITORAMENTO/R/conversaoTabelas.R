@@ -1,5 +1,5 @@
 valorInicial = NULL
-tabela = tabelaMarise2
+tabela = exportBD
 
 CPU = valorInicial
 RAM = valorInicial
@@ -7,6 +7,9 @@ DISCO = valorInicial
 CONEXAOU = valorInicial
 CONEXAOD = valorInicial
 TEMP = valorInicial
+DATAS = valorInicial
+
+dataAtual = ''
 maiorQtdItens = 0
 contadoComSucesso = FALSE
 
@@ -17,6 +20,11 @@ while (x <= nrow(tabela)) {
   #Pegando Linha x do export do BD
   #Os campos que estao sendo pegos sao desde o 1 ate o N° total de colunas que tiver [1:final]
   linhaAtual = tabela[x, 1:ncol(tabela)]
+  
+  if(dataAtual != linhaAtual$dataHora){
+    dataAtual = linhaAtual$dataHora
+    DATAS[length(DATAS)+1] = dataAtual
+  }
   
   #Identifica a qual componente a linha esta se referindo
   if(linhaAtual$nomeComponente == "CPU"){
@@ -99,3 +107,10 @@ novaTabela$DISCO <- adicionarColunas(DISCO)
 novaTabela$CONEXAOD <- adicionarColunas(CONEXAOD)
 novaTabela$CONEXAOU <- adicionarColunas(CONEXAOU)
 novaTabela$TEMP <- adicionarColunas(TEMP)
+novaTabela$DATA <- DATAS
+
+#EXPORTANDO NOVA TABELA
+write.table(
+  tabelaPerfis, file = "exportTabela.csv",
+  sep = ",", col.names = TRUE, row.names = FALSE,
+  fileEncoding = "UTF-8")
