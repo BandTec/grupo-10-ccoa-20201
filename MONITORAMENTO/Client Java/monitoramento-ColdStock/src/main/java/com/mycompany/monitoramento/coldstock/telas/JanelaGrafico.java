@@ -96,9 +96,10 @@ public class JanelaGrafico extends javax.swing.JFrame {
         
         //aqui executamos os devidos selects, passando como parametro o objeto que vai realizar
         //a conexao, o id do 
-        listaComponente = campo1.trazerLista(campo1.conectar(), 1, "CPU", fkMaquina);
-        listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, "CPU", fkMaquina);
-        listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, "CPU", fkMaquina);
+        
+        listaComponente = campo1.trazerLista(campo1.conectar(), 1, (String) cbComponentes.getSelectedItem(), this.fkMaquina);
+        listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, (String) cbComponentes.getSelectedItem(), this.fkMaquina);
+        listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, (String) cbComponentes.getSelectedItem(), this.fkMaquina);
         
         //agora vamos começar o processo de converter essas listas para arralists
         //primeiro, criamos as arraylists
@@ -124,8 +125,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
         Grafico graficoLinha2 = new Grafico();
         
         //e populamos o grafico com a arraylist
-        this.jpnGrafico.add(graficoLinha.criargrafico(listaGrafico));
-        this.jpnGrafico2.add(graficoLinha2.criargrafico(listaGrafico2));
+        this.jpnGrafico.add(graficoLinha.criargrafico(listaGrafico, (String) cbComponentes.getSelectedItem()));
+        this.jpnGrafico2.add(graficoLinha2.criargrafico(listaGrafico2, (String) cbComponentes.getSelectedItem()));
         
         lbMedida.setText(listaGrafico3.get(0).getValor().toString());
 
@@ -294,7 +295,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
 
     private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
         MudarMetrica();
-        
+        atualizarGrafico();
         
     }//GEN-LAST:event_btVisualizarActionPerformed
     

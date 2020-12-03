@@ -132,6 +132,7 @@ public class ClsBD {
         return rs;
     }
     
+    
     public ResultSet consultarComponentes(Integer fkMaquina, String Componente) throws SQLException {
         /*
             Essa função é responsavel por selecionar todos os componentes que estão cadastrados 
