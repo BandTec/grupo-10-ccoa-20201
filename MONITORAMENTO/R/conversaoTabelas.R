@@ -109,6 +109,8 @@ novaTabela$CONEXAOU <- adicionarColunas(CONEXAOU)
 novaTabela$TEMP <- adicionarColunas(TEMP)
 novaTabela$DATA <- DATAS
 
+#length(resid(lm(mpg  ~ cyl, exportBD)))
+
 #EXPORTANDO NOVA TABELA
 write.table(
   tabelaPerfis, file = "exportTabela.csv",

@@ -84,33 +84,4 @@ public class Conexao {
         return listaComponentes;
     }
 
-    public List conexao() throws SQLException {
-        // Novamente criando uma conexao com o BD
-        BasicDataSource dataSource = new BasicDataSource();
-
-        System.out.println("Conectado com sucesso ao BD!");
-
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-
-        dataSource.setUrl("jdbc:mysql://localhost/coldstock?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-
-        dataSource.setUsername("ColdUser");
-        dataSource.setPassword("senha123");
-
-        System.out.println("Criando Statement...");
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-
-        String sql;
-        sql = "select nomeComponente, valor, dataHora from registros INNER JOIN "
-                + "componentes on fkComponente = idComponente where fkMaquina = 1 "
-                + "and nomeComponente = 'CPU' order by dataHora desc limit 10";
-
-        List<Componente> listaComponentes;
-        listaComponentes = jdbcTemplate.query(sql,
-                new BeanPropertyRowMapper(Componente.class));
-        
-        Collections.reverse(listaComponentes);
-        return listaComponentes;
-    }
 }

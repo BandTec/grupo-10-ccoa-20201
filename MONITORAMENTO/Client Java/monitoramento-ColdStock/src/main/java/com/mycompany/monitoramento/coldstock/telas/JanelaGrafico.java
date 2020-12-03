@@ -79,7 +79,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
         }
     }
     
-    void atualizarGrafico() {
+    public void atualizarGrafico() {
         
         this.jpnGrafico.setLayout(new BorderLayout());
         this.jpnGrafico2.setLayout(new BorderLayout());

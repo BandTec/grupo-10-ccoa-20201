@@ -59,12 +59,13 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         lblNomeMaquina = new java.awt.Label();
         cbEscolhaComponente = new javax.swing.JComboBox<>();
         btnAdicionarComponente = new javax.swing.JButton();
-        txtResumo = new java.awt.Label();
         txtCapacidadeMax = new javax.swing.JTextField();
         txtPorcentagemMax1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtResumo = new javax.swing.JTextArea();
 
         jTextField1.setText("jTextField1");
 
@@ -88,7 +89,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(47, 47, 47))
         );
@@ -177,14 +178,14 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
             }
         });
 
-        txtResumo.setBackground(new java.awt.Color(255, 255, 255));
-        txtResumo.setFont(new java.awt.Font("Montserrat", 1, 15)); // NOI18N
-        txtResumo.setForeground(new java.awt.Color(153, 153, 153));
-        txtResumo.setText("O que você esta inserindo...");
-
         txtPorcentagemMax1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPorcentagemMax1ActionPerformed(evt);
+            }
+        });
+        txtPorcentagemMax1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPorcentagemMax1KeyReleased(evt);
             }
         });
 
@@ -196,6 +197,12 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
         jLabel3.setText("Insira a porcentagem máxima");
+
+        txtResumo.setEditable(false);
+        txtResumo.setColumns(20);
+        txtResumo.setRows(5);
+        txtResumo.setText("Itens adicionados: ");
+        jScrollPane2.setViewportView(txtResumo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,18 +226,17 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
                             .addComponent(lblNomeMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(cbEscolhaComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnAdicionarComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtResumo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtCapacidadeMax)
-                                .addComponent(txtPorcentagemMax1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbEscolhaComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAdicionarComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCapacidadeMax)
+                            .addComponent(txtPorcentagemMax1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane2))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -263,8 +269,8 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtPorcentagemMax1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtResumo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 24, Short.MAX_VALUE))
         );
 
@@ -285,6 +291,8 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 
     private void cbEscolhaComponenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaComponenteActionPerformed
         // TODO add your handling code here:
+        txtCapacidadeMax.setText("");
+        txtPorcentagemMax1.setText("");
     }//GEN-LAST:event_cbEscolhaComponenteActionPerformed
 
     private void txtPorcentagemMax1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPorcentagemMax1ActionPerformed
@@ -319,7 +327,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
            
             Frase+=configuracao.getComp()+",";
             Frase+=configuracao.getMaximaComponente()+",";
-            Frase+=configuracao.getPorcentagem();
+            Frase+=configuracao.getPorcentagem()+"\n";
             
                    
          txtResumo.setText(Frase);   
@@ -330,6 +338,13 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnAdicionarComponenteActionPerformed
+
+    private void txtPorcentagemMax1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPorcentagemMax1KeyReleased
+        // TODO add your handling code here:
+        if(Double.parseDouble(txtPorcentagemMax1.getText()) > 100){
+            txtPorcentagemMax1.setText("100");
+        }
+    }//GEN-LAST:event_txtPorcentagemMax1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -421,11 +436,12 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private java.awt.Label lblNomeMaquina;
     private javax.swing.JTable tbComponentes;
     private javax.swing.JTextField txtCapacidadeMax;
     private javax.swing.JTextField txtPorcentagemMax1;
-    private java.awt.Label txtResumo;
+    private javax.swing.JTextArea txtResumo;
     // End of variables declaration//GEN-END:variables
 }
