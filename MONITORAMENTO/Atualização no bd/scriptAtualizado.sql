@@ -10,7 +10,6 @@ create table consumidoresFinais(
     fkLocalidade int
 );
 
-
 create table fornecedoras(
 	idFornecedora int primary key auto_increment,
     nomeFornecedora varchar(20),
@@ -74,12 +73,19 @@ create table configuracaoMaquina(
     porcentagemMax int
 );
 
+create table chamados(
+	idChamado int primary key auto_increment,
+    dataChamado datetime,
+    descricao varchar(1000)
+);
+
 create table registros(
 	idRegistro int primary key auto_increment,
     dataHora datetime,
     valor float,
     fkComponente int,
-    fkMaquina int
+    fkMaquina int,
+    fkChamado int
 );
 
 create table favoritos(
@@ -107,6 +113,7 @@ alter table configuracaoMaquina add foreign key (fkMaquina) references maquinas(
 alter table configuracaoMaquina add foreign key (fkComponente) references componentes(idComponente);
 alter table registros add foreign key (fkComponente) references componentes(idComponente);
 alter table registros add foreign key (fkMaquina) references maquinas(idMaquina);
+alter table registros add foreign key (fkChamado) references chamados(idChamado);
 alter table favoritos add foreign key (fkProduto) references produtos(idProduto);
 alter table favoritos add foreign key (fkConsumidor) references consumidoresFinais(idConsumidor);
 alter table funcionarios add foreign key (fkMaquina) references maquinas(idMaquina);
@@ -190,21 +197,74 @@ insert into componentes (idComponente, nomeComponente, Metrica) values
 
 insert into configuracaoMaquina (fkMaquina, fkComponente, capacidadeMax, porcentagemMax) values 
 (1, 1, '3.5', 80),
-(1, 2, '16', 78),
+(1, 2, '16', 80),
 (1, 3, '2000', 90),
-(1, 4, '1000', 45),
+(1, 4, '1000', 90),
 (1, 5, '800', 60),
+(1, 6, '90', 100),
 (2, 1, '1.8', 85),
 (2, 2, '6', 74),
 (2, 3, '240', 87),
 (3, 1, '2.5', 65),
-(3, 2, '8', 80),
-(1, 6, '90', 100);
+(3, 2, '8', 80);
 
-select * from maquinas;
+insert into registros (idRegistro, dataHora, valor, fkMaquina, fkComponente) values
+(null, '2020-09-23 17:45:00', 2.86, 1, 1), 		-- acima do limite
+(null, '2020-09-23 17:45:00', 8.1, 1, 2), 		-- abaixo
+(null, '2020-09-23 17:45:00', 200.00, 1, 3), 	-- abaixo
+(null, '2020-09-23 17:45:00', 658.32, 1, 4), 	-- abaixo
+(null, '2020-09-23 17:45:00', 600.02, 1, 5), 	-- abaixo
+(null, '2020-09-23 17:45:00', 57, 1, 6), 		-- abaixo
 
-ALTER TABLE funcionarios ADD funcao int default 0;
-ALTER TABLE funcionarios ADD camada int default 0;
+(null, '2020-09-23 17:50:00', 2.92, 1, 1),
+(null, '2020-09-23 17:50:00', 8.6, 1, 2),
+(null, '2020-09-23 17:50:00', 203.50, 1, 3),
+(null, '2020-09-23 17:50:00', 705.47, 1, 4),
+(null, '2020-09-23 17:50:00', 582.07, 1, 5),
+(null, '2020-09-23 17:50:00', 63, 1, 6),
+
+(null, '2020-09-23 17:52:00', 2.3, 1, 1),
+(null, '2020-09-23 17:52:00', 8.6, 1, 2),
+(null, '2020-09-23 17:52:00', 205.00, 1, 3),
+(null, '2020-09-23 17:52:00', 780.25, 1, 4),
+(null, '2020-09-23 17:52:00', 605.70, 1, 5),
+(null, '2020-09-23 17:52:00', 65.3, 1, 6),
+
+(null, '2020-09-23 17:55:00', 2.9, 1, 1),
+(null, '2020-09-23 17:55:00', 5.1, 1, 2),
+(null, '2020-09-23 17:55:00', 203.50, 1, 3),
+(null, '2020-09-23 17:55:00', 800.47, 1, 4),
+(null, '2020-09-23 17:55:00', 580.07, 1, 5),
+(null, '2020-09-23 17:55:00', 58, 1, 6),
+
+(null, '2020-09-23 17:57:00', 3.1, 1, 1),
+(null, '2020-09-23 17:57:00', 4.5, 1, 2),
+(null, '2020-09-23 17:57:00', 203.50, 1, 3),
+(null, '2020-09-23 17:57:00', 705.47, 1, 4),
+(null, '2020-09-23 17:57:00', 579.50, 1, 5),
+(null, '2020-09-23 17:57:00', 60, 1, 6),
+
+(null, '2020-09-23 17:59:00', 2.8, 1, 1),
+(null, '2020-09-23 17:59:00', 8.3, 1, 2),
+(null, '2020-09-23 17:59:00', 203.50, 1, 3),
+(null, '2020-09-23 17:59:00', 700.98, 1, 4),
+(null, '2020-09-23 17:59:00', 578.99, 1, 5),
+(null, '2020-09-23 17:59:00', 59, 1, 6);
+
+insert into chamados (idChamado, dataChamado, descricao) values
+(null, '2020-09-23 17:45:00', 'CPU sobrecarregando!'),
+(null, '2020-09-23 17:50:00', 'CPU sobrecarregando!'),
+(null, '2020-09-23 17:52:00', 'CPU sobrecarregando!'),
+(null, '2020-09-23 17:55:00', 'CPU sobrecarregando!'),
+(null, '2020-09-23 17:57:00', 'CPU sobrecarregando!'),
+(null, '2020-09-23 17:59:00', 'CPU sobrecarregando!');
+
+update registros set fkChamado = 1 where idRegistro =1;
+update registros set fkChamado = 2 where idRegistro =7;
+update registros set fkChamado = 3 where idRegistro =13;
+update registros set fkChamado = 4 where idRegistro =19;
+update registros set fkChamado = 5 where idRegistro =25;
+update registros set fkChamado = 6 where idRegistro =31;
 
 -- Temos o id da maquina onde a API está rodando
 -- A maquina já está registrada e com componentes relacionados
@@ -214,14 +274,8 @@ inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
 where idMaquina = 2;
 
-insert into registros (idRegistro, dataHora, valor, fkMaquina, fkComponente) values
-(null, '2020-09-23 17:45:00', 2.0, 1, 1),
-(null, '2020-09-23 17:45:00', 8.6, 1, 2),
-(null, '2020-09-23 17:45:00', 203.50, 1, 3),
-(null, '2020-09-23 17:45:00', 705.47, 1, 4),
-(null, '2020-09-23 17:45:00', 582.07, 1, 5);
 use coldstock;
-select * from registros where fkMaquina = 2 order by idRegistro desc;
+select * from registros where fkMaquina = 1 order by idRegistro;
 
 select * from funcionarios;
 
@@ -233,7 +287,7 @@ where idMaquina = 2;
 
 select * from configuracaoMaquina;
 
-select id,valor, nomeComponente, dataHora  from registros
+select idRegistro,valor, nomeComponente, dataHora  from registros
 inner join maquinas on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
 where idMaquina = 2 and nomeComponente = 'CPU';
