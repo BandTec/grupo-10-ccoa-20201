@@ -49,8 +49,6 @@ for (linhaTabela in 1:nrow(tabela)) {
   
   #Valor sendo adicionado na matriz
   matriz[linhaMatriz, linhaAtual$nomeComponente] <- linhaAtual$valor
-  
-  x = x+ 1
 }
 
 adicionarColunas <- function(componente) {

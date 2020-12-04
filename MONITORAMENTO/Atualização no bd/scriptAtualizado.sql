@@ -274,6 +274,10 @@ inner join configuracaoMaquina on idMaquina = fkMaquina
 inner join componentes on idComponente = fkComponente
 where idMaquina = 2;
 
+select idChamado, idRegistro, fkComponente, valor 
+from registros, chamados 
+where fkChamado = idChamado and fkMaquina = 1;
+
 use coldstock;
 select * from registros where fkMaquina = 1 order by idRegistro;
 
