@@ -5,16 +5,20 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
-
 import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
+import com.mycompany.monitoramento.coldstock.modelos.Conexao;
 import com.mycompany.monitoramento.coldstock.modelos.Imagens;
 import com.mycompany.monitoramento.coldstock.modelos.Maquinas;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.GridLayout;
+import javax.swing.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Aluno
@@ -24,7 +28,6 @@ public class TelaEscolha extends javax.swing.JFrame {
     /**
      * Creates new form telaEscolha
      */
-    
     // aqui criamos objetos das classes que iremos utilizar
     TelaEditarMaquina telaEditarMaquina = new TelaEditarMaquina();
     ClsBD objBD = new ClsBD();
@@ -32,12 +35,16 @@ public class TelaEscolha extends javax.swing.JFrame {
     Maquinas maquina;
     Imagens imagem = new Imagens();
     
+    public Integer idMaquina;
+
     public TelaEscolha() {
+        
         initComponents();
         jLabel2.setIcon(imagem.carregarImgs("/1601053028644.png"));
         jLabel1.setIcon(imagem.carregarImgs("/Pingulinomonitoramento.png"));
         carregarMaquinas();
-        }
+        
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -121,6 +128,11 @@ public class TelaEscolha extends javax.swing.JFrame {
         btnCadastrar.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
         btnCadastrar.setForeground(new java.awt.Color(255, 255, 255));
         btnCadastrar.setText("CADASTRAR");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 1, 13)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -224,6 +236,17 @@ public class TelaEscolha extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
+        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        idMaquina = Integer.valueOf(separador[1]);
+        
+        Integer retorno = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir está máquina?", "Aviso",
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+        if(retorno == JOptionPane.YES_OPTION){
+            new Conexao().excluirMaquina(idMaquina);
+            carregarMaquinas();
+        }
+        
+        //JOptionPane.showInputDialog(null, "Tetse");
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
@@ -231,21 +254,18 @@ public class TelaEscolha extends javax.swing.JFrame {
         //aqui iremos pegar qual o indice do item da combo box que foi escolhido
         Integer num = cbEscolhaMaquina.getSelectedIndex();
         System.out.println(num);
-       // aqui pegamos um item especifico da lista, sendo aquele que é equivalente ao indice selecionado da combobox
+        // aqui pegamos um item especifico da lista, sendo aquele que é equivalente ao indice selecionado da combobox
         maquina = retornoBD.get(num);
-        
+
         //por fim, passamos o item buscado para a proxima tela, mandando o id e o nome da maquina
-        telaEditarMaquina.carregarTabela(maquina.getIdMaquina(),maquina.getNomeMaquina());
+        telaEditarMaquina.carregarTabela(maquina.getIdMaquina(), maquina.getNomeMaquina());
         // e deixamos a proxima tela visivel
         telaEditarMaquina.setVisible(true);
-        System.out.println(maquina.getIdMaquina());
-        System.out.println(maquina.getNomeMaquina());    
         
-    }//GEN-LAST:event_btnOkActionPerformed
+        System.out.println(maquina.getIdMaquina());
+        System.out.println(maquina.getNomeMaquina());
 
-    private void cbEscolhaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaMaquinaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
+    }//GEN-LAST:event_btnOkActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
@@ -259,48 +279,94 @@ public class TelaEscolha extends javax.swing.JFrame {
         trazerGrafico();
         onde ele recebe mais um parametro, que seria a FkMaquina
 
-        */
+         */
         JanelaGrafico grafico = null;
-        String[] separador =  String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-        Integer idMaquina = Integer.valueOf(separador[1]);
+        //String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        //Integer idMaquina = Integer.valueOf(separador[1]);
         try {
             grafico = new JanelaGrafico();
         } catch (SQLException ex) {
             Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
         }
+        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        idMaquina = Integer.valueOf(separador[1]);
         System.out.println(idMaquina);
         grafico.setFkMaquina(idMaquina);
         grafico.setVisible(true);
-        this.setVisible(false);
+        //this.setVisible(false);
     }//GEN-LAST:event_btnOk1ActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+//        String nomeMaquina = JOptionPane.showInputDialog(null, "Digite o Nome da máquina nova");
+//        System.out.println(nomeMaquina);
+        
+        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        idMaquina = Integer.valueOf(separador[1]);
+            
+        GridLayout layout = new GridLayout (2,2);
+        
+        
+        JTextField nome = new JTextField(10);
+        JTextField tipo = new JTextField(10);
+        JPanel myPanel = new JPanel();
+        myPanel.setLayout(layout);
+        //myPanel.setSize(200, 400);
+        myPanel.add(new JLabel("Nome:"));
+        myPanel.add(nome);
+//        myPanel.add(Box.createVerticalStrut(0)); // a spacer
+        myPanel.add(new JLabel("Tipo: "));
+        myPanel.add(tipo);
+
+        int result = JOptionPane.showConfirmDialog(null, myPanel,
+                "Coloque o nome e o tipo da maquina da qual deseja adicionar.", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION && !(nome.getText().equals("") || tipo.getText().equals(""))) {
+            new Conexao().adicionarMaquina(nome.getText(), tipo.getText());
+            carregarMaquinas();
+            System.out.println("Foi");
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void cbEscolhaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaMaquinaActionPerformed
+        // TODO add your handling code here:
+//        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+//        idMaquina = Integer.valueOf(separador[1]);
+//        System.out.println(idMaquina);
+        
+        
+    }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
-    
-    private void carregarMaquinas(){
+    private void carregarMaquinas() {
         //essa função popul o combo box que tem todas as maquinas
-        try{
+        
+        try {
             //realizamos a conexao
             objBD.conectar();
+            //Limpamos a combobox para não repetir itens
+            cbEscolhaMaquina.removeAllItems();
             //pegamos o resultado do select das maquinas
             retornoBD = objBD.consultarMaquinas();
-            for(Maquinas maquina : retornoBD){
+            for (Maquinas maquina : retornoBD) {
                 //separamos cada item da lista que foi gerada
                 //separamos de cada item, o nome da maquina e o tipo(se é servidor ou maquina comum)
-                String nomeMaquina  = maquina.getNomeMaquina();
-                String Tipo  = maquina.getTipoMaquina();
+                String nomeMaquina = maquina.getNomeMaquina();
+                String Tipo = maquina.getTipoMaquina();
                 Integer idMaquina = maquina.getIdMaquina();
                 //e criamos um item na combo box que ira receber o nome da maquina
-                cbEscolhaMaquina.addItem(nomeMaquina + " - " + idMaquina);   
+                cbEscolhaMaquina.addItem(nomeMaquina + " - " + idMaquina);
             }
-        }
-        catch(SQLException se){
+            
+        } catch (SQLException se) {
             System.out.println(se);
         }
+//        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+//        idMaquina = Integer.valueOf(separador[1]);
+        
     }
-   
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

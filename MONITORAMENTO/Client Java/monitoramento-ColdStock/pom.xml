@@ -90,5 +90,11 @@
             <artifactId>swtgraphics2d</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.swt</groupId>
+            <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
+            <version>4.3</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

@@ -154,7 +154,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
         btVisualizar = new javax.swing.JButton();
         cbComponentes = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
         javax.swing.GroupLayout jpnGraficoLayout = new javax.swing.GroupLayout(jpnGrafico);
         jpnGrafico.setLayout(jpnGraficoLayout);

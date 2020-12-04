@@ -83,5 +83,29 @@ public class Conexao {
         
         return listaComponentes;
     }
-
+    
+    public void excluirMaquina(Integer idMaquina){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
+        String sql = "delete from configuracaoMaquina where fkMaquina = %d";
+        jdbcTemplate.update(String.format(sql, idMaquina));
+        sql = "delete from Maquinas where idMaquina = %d";
+        jdbcTemplate.update(String.format(sql, idMaquina));
+        System.out.println("Delete efetuado com sucesso"); 
+    }
+    
+    public void adicionarMaquina(String maquinaNome, String maquinaTipo){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
+        String sql = "insert into maquinas values (null, '%s', '%s')";
+        jdbcTemplate.update(String.format(sql, maquinaNome, maquinaTipo));
+        System.out.println("Inserção efetuada com sucesso"); 
+    }
+    
+    public void editarComponentes(Integer porcentagem, Double capacidade, 
+            Integer fkMaquina, Integer fkComponente){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
+        String sql = "update configuracaoMaquina set capacidadeMax = ? , porcentagemMax = ? where fkMaquina = ? and fkComponente = ?";
+        jdbcTemplate.update(sql,  capacidade, porcentagem,fkMaquina,fkComponente);
+        System.out.println(String.format(sql, capacidade, porcentagem,fkMaquina,fkComponente).replace(",", "."));
+        System.out.println("Atualização efetuada com sucesso");
+    }
 }

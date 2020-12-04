@@ -6,6 +6,7 @@
 package com.mycompany.monitoramento.coldstock.telas;
 
 import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
+import com.mycompany.monitoramento.coldstock.modelos.Conexao;
 import com.mycompany.monitoramento.coldstock.modelos.Imagens;
 import java.awt.Color;
 import java.io.File;
@@ -31,10 +32,14 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     // criamos objetos novamente
     ClsBD objBD = new ClsBD();
     Imagens imagem = new Imagens();
+    Integer idMaquina ;
+    String nomeMaquina;
     public TelaEditarMaquina() {
         initComponents();
+        
         jLabel6.setIcon(imagem.carregarImgs("/1601053028644.png"));
         carregarComponentes();
+        
     }
 
     /**
@@ -52,7 +57,6 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        btnConsultar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbComponentes = new javax.swing.JTable();
@@ -69,7 +73,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setResizable(false);
 
         jPanel4.setBackground(new java.awt.Color(31, 40, 45));
@@ -89,7 +93,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(47, 47, 47))
         );
@@ -120,16 +124,6 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
             }
         });
 
-        btnConsultar.setBackground(new java.awt.Color(77, 172, 166));
-        btnConsultar.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
-        btnConsultar.setForeground(new java.awt.Color(255, 255, 255));
-        btnConsultar.setText("CONSULTAR");
-        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarActionPerformed(evt);
-            }
-        });
-
         btnExcluir.setBackground(new java.awt.Color(77, 172, 166));
         btnExcluir.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
         btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
@@ -150,140 +144,143 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
             new String [] {
                 "COMPONENTE", "MÁXIMA", "PORCENTAGEM MAX"
             }
-        ));
-        jScrollPane1.setViewportView(tbComponentes);
+        )
+        {public boolean isCellEditable(int row, int column){return false;}}
+    );
+    tbComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            tbComponentesMouseClicked(evt);
+        }
+    });
+    jScrollPane1.setViewportView(tbComponentes);
 
-        lblNomeMaquina.setBackground(new java.awt.Color(31, 40, 45));
-        lblNomeMaquina.setFont(new java.awt.Font("Montserrat", 1, 17)); // NOI18N
-        lblNomeMaquina.setForeground(new java.awt.Color(255, 255, 255));
-        lblNomeMaquina.setText("    Máquina 1");
+    lblNomeMaquina.setBackground(new java.awt.Color(31, 40, 45));
+    lblNomeMaquina.setFont(new java.awt.Font("Montserrat", 1, 17)); // NOI18N
+    lblNomeMaquina.setForeground(new java.awt.Color(255, 255, 255));
+    lblNomeMaquina.setText("    Máquina 1");
 
-        cbEscolhaComponente.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        cbEscolhaComponente.setForeground(new java.awt.Color(153, 153, 153));
-        cbEscolhaComponente.setToolTipText("-- escolha um componente--");
-        cbEscolhaComponente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbEscolhaComponenteActionPerformed(evt);
-            }
-        });
+    cbEscolhaComponente.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+    cbEscolhaComponente.setForeground(new java.awt.Color(153, 153, 153));
+    cbEscolhaComponente.setToolTipText("-- escolha um componente--");
+    cbEscolhaComponente.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cbEscolhaComponenteActionPerformed(evt);
+        }
+    });
 
-        btnAdicionarComponente.setBackground(new java.awt.Color(77, 172, 166));
-        btnAdicionarComponente.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
-        btnAdicionarComponente.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdicionarComponente.setText("+");
-        btnAdicionarComponente.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(77, 172, 166), 1, true));
-        btnAdicionarComponente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarComponenteActionPerformed(evt);
-            }
-        });
+    btnAdicionarComponente.setBackground(new java.awt.Color(77, 172, 166));
+    btnAdicionarComponente.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
+    btnAdicionarComponente.setForeground(new java.awt.Color(255, 255, 255));
+    btnAdicionarComponente.setText("+");
+    btnAdicionarComponente.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(77, 172, 166), 1, true));
+    btnAdicionarComponente.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnAdicionarComponenteActionPerformed(evt);
+        }
+    });
 
-        txtPorcentagemMax1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPorcentagemMax1ActionPerformed(evt);
-            }
-        });
-        txtPorcentagemMax1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPorcentagemMax1KeyReleased(evt);
-            }
-        });
+    txtPorcentagemMax1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            txtPorcentagemMax1ActionPerformed(evt);
+        }
+    });
+    txtPorcentagemMax1.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            txtPorcentagemMax1KeyReleased(evt);
+        }
+    });
 
-        jLabel1.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
-        jLabel1.setText("Escolha um componente");
+    jLabel1.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
+    jLabel1.setText("Escolha um componente");
 
-        jLabel2.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
-        jLabel2.setText("Insira uma máxima");
+    jLabel2.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
+    jLabel2.setText("Insira uma máxima");
 
-        jLabel3.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
-        jLabel3.setText("Insira a porcentagem máxima");
+    jLabel3.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
+    jLabel3.setText("Insira a porcentagem máxima");
 
-        txtResumo.setEditable(false);
-        txtResumo.setColumns(20);
-        txtResumo.setRows(5);
-        txtResumo.setText("Itens adicionados: ");
-        jScrollPane2.setViewportView(txtResumo);
+    txtResumo.setEditable(false);
+    txtResumo.setColumns(20);
+    txtResumo.setRows(5);
+    txtResumo.setText("Itens adicionados: ");
+    jScrollPane2.setViewportView(txtResumo);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCadastrar)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblNomeMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbEscolhaComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAdicionarComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtCapacidadeMax)
-                            .addComponent(txtPorcentagemMax1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane2))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addContainerGap(20, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(btnCadastrar)
-                    .addComponent(btnConsultar)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblNomeMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbEscolhaComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdicionarComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
-                        .addGap(2, 2, 2)
-                        .addComponent(txtCapacidadeMax, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(18, 18, 18)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(28, 28, 28))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblNomeMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(cbEscolhaComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnAdicionarComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCapacidadeMax)
+                        .addComponent(txtPorcentagemMax1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtPorcentagemMax1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 24, Short.MAX_VALUE))
-        );
+                        .addComponent(jScrollPane2))
+                    .addContainerGap(19, Short.MAX_VALUE))))
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(26, 26, 26)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btnCadastrar)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(20, 20, 20)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(lblNomeMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbEscolhaComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdicionarComponente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel2)
+                    .addGap(2, 2, 2)
+                    .addComponent(txtCapacidadeMax, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel3)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPorcentagemMax1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(12, 24, Short.MAX_VALUE))
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        new Conexao().editarComponentes(Integer.valueOf(txtPorcentagemMax1.getText()), Double.valueOf(txtCapacidadeMax.getText()), idMaquina, cbEscolhaComponente.getSelectedIndex() + 1);
+        carregarTabela(idMaquina, nomeMaquina);
     }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
@@ -320,7 +317,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         
        carrinho.add(novaConfiguracao);
        
-          String Frase = "Itens adicionados: ";
+          String Frase = "Itens adicionados:\n ";
       
         for (Configuracao configuracao : carrinho){
             
@@ -346,6 +343,14 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPorcentagemMax1KeyReleased
 
+    private void tbComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbComponentesMouseClicked
+        // TODO add your handling code here:
+        cbEscolhaComponente.setSelectedItem(String.valueOf(tbComponentes.getModel().getValueAt(tbComponentes.getSelectedRow(),0)));
+        txtCapacidadeMax.setText(String.valueOf(tbComponentes.getModel().getValueAt(tbComponentes.getSelectedRow(),1)).split(" ")[0]);    
+        txtPorcentagemMax1.setText(String.valueOf(tbComponentes.getModel().getValueAt(tbComponentes.getSelectedRow(),2)).split(" ")[0]);
+        
+    }//GEN-LAST:event_tbComponentesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -367,11 +372,14 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         }
     }
     
-    void carregarTabela(Integer idMaquina, String nomeMaquina){     
+    void carregarTabela(Integer idMaquina, String nomeMaquina){  
+        this.idMaquina = idMaquina;
+        this.nomeMaquina = nomeMaquina;
         try{
             objBD.conectar();
             ResultSet retornoBD = objBD.consultarConfiguracaoMaquina(idMaquina);
             lblNomeMaquina.setText(nomeMaquina);
+            tbComponentes.removeAll();
             // aqui criamos um objeto de tabela, que ira popular nossa tbComponentes
             DefaultTableModel tabela = (DefaultTableModel) tbComponentes.getModel();
             //aqui deixamos o numero de linhas como 0, para poder reiniciar a tabela sempre que a tela for recarregada
@@ -425,7 +433,6 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarComponente;
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JComboBox<String> cbEscolhaComponente;
