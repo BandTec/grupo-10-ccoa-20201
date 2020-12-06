@@ -35,33 +35,36 @@
     </div>
     <div class="cabecalhoBill">
         <div class="opcoes">
-            <select name="" id="">
-                <option value="">2020</option>
-                <option value="">2021</option>
-                <option value="">2022</option>
-                <option value="">2023</option>
-                <option value="">2024</option>
-                <option value="">2025</option>
+            <select name="" id="ano">
+                <option value="0">2020</option>
+                <option value="12">2021</option>
+                <option value="24">2022</option>
+                <option value="36">2023</option>
+                <option value="48">2024</option>
+                <option value="60">2025</option>
             </select>
-            <select name="" id="">
-                <option value="">Janeiro</option>
-                <option value="">Fevereiro</option>
-                <option value="">Março</option>
-                <option value="">Abril</option>
-                <option value="">Maio</option>
-                <option value="">Junho</option>
-                <option value="">Julho</option>
-                <option value="">Agosto</option>
-                <option value="">Setembro</option>
-                <option value="">Outubro</option>
-                <option value="">Novembro</option>
-                <option value="">Dezembro</option>
+            <select name="" id="mes">
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
             </select>
-            <button id="chamarBilling" class="botao">Ver Billing</button>
+            <button id="chamarBilling" class="botao" onclick="refresh()">Ver Billing</button>
         </div>
         <div class="chartBill">
             <div class="containerChartBill">
                 <canvas id="chartBill" style="width: 350px; height: 350px;"></canvas>
+                <div class="infoBill">
+
+                </div>
             </div>
         </div>
     </div>
@@ -69,28 +72,21 @@
 
 </html>
 <script>
-    var randomScalingFactor = function() {
-        return Math.round(Math.random() * 100);
-    };
-
     var configBill = {
         type: 'doughnut',
         data: {
             datasets: [{
-                data: [
-                    8,
-                    1,
-                ],
+                data: [],
 
                 backgroundColor: [
-                    window.chartColors.yellow,
-                    window.chartColors.blue
+                    window.chartColors.blue,
+                    window.chartColors.yellow
                 ],
                 label: 'Dataset 1'
             }],
             labels: [
-                'EC2',
-                'EBS'
+                'EBS',
+                'EC2'
             ]
         },
         options: {
@@ -100,7 +96,7 @@
             },
             title: {
                 display: true,
-                text: 'Gastos na AWS'
+                text: 'Gastos na AWS ($)'
             },
             animation: {
                 animateScale: true,
@@ -109,8 +105,18 @@
         }
     };
 
-    window.onload = function() {
-        var ctx = document.getElementById('chartBill').getContext('2d');
-        window.myDoughnut = new Chart(ctx, configBill);
+    function refresh() {
+        var funcao = (0.0108082090982 * (mes.value + ano.value)) + 5.1952686793339
+        if (funcao > 33.408) {
+            funcao = 33.40
+        }
+        configBill.data.datasets[0].data = [1, funcao.toFixed(3)]
+
+        if (window.myDoughnut == undefined) {
+            var ctx = document.getElementById('chartBill').getContext('2d');
+            window.myDoughnut = new Chart(ctx, configBill);
+        }
+        window.myDoughnut.update();
+
     };
 </script>
