@@ -62,11 +62,12 @@
         <div class="chartBill">
             <div class="containerChartBill">
                 <canvas id="chartBill" style="width: 350px; height: 350px;"></canvas>
-                <div class="infoBill">
-
+                <div class="infoBill" style="display: none;" id="infoBillin">
+                    EC2: <span id="ec2"></span> <br> EBS: <span id="ebs"></span> <br> Total: <span id="total"></span>
                 </div>
             </div>
         </div>
+
     </div>
 </body>
 
@@ -106,11 +107,17 @@
     };
 
     function refresh() {
+        infoBillin.style.display = 'block';
+
         var funcao = (0.0108082090982 * (mes.value + ano.value)) + 5.1952686793339
         if (funcao > 33.408) {
-            funcao = 33.40
+            funcao = 33.408
         }
         configBill.data.datasets[0].data = [1, funcao.toFixed(3)]
+
+        ec2.innerHTML = `$ ${funcao.toFixed(3)}`;
+        ebs.innerHTML = `$ ${1}`;
+        total.innerHTML = `$ ${Number(funcao.toFixed(3)) + Number(1)}`;
 
         if (window.myDoughnut == undefined) {
             var ctx = document.getElementById('chartBill').getContext('2d');

@@ -25,9 +25,8 @@
 }
 
 .containerChartBill {
-    margin: 0px auto 0px auto;
-    width: 90%;
-    height: 100px;
+    margin: 0px auto 0px 400px;
+    height: 100%;
     display: flex;
     justify-content: center;
 }
@@ -44,4 +43,9 @@
     margin-right: 50px;
     height: 30px;
     cursor: pointer;
+}
+
+.infoBill {
+    width: 80%;
+    margin: 150px 0px 0px 50px;
 }
