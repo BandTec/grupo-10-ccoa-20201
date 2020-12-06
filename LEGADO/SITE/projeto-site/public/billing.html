@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./scss/styleChatjs.css">
+    <link rel="stylesheet" href="./scss/styleGrafico.css">
+    <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <link rel="icon" href="../img/logo.png">
+    <title>Cold Stock</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="titulo-logo">
+                <a href="indexGrafico.html"><img class="logo" src="../img/logo.png" alt=""></a>
+                <h1><a href="indexGrafico.html">Cold Stock</a></h1>
+            </div>
+            <div class="painel">
+                <h1>Finanças</h1>
+            </div>
+        </div>
+    </header>
+    <div class="cabecalhoBill">
+        <div class="containerBill">
+            <img src="./img/bill.svg" alt="" style="height: 90px; fill: white;">
+            <p class="tituloBill">
+                Billing AWS
+            </p>
+        </div>
+    </div>
+    <div class="cabecalhoBill">
+        <div class="opcoes">
+            <select name="" id="">
+                <option value="">2020</option>
+                <option value="">2021</option>
+                <option value="">2022</option>
+                <option value="">2023</option>
+                <option value="">2024</option>
+                <option value="">2025</option>
+            </select>
+            <select name="" id="">
+                <option value="">Janeiro</option>
+                <option value="">Fevereiro</option>
+                <option value="">Março</option>
+                <option value="">Abril</option>
+                <option value="">Maio</option>
+                <option value="">Junho</option>
+                <option value="">Julho</option>
+                <option value="">Agosto</option>
+                <option value="">Setembro</option>
+                <option value="">Outubro</option>
+                <option value="">Novembro</option>
+                <option value="">Dezembro</option>
+            </select>
+            <button id="chamarBilling" class="botao">Ver Billing</button>
+        </div>
+        <div class="chartBill">
+            <div class="containerChartBill">
+                <canvas id="chartBill" style="width: 350px; height: 350px;"></canvas>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+    };
+
+    var configBill = {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [
+                    8,
+                    1,
+                ],
+
+                backgroundColor: [
+                    window.chartColors.yellow,
+                    window.chartColors.blue
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+                'EC2',
+                'EBS'
+            ]
+        },
+        options: {
+            responsive: false,
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Gastos na AWS'
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        }
+    };
+
+    window.onload = function() {
+        var ctx = document.getElementById('chartBill').getContext('2d');
+        window.myDoughnut = new Chart(ctx, configBill);
+    };
+</script>

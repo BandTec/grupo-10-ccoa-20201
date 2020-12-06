@@ -1,0 +1,47 @@
+.cabecalhoBill {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.chartBill {
+    height: 400px;
+}
+
+.containerBill {
+    background-color: #31817d;
+    width: 90%;
+    height: 100px;
+    margin: 10px auto 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerBill p {
+    color: white;
+    margin-left: 10px;
+    font-size: 50px;
+}
+
+.containerChartBill {
+    margin: 0px auto 0px auto;
+    width: 90%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.opcoes {
+    width: 80%;
+    margin: 0px auto 15px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.opcoes select {
+    margin-right: 50px;
+    height: 30px;
+    cursor: pointer;
+}

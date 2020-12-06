@@ -3,354 +3,133 @@
 <html>
 
 <head>
-  <link rel="icon" href="../img/logo.png">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <script type="text/javascript" src="funcoes.js"></script>
-  <title>Cold Stock</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,900&display=swap" rel="stylesheet">
-  <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
-  <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <link rel="icon" href="../img/logo.png">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="funcoes.js"></script>
+    <title>Cold Stock</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./scss/styleGrafico.css">
+    <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
-  <style type="text/css">
-    body {
-      font-family: 'Montserrat';
-      margin: 0;
-    }
-
-    .container {
-      width: 80%;
-      margin: auto;
-      overflow: hidden;
-    }
-
-    header {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      background-color: #3AAFA9;
-      min-height: 60px;
-      color: #def2f1;
-      top: 0;
-      z-index: 100;
-      left: 0
-    }
-
-    .titulo-logo {
-      float: left;
-      display: flex;
-    }
-
-    .titulo-logo a {
-      text-decoration: none;
-      color: #def2f1;
-    }
-
-    .titulo-logo a img {
-      height: 50px;
-      margin-top: 15px;
-    }
-
-    .titulo-logo a h1 {
-      margin-top: 20px;
-    }
-
-    .painel h1 {
-      float: right;
-    }
-
-    /* Chart.js */
-    @keyframes chartjs-render-animation {
-      from {
-        opacity: .99
-      }
-
-      to {
-        opacity: 1
-      }
-    }
-
-    .grafico {
-      overflow: hidden;
-      min-height: 450px;
-    }
-
-    .w50 {
-      float: left;
-      width: 50%;
-    }
-
-    .w30 {
-      float: left;
-      width: 30%;
-    }
-
-    .w40 {
-      width: 40%;
-      float: left;
-    }
-
-    .clear {
-      clear: both;
-    }
-
-    .dados-grafico {
-      text-align: left;
-      font-size: 18px;
-      margin-left: 70px;
-    }
-
-    .dados-grafico b {
-      margin-top: 15px;
-    }
-
-    .lista-produtos{
-      overflow: auto;
-      height: 450px;
-      width: 70%;
-      margin: 0 auto;
-    }
-
-    .lista-produtos ul {
-      
-      float: left;
-    }
-
-    .lista-produtos .ulStyle li {
-      list-style: none;
-      margin-top: 25px;
-      font-size: 22px;
-      text-align: left;
-    }
-
-    select {
-      border: 2px solid #3AAFA9;
-      border-radius: 10px;
-      font-size: 20px;
-    }
-
-    .botao {
-      padding: 7px 7px 7px 7px;
-      border-radius: 10px;
-      border-style: none;
-      cursor: pointer;
-      background-color: #3AAFA9;
-      color: #FEFFFF;
-      font-family: 'Montserrat';
-      -webkit-transition: background 0.3s ease-out;
-      -moz-transition: background 0.3s ease-out;
-      -o-transition: background 0.3s ease-out;
-      -ms-transition: background 0.3s ease-out;
-    }
-
-    .botao:hover {
-      background-color: #2b7a77;
-    }
-
-    .input-dados {
-      padding: 5px 10px;
-      border-radius: 10px;
-      border: 2px solid #3AAFA9;
-      font-family: 'Montserrat';
-      font-size: 20px;
-    }
-
-    .input-dados-comparar {
-      padding: 5px 10px 5px 10px;
-      border-radius: 10px;
-      border: 2px solid #3AAFA9;
-      font-family: 'Montserrat';
-      font-size: 15px;
-      width: 70%;
-      margin-top: 30px;
-    }
-
-    .chartjs-render-monitor {
-      animation: chartjs-render-animation 1ms
-    }
-
-    .chartjs-size-monitor,
-    .chartjs-size-monitor-expand,
-    .chartjs-size-monitor-shrink {
-      position: absolute;
-      direction: ltr;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      pointer-events: none;
-      visibility: hidden;
-      z-index: -1
-    }
-
-    .chartjs-size-monitor-expand>div {
-      position: absolute;
-      width: 1000000px;
-      height: 1000000px;
-      left: 0;
-      top: 0
-    }
-
-    .chartjs-size-monitor-shrink>div {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      left: 0;
-      top: 0
-    }
-
-    .w25{
-      width: 25%;
-      float: left;
-    }
-
-    .w33{
-      width: 33%;
-      float: left;
-    }
-
-    .tag{
-      color: white;
-      font-size: 22px;
-
-    }
-
-    .fileira-titulo{
-      padding: 10px;
-      background-color: #31817d;
-    }
-
-    .fileira-buscar{
-      background-color: #20635e;
-    }
-
-    .box-registro{
-      font-size: 18px;
-      padding: 10px;
-      border-bottom: 2px solid #31817d;
-      border-left: 2px solid #31817d;
-      border-right: 2px solid #31817d;
-    }
-  </style>
 </head>
 
 <body>
-  <center>
-    <header>
-      <div class="container">
-        <div class="titulo-logo">
-          <a href="indexGrafico.html"><img class="logo" src="../img/logo.png" alt=""></a>
-          <h1><a href="indexGrafico.html">Cold Stock</a></h1>
-        </div>
-        <div class="painel">
-          <h1>Painel de Controle</h1>
-        </div>
-      </div>
-    </header>
+    <center>
+        <header>
+            <div class="container">
+                <div class="titulo-logo">
+                    <a href="indexGrafico.html"><img class="logo" src="../img/logo.png" alt=""></a>
+                    <h1><a href="indexGrafico.html">Cold Stock</a></h1>
+                </div>
+                <div class="painel">
+                    <h1>Painel de Controle</h1>
+                </div>
+            </div>
+        </header>
 
-    <div class="container">
-      <div class="conteudo" style="margin-top: 30px;">
-        <div class="w50">
-          <div class="grafico" >
-            <div style="display: flex;" class="input-geladeira">
-              <form id="formGeladeira" method="POST">
-                <h3 style="font-weight: normal;display: inline;">Consultar estocagens: </h3>
-                <input class="input-dados" placeholder="Insira id da máquina" id="mostrar" name="Geladeira">
-              </form>
-              
-            </div>
-            <div style=" display: block; margin-top: 10px; margin-bottom: 10px; margin-left: 0;" id="frase"></div>
-          <div style="display: block;" id="canvas1">
-            <div class=" chartjs-size-monitor">
-              <div class="chartjs-size-monitor-expand">
-                <div class=""></div>
-              </div>
-              <div class="chartjs-size-monitor-shrink">
-                <div class=""></div>
-              </div>
-            </div>
-            <canvas id="chart-area1" class="chartjs-render-monitor" height="150px">
+        <div class="container">
+            <div class="conteudo" style="margin-top: 30px;">
+                <div class="w50">
+                    <div class="grafico">
+                        <div style="display: flex;" class="input-geladeira">
+                            <form id="formGeladeira" method="POST">
+                                <h3 style="font-weight: normal;display: inline;">Consultar estocagens: </h3>
+                                <input class="input-dados" placeholder="Insira id da máquina" id="mostrar" name="Geladeira">
+                            </form>
+
+                        </div>
+                        <div style=" display: block; margin-top: 10px; margin-bottom: 10px; margin-left: 0;" id="frase"></div>
+                        <div style="display: block;" id="canvas1">
+                            <div class=" chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                            <canvas id="chart-area1" class="chartjs-render-monitor" height="150px">
             </canvas>
-          </div>
-          <div class="id-grafico1">
-            <div class="dados-grafico">
-              <b>Id: <b id="b_id1">X</b></b><br>
-              <b>Localidade: <b id="b_localidade1">X</b></b>
-            </div>
-            <button id="randomizeData" class="botao" style="margin-top: 20px;" onclick="buscarDados1();">Gerar dados</button>
-          </div>
-          </div>
-          
-        </div>
+                        </div>
+                        <div class="id-grafico1">
+                            <div class="dados-grafico">
+                                <b>Id: <b id="b_id1">X</b></b><br>
+                                <b>Localidade: <b id="b_localidade1">X</b></b>
+                            </div>
+                            <button id="randomizeData" class="botao" style="margin-top: 20px;" onclick="buscarDados1();">Gerar dados</button>
+                        </div>
+                    </div>
 
-
-        <!-- Parte da direita -->
-        <div class="w50" >
-          <div class="lista-produtos" style=" border: 1px solid #ccc;border-radius: 5px;" id="lista">
-            <form method="POST" id="formProduto"></form>
-            <input class="input-dados" style="margin-top: 20px;" placeholder="Insira o id do produto"
-              id="input_produtos"><button class="botao" style="font-size: 18px; margin-left: 5px;" onclick="buscarProd()">Buscar</button>
-            <ul class="ulStyle">
-              
-            </ul>
-          </div>
-          </div>
-
-        <div class="clear"></div>
-
-        <!-- tabela em branco da fileira -->
-        <div style="background-color: #afd8d6; max-height: 400px; margin-top: 100px; overflow: auto;" class="tabela-fileira">
-          <div class="fileira-titulo">
-            <div class="w25 tag">Produto</div>
-            <div class="w25 tag">ID da fileira</div>
-            <div class="w25 tag">Situação</div>
-            <div class="w25 tag">Data</div>
-            <div class="clear"></div>
-          </div>
-          <div class="fileira-registros" id="divRegistro">
-            
-          </div>
-        </div>
-
-        <!-- Atual Produtos -->
-        <div style="background-color: #afd8d6; max-height: 400px; margin-top: 100px; overflow: auto;" class="tabela-fileira">
-          <div class="fileira-buscar">
-            <input class="input-dados" style="margin: 10px 0" placeholder="Insira o id da geladeira" id="input_produtos_atual">
-            <button class="botao" style="font-size: 18px; margin-left: 5px;" onclick="buscarAtual()">Buscar</button>
-          </div>
-          <div class="fileira-titulo">
-            <div class="w33 tag">ID da fileira</div>
-            <div class="w33 tag">Produto</div>
-            <div class="w33 tag">Situação</div>
-            <div class="clear"></div>
-          </div>
-          <div class="fileira-registros" style="background-color: white;" id="divAtual">
-            
-          </div>
-        </div>
-
-        <!-- ultimo conteúdo -->
-        <div id="junto" style=" border: 1px solid #ccc;border-radius: 5px; margin-top: 20px;">
-          <div id="grafico" class="w40">
-            <div style="display: block;" id="canvas2">
-              <div class=" chartjs-size-monitor">
-                <div class="chartjs-size-monitor-expand">
-                  <div class=""></div>
                 </div>
-                <div class="chartjs-size-monitor-shrink">
-                  <div class=""></div>
+
+
+                <!-- Parte da direita -->
+                <div class="w50">
+                    <div class="lista-produtos" style=" border: 1px solid #ccc;border-radius: 5px;" id="lista">
+                        <form method="POST" id="formProduto"></form>
+                        <input class="input-dados" style="margin-top: 20px;" placeholder="Insira o id do produto" id="input_produtos"><button class="botao" style="font-size: 18px; margin-left: 5px;" onclick="buscarProd()">Buscar</button>
+                        <ul class="ulStyle">
+
+                        </ul>
+                    </div>
                 </div>
-              </div>
-              <canvas id="chart-area2" class="chartjs-render-monitor" height="150px" style="float: left;">
+
+                <div class="clear"></div>
+
+                <!-- tabela em branco da fileira -->
+                <div style="background-color: #afd8d6; max-height: 400px; margin-top: 100px; overflow: auto;" class="tabela-fileira">
+                    <div class="fileira-titulo">
+                        <div class="w25 tag">Produto</div>
+                        <div class="w25 tag">ID da fileira</div>
+                        <div class="w25 tag">Situação</div>
+                        <div class="w25 tag">Data</div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="fileira-registros" id="divRegistro">
+
+                    </div>
+                </div>
+
+                <!-- Atual Produtos -->
+                <div style="background-color: #afd8d6; max-height: 400px; margin-top: 100px; overflow: auto;" class="tabela-fileira">
+                    <div class="fileira-buscar">
+                        <input class="input-dados" style="margin: 10px 0" placeholder="Insira o id da geladeira" id="input_produtos_atual">
+                        <button class="botao" style="font-size: 18px; margin-left: 5px;" onclick="buscarAtual()">Buscar</button>
+                    </div>
+                    <div class="fileira-titulo">
+                        <div class="w33 tag">ID da fileira</div>
+                        <div class="w33 tag">Produto</div>
+                        <div class="w33 tag">Situação</div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="fileira-registros" style="background-color: white;" id="divAtual">
+
+                    </div>
+                </div>
+
+                <!-- ultimo conteúdo -->
+                <div id="junto" style=" border: 1px solid #ccc;border-radius: 5px; margin-top: 20px;">
+                    <div id="grafico" class="w40">
+                        <div style="display: block;" id="canvas2">
+                            <div class=" chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                            <canvas id="chart-area2" class="chartjs-render-monitor" height="150px" style="float: left;">
               </canvas>
-            </div>
-            <div class="id-grafico2">
-              <div class="dados-grafico">
-                <form id="formGeladeira1" method="POST">
-                  <input class="input-dados-comparar" placeholder="Insira id da primeira máquina" id="mostrar1" name="Geladeira">
-                </form><br>
-                <b>Localidade: <b id="b_localidade2">X</b></b><br>
-                <b>Mes: <select id="cbx_mes1">
+                        </div>
+                        <div class="id-grafico2">
+                            <div class="dados-grafico">
+                                <form id="formGeladeira1" method="POST">
+                                    <input class="input-dados-comparar" placeholder="Insira id da primeira máquina" id="mostrar1" name="Geladeira">
+                                </form><br>
+                                <b>Localidade: <b id="b_localidade2">X</b></b><br>
+                                <b>Mes: <select id="cbx_mes1">
                     <option value="jan1">Janeiro</option>
                     <option value="fev1">Fevereiro</option>
                     <option value="mar1">Março</option>
@@ -364,32 +143,32 @@
                     <option value="nov1">Novembro</option>
                     <option value="dez1">Dezembro</option>
                   </select></b>
-              </div>
-            </div>
-          </div>
-  
-          <div id="grafico" style="float: right;" class="w40">
-            
-            <div style="display: block;" id="canvas">
-              <div class=" chartjs-size-monitor">
-                <div class="chartjs-size-monitor-expand">
-                  <div class=""></div>
-                </div>
-                <div class="chartjs-size-monitor-shrink">
-                  <div class=""></div>
-                </div>
-              </div>
-              <canvas id="chart_area3" class="chartjs-render-monitor" height="150px" style="float: left;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="grafico" style="float: right;" class="w40">
+
+                        <div style="display: block;" id="canvas">
+                            <div class=" chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                            <canvas id="chart_area3" class="chartjs-render-monitor" height="150px" style="float: left;">
               </canvas>
-            </div>
-            <div class="id-grafico3">
-              <div class="dados-grafico">
-                
-                <form id="formGeladeira2" method="POST">
-                  <input class="input-dados-comparar" placeholder="Insira id da primeira máquina" id="mostrar2" name="Geladeira">
-                </form><br>
-                <b>Localidade: <b id="b_localidade3">X</b></b><br>
-                <b >Mes: <select id="cbx_mes2" style="margin-bottom: 20px;">
+                        </div>
+                        <div class="id-grafico3">
+                            <div class="dados-grafico">
+
+                                <form id="formGeladeira2" method="POST">
+                                    <input class="input-dados-comparar" placeholder="Insira id da primeira máquina" id="mostrar2" name="Geladeira">
+                                </form><br>
+                                <b>Localidade: <b id="b_localidade3">X</b></b><br>
+                                <b>Mes: <select id="cbx_mes2" style="margin-bottom: 20px;">
                   <option value="jan2">Janeiro</option>
                   <option value="fev2">Fevereiro</option>
                   <option value="mar2">Março</option>
@@ -403,345 +182,344 @@
                   <option value="nov2">Novembro</option>
                   <option value="dez2">Dezembro</option>
                   </select></b>
-              </div>
-            </div>
-          </div>
-          <div class="clear"></div>
-        </div>
-        <div style="margin: 30px 0;" class="btn">
-          <button id="randomizeData2" class="botao" onclick="buscarDados2();buscarDados3()">Gerar dados para amostra</button>
-        
-    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div style="margin: 30px 0;" class="btn">
+                    <button id="randomizeData2" class="botao" onclick="buscarDados2();buscarDados3()">Gerar dados para amostra</button>
 
+                </div>
+    </center>
+</body>
 
-  </center>
-
-  <script>
-
-  verificar_autenticacao_fornecedora()
+</html>
+<script>
+    verificar_autenticacao_fornecedora()
 
     var config = {
-      type: 'pie',
-      data: {
-        datasets: [{
-          data: [
-           
-          ],
-          backgroundColor: [
-            window.chartColors.red,
-            window.chartColors.orange,
-            window.chartColors.yellow,
-            window.chartColors.green,
-            window.chartColors.blue,
-            window.chartColors.purple,
-            '#48c77d',
-            '#6748c7',
-            '#4287f5',
-          ],
-          label: 'Dataset 1'
-        }],
-        labels: [
-          
-        ]
-      },
-      options: {
-        responsive: true
-      }
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.orange,
+                    window.chartColors.yellow,
+                    window.chartColors.green,
+                    window.chartColors.blue,
+                    window.chartColors.purple,
+                    '#48c77d',
+                    '#6748c7',
+                    '#4287f5',
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+
+            ]
+        },
+        options: {
+            responsive: true
+        }
     };
 
     var config2 = {
-      type: 'pie',
-      data: {
-        datasets: [{
-          data: [
-           
-          ],
-          backgroundColor: [
-            window.chartColors.red,
-            window.chartColors.orange,
-            window.chartColors.yellow,
-            window.chartColors.green,
-            window.chartColors.blue,
-          ],
-          label: 'Dataset 1'
-        }],
-        labels: [
-          
-        ]
-      },
-      options: {
-        responsive: true
-      }
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.orange,
+                    window.chartColors.yellow,
+                    window.chartColors.green,
+                    window.chartColors.blue,
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+
+            ]
+        },
+        options: {
+            responsive: true
+        }
     };
 
     var config3 = {
-      type: 'pie',
-      data: {
-        datasets: [{
-          data: [
-           
-          ],
-          backgroundColor: [
-            window.chartColors.red,
-            window.chartColors.orange,
-            window.chartColors.yellow,
-            window.chartColors.green,
-            window.chartColors.blue,
-          ],
-          label: 'Dataset 1'
-        }],
-        labels: [
-          
-        ]
-      },
-      options: {
-        responsive: true
-      }
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.orange,
+                    window.chartColors.yellow,
+                    window.chartColors.green,
+                    window.chartColors.blue,
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+
+            ]
+        },
+        options: {
+            responsive: true
+        }
     };
 
-    function buscarDados1(){
-      lista.innerHTML = ' <input class="input-dados" style="margin-top: 20px;" placeholder="Insira o id do produto" id="input_produtos"><button onclick="buscarProd()" class="botao" style="font-size: 18px; margin-left: 5px;">Buscar</button>'
-      config.data.datasets[0].data.length = 0;
-      config.data.labels.length = 0;
-      var formulario = new URLSearchParams(new FormData(formGeladeira));
-      let texto = '';
-      b_id1.innerHTML = mostrar.value;
-      fetch('/geladeiras/procurar',  {
-            method: "POST",
-            body: formulario
-        }).then(function (response) {
-            if (response.ok) {
-              response.json().then(json => {
-                
-                for (i = 0; i < json.length; i++) {
-                        var registro = json[i];
-                        config.data.datasets[0].data.push(json[i].qtd_abastecimento)
-                        config.data.labels.push(json[i].nomeProduto)
+    function buscarDados1() {
+        lista.innerHTML = ' <input class="input-dados" style="margin-top: 20px;" placeholder="Insira o id do produto" id="input_produtos"><button onclick="buscarProd()" class="botao" style="font-size: 18px; margin-left: 5px;">Buscar</button>'
+        config.data.datasets[0].data.length = 0;
+        config.data.labels.length = 0;
+        var formulario = new URLSearchParams(new FormData(formGeladeira));
+        let texto = '';
+        b_id1.innerHTML = mostrar.value;
+        fetch('/geladeiras/procurar', {
+                method: "POST",
+                body: formulario
+            }).then(function(response) {
+                if (response.ok) {
+                    response.json().then(json => {
 
-                        texto += `<li>${json[i].idProduto}. ${json[i].nomeProduto}</li>`
-                    }
-                    lista.innerHTML += `<ul class = 'ulStyle'>${texto}</ul>`
-                    sessionStorage.geladeira_usuario_meuapp = mostrar.value;
-                    plotar1(); 
-              });
-                
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+                        for (i = 0; i < json.length; i++) {
+                            var registro = json[i];
+                            config.data.datasets[0].data.push(json[i].qtd_abastecimento)
+                            config.data.labels.push(json[i].nomeProduto)
 
-        fetch('/geladeiras/informacoes',  {
-            method: "POST",
-            body: formulario
-        }).then(function (response) {
-            if (response.ok) {
-              response.json().then(json => {
-                  b_localidade1.innerHTML = json[0].nomeLocalidade
-              });
-                
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+                            texto += `<li>${json[i].idProduto}. ${json[i].nomeProduto}</li>`
+                        }
+                        lista.innerHTML += `<ul class = 'ulStyle'>${texto}</ul>`
+                        sessionStorage.geladeira_usuario_meuapp = mostrar.value;
+                        plotar1();
+                    });
+
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function(error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+        fetch('/geladeiras/informacoes', {
+                method: "POST",
+                body: formulario
+            }).then(function(response) {
+                if (response.ok) {
+                    response.json().then(json => {
+                        b_localidade1.innerHTML = json[0].nomeLocalidade
+                    });
+
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function(error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
-    function buscarDados2(){
+    function buscarDados2() {
 
-      config2.data.datasets[0].data.length = 0;
-      config2.data.labels.length = 0;
-      var formulario = new URLSearchParams(new FormData(formGeladeira1));
-      let dados = {
-        geladeira: mostrar1.value,
-        parametros: mes1()
-      }
-      
-      fetch('/geladeiras/data',  {
-            method: "POST",
-            headers: {
+        config2.data.datasets[0].data.length = 0;
+        config2.data.labels.length = 0;
+        var formulario = new URLSearchParams(new FormData(formGeladeira1));
+        let dados = {
+            geladeira: mostrar1.value,
+            parametros: mes1()
+        }
+
+        fetch('/geladeiras/data', {
+                method: "POST",
+                headers: {
                     'Content-Type': 'application/json'
-                    },
-            body:JSON.stringify(dados),
-        }).then(function (response) {
-            if (response.ok) {
-              response.json().then(json => {
-                for (i = 0; i < json.length; i++) {
-                        var registro = json[i];
-                        console.log(`isso aqui: ${json[i].qtd_abastecimento}`);
-                        config2.data.datasets[0].data.push(json[i].qtd_abastecimento)
-                        config2.data.labels.push(json[i].nomeProduto)
+                },
+                body: JSON.stringify(dados),
+            }).then(function(response) {
+                if (response.ok) {
+                    response.json().then(json => {
+                        for (i = 0; i < json.length; i++) {
+                            var registro = json[i];
+                            console.log(`isso aqui: ${json[i].qtd_abastecimento}`);
+                            config2.data.datasets[0].data.push(json[i].qtd_abastecimento)
+                            config2.data.labels.push(json[i].nomeProduto)
 
-                    }
-                    plotar2(); 
-              });
-                
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+                        }
+                        plotar2();
+                    });
 
-        fetch('/geladeiras/informacoes',  {
-            method: "POST",
-            body: formulario
-        }).then(function (response) {
-            if (response.ok) {
-              response.json().then(json => {
-                  b_localidade2.innerHTML = json[0].nomeLocalidade
-              });
-                
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function(error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
 
-        
+        fetch('/geladeiras/informacoes', {
+                method: "POST",
+                body: formulario
+            }).then(function(response) {
+                if (response.ok) {
+                    response.json().then(json => {
+                        b_localidade2.innerHTML = json[0].nomeLocalidade
+                    });
+
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function(error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+
     }
 
-    function buscarDados3(){
-      config3.data.datasets[0].data.length = 0;
-      config3.data.labels.length = 0;
-      var formulario = new URLSearchParams(new FormData(formGeladeira2));
-      let dados = {
-        geladeira: mostrar2.value,
-        parametros: mes2()
-      }
-      fetch('/geladeiras/data',  {
-            method: "POST",
-            headers: {
+    function buscarDados3() {
+        config3.data.datasets[0].data.length = 0;
+        config3.data.labels.length = 0;
+        var formulario = new URLSearchParams(new FormData(formGeladeira2));
+        let dados = {
+            geladeira: mostrar2.value,
+            parametros: mes2()
+        }
+        fetch('/geladeiras/data', {
+                method: "POST",
+                headers: {
                     'Content-Type': 'application/json'
-                    },
-            body:JSON.stringify(dados),
-        }).then(function (response) {
-            if (response.ok) {
-              response.json().then(json => {
-                for (i = 0; i < json.length; i++) {
-                        var registro = json[i];
-                        console.log(`isso aqui: ${json[i].qtd_abastecimento}`);
-                        config3.data.datasets[0].data.push(json[i].qtd_abastecimento)
-                        config3.data.labels.push(json[i].nomeProduto)
+                },
+                body: JSON.stringify(dados),
+            }).then(function(response) {
+                if (response.ok) {
+                    response.json().then(json => {
+                        for (i = 0; i < json.length; i++) {
+                            var registro = json[i];
+                            console.log(`isso aqui: ${json[i].qtd_abastecimento}`);
+                            config3.data.datasets[0].data.push(json[i].qtd_abastecimento)
+                            config3.data.labels.push(json[i].nomeProduto)
 
-                    }
-                    plotar3();
-              });
-                
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+                        }
+                        plotar3();
+                    });
 
-        fetch('/geladeiras/informacoes',  {
-            method: "POST",
-            body: formulario
-        }).then(function (response) {
-            if (response.ok) {
-              response.json().then(json => {
-                  b_localidade3.innerHTML = json[0].nomeLocalidade
-              });
-                
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function(error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+        fetch('/geladeiras/informacoes', {
+                method: "POST",
+                body: formulario
+            }).then(function(response) {
+                if (response.ok) {
+                    response.json().then(json => {
+                        b_localidade3.innerHTML = json[0].nomeLocalidade
+                    });
+
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function(error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
     function plotar1() {
-      var ctx = document.getElementById('chart-area1').getContext('2d');
-      window.myPie = new Chart(ctx, config);
-      window.myPie.update();
+        var ctx = document.getElementById('chart-area1').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+        window.myPie.update();
     };
 
-    document.getElementById('randomizeData').addEventListener('click', function () {
-      canvas.style.display = 'block';
+    document.getElementById('randomizeData').addEventListener('click', function() {
+        canvas.style.display = 'block';
 
-      config.data.datasets.forEach(function (dataset) {
-        dataset.data = dataset.data.map(function () {
-          return config();
+        config.data.datasets.forEach(function(dataset) {
+            dataset.data = dataset.data.map(function() {
+                return config();
+            });
         });
-      });
 
-      window.myPie.update();
-    });
-    
-    document.getElementById('randomizeData2').addEventListener('click', function () {
-      canvas.style.display = 'block';
-
-      config2.data.datasets.forEach(function (dataset) {
-        dataset.data = dataset.data.map(function () {
-          return config2();
-        });
-      });
-
-      window.myPie2.update();
+        window.myPie.update();
     });
 
-    document.getElementById('randomizeData2').addEventListener('click', function () {
-      canvas.style.display = 'block';
+    document.getElementById('randomizeData2').addEventListener('click', function() {
+        canvas.style.display = 'block';
 
-      config3.data.datasets.forEach(function (dataset) {
-        dataset.data = dataset.data.map(function () {
-          return config3();
+        config2.data.datasets.forEach(function(dataset) {
+            dataset.data = dataset.data.map(function() {
+                return config2();
+            });
         });
-      });
 
-      window.myPie3.update();
+        window.myPie2.update();
+    });
+
+    document.getElementById('randomizeData2').addEventListener('click', function() {
+        canvas.style.display = 'block';
+
+        config3.data.datasets.forEach(function(dataset) {
+            dataset.data = dataset.data.map(function() {
+                return config3();
+            });
+        });
+
+        window.myPie3.update();
     });
 
     function plotar2() {
-      var ctx2 = document.getElementById('chart-area2').getContext('2d');
-      window.myPie2 = new Chart(ctx2, config2);
+        var ctx2 = document.getElementById('chart-area2').getContext('2d');
+        window.myPie2 = new Chart(ctx2, config2);
     };
 
     function plotar3() {
-      var ctx3 = document.getElementById('chart_area3').getContext('2d');
-      window.myPie3 = new Chart(ctx3, config3);
+        var ctx3 = document.getElementById('chart_area3').getContext('2d');
+        window.myPie3 = new Chart(ctx3, config3);
     };
 
     function voltar() {
-      window.location.replace("indexGrafico.html")
+        window.location.replace("indexGrafico.html")
     }
 
-    function buscarProd(){
-      divRegistro.innerHTML = ''
-      let dados = {
-        Produto:input_produtos.value,
-        Geladeira:sessionStorage.geladeira_usuario_meuapp,
-      }
-      console.log(dados);
-      
-      fetch('/geladeiras/produtos',  {
-            method: "POST",
-            headers: {
+    function buscarProd() {
+        divRegistro.innerHTML = ''
+        let dados = {
+            Produto: input_produtos.value,
+            Geladeira: sessionStorage.geladeira_usuario_meuapp,
+        }
+        console.log(dados);
+
+        fetch('/geladeiras/produtos', {
+                method: "POST",
+                headers: {
                     'Content-Type': 'application/json'
-                    },
-            body: JSON.stringify(dados)
-        }).then(function (response) {
-            if (response.ok) {
-              response.json().then(json => {
-                
-                for (i = 0; i < json.length; i++) {
-                        var registro = json[i];
-                        
-                        let dataAba = json[i].dataAbastecimento;
-                        dataAba = dataAba.replace('T',' ')
-                        dataAba = dataAba.replace('.000Z',' ')
-                        divRegistro.innerHTML += `<div class="box-registro">
+                },
+                body: JSON.stringify(dados)
+            }).then(function(response) {
+                if (response.ok) {
+                    response.json().then(json => {
+
+                        for (i = 0; i < json.length; i++) {
+                            var registro = json[i];
+
+                            let dataAba = json[i].dataAbastecimento;
+                            dataAba = dataAba.replace('T', ' ')
+                            dataAba = dataAba.replace('.000Z', ' ')
+                            divRegistro.innerHTML += `<div class="box-registro">
               <div class="w25">${json[i].nomeProduto}</div>
               <div class="w25">${json[i].idFileiras}</div>
               <div class="w25">${json[i].nivelSensor}</div>
@@ -749,222 +527,222 @@
               <div class="clear"></div>
             </div>
             </div>`
-                    }
-                    
-              });
-                
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+                        }
+
+                    });
+
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function(error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
-    function mes1(){
-      let parametros = {};
-      switch(cbx_mes1.value){
-        case 'jan1':
-          parametros = {
-            inicio: '01-01',
-            fim: '01-31'
-          }
-          break;
-          case 'fev1':
-          parametros = {
-            inicio: '02-01',
-            fim: '02-28'
-          }
-          break;
-          case 'mar1':
-          parametros = {
-            inicio: '03-01',
-            fim: '03-31'
-          }
-          break;
-          case 'abr1':
-          parametros = {
-            inicio: '04-01',
-            fim: '04-30'
-          }
-          break;
-          case 'mai1':
-          parametros = {
-            inicio: '05-01',
-            fim: '05-31'
-          }
-          break;
-          case 'jun1':
-          parametros = {
-            inicio: '06-01',
-            fim: '06-30'
-          }
-          break;
-          case 'jul1':
-          parametros = {
-            inicio: '07-01',
-            fim: '07-31'
-          }
-          break;
-          case 'ago1':
-          parametros = {
-            inicio: '08-01',
-            fim: '08-31'
-          }
-          break;
-          case 'set1':
-          parametros = {
-            inicio: '09-01',
-            fim: '09-30'
-          }
-          break;
-          case 'out1':
-          parametros = {
-            inicio: '10-01',
-            fim: '10-31'
-          }
-          break;
-          case 'nov1':
-          parametros = {
-            inicio: '11-01',
-            fim: '11-30'
-          }
-          break;
-          case 'dez1':
-          parametros = {
-            inicio: '12-01',
-            fim: '12-31'
-          }
-          break;
-      }
-      return parametros;
+    function mes1() {
+        let parametros = {};
+        switch (cbx_mes1.value) {
+            case 'jan1':
+                parametros = {
+                    inicio: '01-01',
+                    fim: '01-31'
+                }
+                break;
+            case 'fev1':
+                parametros = {
+                    inicio: '02-01',
+                    fim: '02-28'
+                }
+                break;
+            case 'mar1':
+                parametros = {
+                    inicio: '03-01',
+                    fim: '03-31'
+                }
+                break;
+            case 'abr1':
+                parametros = {
+                    inicio: '04-01',
+                    fim: '04-30'
+                }
+                break;
+            case 'mai1':
+                parametros = {
+                    inicio: '05-01',
+                    fim: '05-31'
+                }
+                break;
+            case 'jun1':
+                parametros = {
+                    inicio: '06-01',
+                    fim: '06-30'
+                }
+                break;
+            case 'jul1':
+                parametros = {
+                    inicio: '07-01',
+                    fim: '07-31'
+                }
+                break;
+            case 'ago1':
+                parametros = {
+                    inicio: '08-01',
+                    fim: '08-31'
+                }
+                break;
+            case 'set1':
+                parametros = {
+                    inicio: '09-01',
+                    fim: '09-30'
+                }
+                break;
+            case 'out1':
+                parametros = {
+                    inicio: '10-01',
+                    fim: '10-31'
+                }
+                break;
+            case 'nov1':
+                parametros = {
+                    inicio: '11-01',
+                    fim: '11-30'
+                }
+                break;
+            case 'dez1':
+                parametros = {
+                    inicio: '12-01',
+                    fim: '12-31'
+                }
+                break;
+        }
+        return parametros;
     }
 
-    function mes2(){
-      let parametros = {};
-      switch(cbx_mes2.value){
-        case 'jan2':
-          parametros = {
-            inicio: '01-01',
-            fim: '01-31'
-          }
-          break;
-          case 'fev2':
-          parametros = {
-            inicio: '02-01',
-            fim: '02-28'
-          }
-          break;
-          case 'mar2':
-          parametros = {
-            inicio: '03-01',
-            fim: '03-31'
-          }
-          break;
-          case 'abr2':
-          parametros = {
-            inicio: '04-01',
-            fim: '04-30'
-          }
-          break;
-          case 'mai2':
-          parametros = {
-            inicio: '05-01',
-            fim: '05-31'
-          }
-          break;
-          case 'jun2':
-          parametros = {
-            inicio: '06-01',
-            fim: '06-30'
-          }
-          break;
-          case 'jul2':
-          parametros = {
-            inicio: '07-01',
-            fim: '07-31'
-          }
-          break;
-          case 'ago2':
-          parametros = {
-            inicio: '08-01',
-            fim: '08-31'
-          }
-          break;
-          case 'set2':
-          parametros = {
-            inicio: '09-01',
-            fim: '09-30'
-          }
-          break;
-          case 'out2':
-          parametros = {
-            inicio: '10-01',
-            fim: '10-31'
-          }
-          break;
-          case 'nov2':
-          parametros = {
-            inicio: '11-01',
-            fim: '11-30'
-          }
-          break;
-          case 'dez2':
-          parametros = {
-            inicio: '12-01',
-            fim: '12-31'
-          }
-          break;
-      }
-      return parametros;
+    function mes2() {
+        let parametros = {};
+        switch (cbx_mes2.value) {
+            case 'jan2':
+                parametros = {
+                    inicio: '01-01',
+                    fim: '01-31'
+                }
+                break;
+            case 'fev2':
+                parametros = {
+                    inicio: '02-01',
+                    fim: '02-28'
+                }
+                break;
+            case 'mar2':
+                parametros = {
+                    inicio: '03-01',
+                    fim: '03-31'
+                }
+                break;
+            case 'abr2':
+                parametros = {
+                    inicio: '04-01',
+                    fim: '04-30'
+                }
+                break;
+            case 'mai2':
+                parametros = {
+                    inicio: '05-01',
+                    fim: '05-31'
+                }
+                break;
+            case 'jun2':
+                parametros = {
+                    inicio: '06-01',
+                    fim: '06-30'
+                }
+                break;
+            case 'jul2':
+                parametros = {
+                    inicio: '07-01',
+                    fim: '07-31'
+                }
+                break;
+            case 'ago2':
+                parametros = {
+                    inicio: '08-01',
+                    fim: '08-31'
+                }
+                break;
+            case 'set2':
+                parametros = {
+                    inicio: '09-01',
+                    fim: '09-30'
+                }
+                break;
+            case 'out2':
+                parametros = {
+                    inicio: '10-01',
+                    fim: '10-31'
+                }
+                break;
+            case 'nov2':
+                parametros = {
+                    inicio: '11-01',
+                    fim: '11-30'
+                }
+                break;
+            case 'dez2':
+                parametros = {
+                    inicio: '12-01',
+                    fim: '12-31'
+                }
+                break;
+        }
+        return parametros;
     }
-       
-    function buscarAtual(){
-      divAtual.innerHTML = ''
-            var dados = {
-                geladeira: input_produtos_atual.value,
-                fornecedora: sessionStorage.fornecedora_usuario_meuapp
-            };
 
-            console.log(JSON.stringify(dados));
-            
-            
-            fetch('/geladeiras/atual',  {
+    function buscarAtual() {
+        divAtual.innerHTML = ''
+        var dados = {
+            geladeira: input_produtos_atual.value,
+            fornecedora: sessionStorage.fornecedora_usuario_meuapp
+        };
+
+        console.log(JSON.stringify(dados));
+
+
+        fetch('/geladeiras/atual', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
-                    },
+                },
                 body: JSON.stringify(dados)
             })
-            .then(resposta =>{
+            .then(resposta => {
                 if (resposta.ok) {
                     resposta.json().then(json => {
-                      console.log(JSON.stringify(json));
-                      
-                        for (i = 0; i < json.length; i++) {
-                                let nivelSensor = 0;
-                                let sensor = '';
-                                if(json[i].sensor3 == 1){
-                                    nivelSensor +=25;
-                                }
-                                if(json[i].sensor2 == 1){
-                                    nivelSensor +=25;
-                                }
-                                if(json[i].sensor1 == 1){
-                                    nivelSensor +=25;
-                                }
+                        console.log(JSON.stringify(json));
 
-                                if(nivelSensor == 75){
-                                    sensor = '<b style="color:#0b8c1c">Cheio</b>'
-                                }else if(nivelSensor == 50){
-                                    sensor = '<b style="color:#d4ca0f">Médio</b>'
-                                }else if(nivelSensor == 25){
-                                    sensor = '<b style="color:#ff8800">Quase vazio</b>'
-                                }else if(nivelSensor == 0){
-                                    sensor = '<b style="color:#c70000">Vazio</b>';
-                                }
-                                divAtual.innerHTML += `<div class="box-registro">
+                        for (i = 0; i < json.length; i++) {
+                            let nivelSensor = 0;
+                            let sensor = '';
+                            if (json[i].sensor3 == 1) {
+                                nivelSensor += 25;
+                            }
+                            if (json[i].sensor2 == 1) {
+                                nivelSensor += 25;
+                            }
+                            if (json[i].sensor1 == 1) {
+                                nivelSensor += 25;
+                            }
+
+                            if (nivelSensor == 75) {
+                                sensor = '<b style="color:#0b8c1c">Cheio</b>'
+                            } else if (nivelSensor == 50) {
+                                sensor = '<b style="color:#d4ca0f">Médio</b>'
+                            } else if (nivelSensor == 25) {
+                                sensor = '<b style="color:#ff8800">Quase vazio</b>'
+                            } else if (nivelSensor == 0) {
+                                sensor = '<b style="color:#c70000">Vazio</b>';
+                            }
+                            divAtual.innerHTML += `<div class="box-registro">
                                   <div class="w33">${json[i].idFileiras}</div>
                                   <div class="w33">${json[i].nomeProduto}</div>
                                   <div class="w33">${sensor}</div>
@@ -972,8 +750,8 @@
                                   </div>
                                   </div>`
 
-                            }
-                        
+                        }
+
                     });
 
                 } else {
@@ -983,10 +761,4 @@
                 }
             })
     }
-  </script>
-
-
-
-</body>
-
-</html>
+</script>
