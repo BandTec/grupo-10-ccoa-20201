@@ -42,55 +42,56 @@ import org.jfree.ui.RectangleInsets;
  * @author Carlos Alberto
  */
 public class Grafico {
-    
-    public CategoryDataset createDataset(ArrayList<Componente> listaGrafico){
-        
+
+    public CategoryDataset createDataset(ArrayList<Componente> listaGrafico) {
+
         /*
         Essa função cria itens da lista gerada na classe Conexao.
-        */
+         */
         // aqui criamos um DataSet que ira popular o grafico
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        
+
         // aqui separamos a lista(listaGrafico) em itens (componente) e adiconamos esses itens no DataSet criado 
-        for(Componente componente : listaGrafico){
-            dataSet.addValue(componente.getValor(), componente.getNomeComponente()
-                    , componente.getDataHora());
+        for (Componente componente : listaGrafico) {
+            dataSet.addValue(componente.getValor(), componente.getNomeComponente(),
+                     componente.getDataHora());
         }
-        
+
         return dataSet;
-        
+
     }
-    
-    public JFreeChart createChart(CategoryDataset dataSet, String componente){
+
+    public JFreeChart createChart(CategoryDataset dataSet, String componente) {
         // aqui criamos o gráfico, colocando as legendas, passando os valores (dataSet) e dizemos que a orientação dele sera vertical
-        JFreeChart graficoLinha = ChartFactory.createLineChart(componente, 
+        JFreeChart graficoLinha = ChartFactory.createLineChart(componente,
                 "Horário", "Valor", dataSet, PlotOrientation.VERTICAL,
                 true, false, false);
-   
+
         return graficoLinha;
-        
+
     }
-    
-    public ChartPanel criargrafico(ArrayList<Componente> listaGrafico, String componente){
-        
+
+    public ChartPanel criargrafico(ArrayList<Componente> listaGrafico, String componente) {
+
         CategoryDataset dataSet = this.createDataset(listaGrafico);
-        
+
         JFreeChart grafico = this.createChart(dataSet, componente);
-         AbstractCategoryItemRenderer renderer = (AbstractCategoryItemRenderer) grafico.getCategoryPlot().getRenderer();
+        AbstractCategoryItemRenderer renderer = (AbstractCategoryItemRenderer) grafico.getCategoryPlot().getRenderer();
+        //setando a largura da maquina
         BasicStroke stroke = new BasicStroke(3f);
         renderer.setSeriesStroke(0, stroke);
-        renderer.setSeriesPaint(0, new Color(99,182,177));
+        //Setando a cor da linha do grafico
+        renderer.setSeriesPaint(0, new Color(99, 182, 177));
         ChartPanel painelGrafico = new ChartPanel(grafico);
-        
-        
+
         CategoryPlot plot = (CategoryPlot) grafico.getPlot();
         org.jfree.chart.axis.CategoryAxis domainAxis = plot.getDomainAxis();
+        // colocando a a label virada pra baixo
         domainAxis.setCategoryLabelPositions(
-        CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 2.0));
-        
-        
+                CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 2.0));
+
         painelGrafico.setPreferredSize(new Dimension(640, 480));
         return painelGrafico;
     }
-    
+
 }

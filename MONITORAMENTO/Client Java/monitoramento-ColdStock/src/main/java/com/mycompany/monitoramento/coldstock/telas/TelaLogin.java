@@ -6,7 +6,7 @@
 package com.mycompany.monitoramento.coldstock.telas;
 
 import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
-import com.mycompany.monitoramento.coldstock.modelos.Imagens;
+import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import java.awt.Image;
 import java.io.File;
 import java.nio.file.FileSystems;
@@ -25,7 +25,7 @@ public class TelaLogin extends javax.swing.JFrame {
     // aqui criamos objetos das classes que iremos utilizar
     ClsBD banco = new ClsBD();
     TelaEscolha telaEscolha = new TelaEscolha();
-    Imagens imagem = new Imagens();
+    Imagem imagem = new Imagem();
     /**
      * Creates new form TelaLogin
      */

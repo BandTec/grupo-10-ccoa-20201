@@ -9,7 +9,7 @@ import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
 import com.mycompany.monitoramento.coldstock.modelos.Componente;
 import com.mycompany.monitoramento.coldstock.modelos.Conexao;
 import com.mycompany.monitoramento.coldstock.modelos.Grafico;
-import com.mycompany.monitoramento.coldstock.modelos.Maquinas;
+import com.mycompany.monitoramento.coldstock.modelos.Maquina;
 import java.awt.BorderLayout;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,14 +27,8 @@ import java.util.Timer;
  */
 public class JanelaGrafico extends javax.swing.JFrame {
     ClsBD objBD = new ClsBD();
-    List<Maquinas> retornoBD;
-    private Integer fkMaquina = 0; //Essa é o atributo de instancia que recebera o valor da ComboBox
-    private String metrica = "";
-
-    public void setFkMaquina(Integer fkMaquina) {
-        this.fkMaquina = fkMaquina;
-        carregarComponentes(); //Carregar os componentes da Tela
-    }
+    List<Maquina> retornoBD;
+    //private Integer fkMaquina = 0; //Essa é o atributo de instancia que recebera o valor da ComboBox
     /**
      * Creates new form JanelaGrafico
      */
@@ -42,7 +36,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
     
     public JanelaGrafico() throws SQLException {
         initComponents();
-        
+        //carregar os componentes ex comboBox, e grafico
+        carregarComponentes();
         // criamos um temporizador, que irá executar uma ação com um determinado intervalo de tempo
         Timer temporizador = new Timer();
         
@@ -67,7 +62,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
         try{
             // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
             objBD.conectar();
-            ResultSet retornoBD = objBD.consultarComponentes(fkMaquina);
+            ResultSet retornoBD = objBD.consultarComponentes(Maquina.fkmaquina);
             while(retornoBD.next()){
                 String nomeComponente  = retornoBD.getString("nomeComponente");
                 cbComponentes.addItem(nomeComponente);
@@ -96,17 +91,17 @@ public class JanelaGrafico extends javax.swing.JFrame {
         
         //aqui executamos os devidos selects, passando como parametro o objeto que vai realizar
         //a conexao, o id do 
-        
-        listaComponente = campo1.trazerLista(campo1.conectar(), 1, (String) cbComponentes.getSelectedItem(), this.fkMaquina);
-        listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, (String) cbComponentes.getSelectedItem(), this.fkMaquina);
-        listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, (String) cbComponentes.getSelectedItem(), this.fkMaquina);
+        System.out.println(Maquina.fkmaquina);
+        listaComponente = campo1.trazerLista(campo1.conectar(), 1, (String) cbComponentes.getSelectedItem(), Maquina.fkmaquina);
+        listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, (String) cbComponentes.getSelectedItem(), Maquina.fkmaquina);
+        listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, (String) cbComponentes.getSelectedItem(), Maquina.fkmaquina);
         
         //agora vamos começar o processo de converter essas listas para arralists
         //primeiro, criamos as arraylists
         ArrayList<Componente> listaGrafico = new ArrayList<>();
         ArrayList<Componente> listaGrafico2 = new ArrayList<>();
         ArrayList<Componente> listaGrafico3 = new ArrayList<>();
-
+System.out.println(Maquina.fkmaquina);
         //e começamosa rodar FORs que vao passar por cada item da listaComponente,
         //e adicionando esses itens na arraylist
         //fazemos isso para as 3 listas
@@ -303,7 +298,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
         try{
             // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
             objBD.conectar();
-            ResultSet retornoBD = objBD.consultarComponentes(fkMaquina, String.valueOf(cbComponentes.getSelectedItem()));
+            ResultSet retornoBD = objBD.consultarComponentes(Maquina.fkmaquina, String.valueOf(cbComponentes.getSelectedItem()));
             while(retornoBD.next()){
                 lblMetrica.setText(retornoBD.getString("metrica"));
             }

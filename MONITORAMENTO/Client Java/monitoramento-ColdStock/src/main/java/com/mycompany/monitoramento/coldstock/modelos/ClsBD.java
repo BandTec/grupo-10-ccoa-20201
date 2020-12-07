@@ -61,7 +61,7 @@ public class ClsBD {
     public List consultarMaquinas() throws SQLException{
         /*
             Essa função é responsavel por gerar uma lista com base no resultado do select, 
-            utilizando de molde a classe Maquinas
+            utilizando de molde a classe Maquina
         */
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         
@@ -84,10 +84,10 @@ public class ClsBD {
         
         //executando o comando my sql
         //constultaMaquina = lista do retorno do banco de dados
-        List<Maquinas> consultaMaquina;
+        List<Maquina> consultaMaquina;
         consultaMaquina = jdbcTemplate.query(
                 sql,
-                new BeanPropertyRowMapper(Maquinas.class));
+                new BeanPropertyRowMapper(Maquina.class));
         //retorna essa lista gerada
         return consultaMaquina;
     }

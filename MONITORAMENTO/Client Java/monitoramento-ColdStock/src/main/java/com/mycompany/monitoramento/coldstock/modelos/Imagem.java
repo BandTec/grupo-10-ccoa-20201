@@ -3,7 +3,7 @@ package com.mycompany.monitoramento.coldstock.modelos;
 import java.io.File;
 import javax.swing.ImageIcon;
 
-public class Imagens {
+public class Imagem {
     public ImageIcon carregarImgs(String imagemEscolhida){
         String path = new File("Images").getAbsolutePath();
         String caminhoFinal = path + imagemEscolhida; 

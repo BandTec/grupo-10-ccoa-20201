@@ -7,39 +7,44 @@ package com.mycompany.monitoramento.coldstock.telas;
 
 import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
 import com.mycompany.monitoramento.coldstock.modelos.Conexao;
-import com.mycompany.monitoramento.coldstock.modelos.Imagens;
+import com.mycompany.monitoramento.coldstock.modelos.Imagem;
+import com.mycompany.monitoramento.coldstock.modelos.Maquina;
 import java.awt.Color;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Aluno
  */
-
 public class TelaEditarMaquina extends javax.swing.JFrame {
 
-     List<Configuracao>carrinho = new ArrayList<>();
-        
+    List<Configuracao> carrinho = new ArrayList<>();
+
     /**
      * Creates new form telaEditarMaquina
      */
     // criamos objetos novamente
     ClsBD objBD = new ClsBD();
-    Imagens imagem = new Imagens();
-    Integer idMaquina ;
+    Imagem imagem = new Imagem();
+    Integer idMaquina;
     String nomeMaquina;
+
     public TelaEditarMaquina() {
         initComponents();
-        
+
         jLabel6.setIcon(imagem.carregarImgs("/1601053028644.png"));
         carregarComponentes();
-        
+
     }
 
     /**
@@ -70,10 +75,11 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtResumo = new javax.swing.JTextArea();
+        btnLimpar = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel4.setBackground(new java.awt.Color(31, 40, 45));
@@ -111,6 +117,11 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         btnCadastrar.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
         btnCadastrar.setForeground(new java.awt.Color(255, 255, 255));
         btnCadastrar.setText("CADASTRAR");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setBackground(new java.awt.Color(77, 172, 166));
         btnEditar.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
@@ -179,6 +190,12 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         }
     });
 
+    txtCapacidadeMax.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            txtCapacidadeMaxKeyReleased(evt);
+        }
+    });
+
     txtPorcentagemMax1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             txtPorcentagemMax1ActionPerformed(evt);
@@ -205,6 +222,16 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     txtResumo.setText("Itens adicionados: ");
     jScrollPane2.setViewportView(txtResumo);
 
+    btnLimpar.setBackground(new java.awt.Color(77, 172, 166));
+    btnLimpar.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
+    btnLimpar.setForeground(new java.awt.Color(255, 255, 255));
+    btnLimpar.setText("Limpar Carrinho");
+    btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnLimparActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -215,6 +242,8 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btnLimpar)
+                    .addGap(30, 30, 30)
                     .addComponent(btnCadastrar)
                     .addGap(18, 18, 18)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,7 +276,8 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(btnCadastrar)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLimpar))
             .addGap(20, 20, 20)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addGroup(layout.createSequentialGroup()
@@ -279,11 +309,13 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         new Conexao().editarComponentes(Integer.valueOf(txtPorcentagemMax1.getText()), Double.valueOf(txtCapacidadeMax.getText()), idMaquina, cbEscolhaComponente.getSelectedIndex() + 1);
-        carregarTabela(idMaquina, nomeMaquina);
+        carregarTabela(Maquina.fkmaquina, nomeMaquina);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
+        new Conexao().excluirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1);
+        carregarTabela(Maquina.fkmaquina, nomeMaquina);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void cbEscolhaComponenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaComponenteActionPerformed
@@ -296,86 +328,129 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPorcentagemMax1ActionPerformed
 
-                
+
     private void btnAdicionarComponenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarComponenteActionPerformed
-       
-        Configuracao novaConfiguracao = new Configuracao();
-        
-        novaConfiguracao.setComp(cbEscolhaComponente.getSelectedItem().toString());
-        novaConfiguracao.setMaximaComponente(txtCapacidadeMax.getText());
-        novaConfiguracao.setPorcentagem(txtPorcentagemMax1.getText());
-        
-        
-       
-        
-        System.out.println(novaConfiguracao.getComp());
-        System.out.println(novaConfiguracao.getMaximaComponente());
-        System.out.println(novaConfiguracao.getPorcentagem());
-        
-        
-       
-        
-       carrinho.add(novaConfiguracao);
-       
-          String Frase = "Itens adicionados:\n ";
-      
-        for (Configuracao configuracao : carrinho){
-            
-           
-            Frase+=configuracao.getComp()+",";
-            Frase+=configuracao.getMaximaComponente()+",";
-            Frase+=configuracao.getPorcentagem()+"\n";
-            
-                   
-         txtResumo.setText(Frase);   
+        if (txtCapacidadeMax.getText().trim().equals("") || txtPorcentagemMax1.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Não pode conter caixas de textos vazios");
+        } else {
+            Configuracao novaConfiguracao = new Configuracao();
+
+            novaConfiguracao.setComp(cbEscolhaComponente.getSelectedItem().toString());
+            novaConfiguracao.setMaximaComponente(txtCapacidadeMax.getText());
+            novaConfiguracao.setPorcentagem(txtPorcentagemMax1.getText());
+
+            System.out.println(novaConfiguracao.getComp());
+            System.out.println(novaConfiguracao.getMaximaComponente());
+            System.out.println(novaConfiguracao.getPorcentagem());
+            txtCapacidadeMax.setText("");
+            txtPorcentagemMax1.setText("");
+            carrinho.add(novaConfiguracao);
+
+            String Frase = "Itens adicionados:\n ";
+
+            for (Configuracao configuracao : carrinho) {
+
+                Frase += configuracao.getComp() + ",";
+                Frase += configuracao.getMaximaComponente() + ",";
+                Frase += configuracao.getPorcentagem() + "\n";
+
+                txtResumo.setText(Frase);
+            }
+
         }
-        
-         
-     
-        
-        
     }//GEN-LAST:event_btnAdicionarComponenteActionPerformed
 
     private void txtPorcentagemMax1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPorcentagemMax1KeyReleased
         // TODO add your handling code here:
-        if(Double.parseDouble(txtPorcentagemMax1.getText()) > 100){
-            txtPorcentagemMax1.setText("100");
+        // pegando o evento que está entrando na porcentagem e verificando se ele é um digito
+        if (Character.isDigit(evt.getKeyChar())) {
+            // verificando se a porcentagem é maior que 100. 
+            if (Double.parseDouble(txtPorcentagemMax1.getText()) > 100) {
+                txtPorcentagemMax1.setText("100");
+            }
+            // verificando se a porcentagem é menor que 0.
+            if (Double.parseDouble(txtPorcentagemMax1.getText()) < 0) {
+                txtPorcentagemMax1.setText("0");
+            }
+        } else {
+            txtPorcentagemMax1.setText("");
         }
     }//GEN-LAST:event_txtPorcentagemMax1KeyReleased
 
     private void tbComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbComponentesMouseClicked
         // TODO add your handling code here:
-        cbEscolhaComponente.setSelectedItem(String.valueOf(tbComponentes.getModel().getValueAt(tbComponentes.getSelectedRow(),0)));
-        txtCapacidadeMax.setText(String.valueOf(tbComponentes.getModel().getValueAt(tbComponentes.getSelectedRow(),1)).split(" ")[0]);    
-        txtPorcentagemMax1.setText(String.valueOf(tbComponentes.getModel().getValueAt(tbComponentes.getSelectedRow(),2)).split(" ")[0]);
-        
+        // ao clickar em alguma coluna da tabela ele mudar o combobox para a 
+        // os dois textos recebem um conteudos pro texto. 
+        cbEscolhaComponente.setSelectedItem(String.valueOf(tbComponentes.getModel().getValueAt(tbComponentes.getSelectedRow(), 0)));
+        txtCapacidadeMax.setText(String.valueOf(tbComponentes.getModel().getValueAt(tbComponentes.getSelectedRow(), 1)).split(" ")[0]);
+        txtPorcentagemMax1.setText(String.valueOf(tbComponentes.getModel().getValueAt(tbComponentes.getSelectedRow(), 2)).split(" ")[0]);
+
     }//GEN-LAST:event_tbComponentesMouseClicked
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+        // passando o txtResumo, como parametro para o separarCarrinho.
+        separarCarrinho(txtResumo.getText());
+        // Inserindo os componentes dentro do BD 
+        new Conexao().inserirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1,
+                tbComponentes, separarCarrinho(txtResumo.getText()));
+        //Esvaziando o textArea;
+        txtResumo.setText("Itens adicionados:\n ");
+        //Reload da tabela
+        carregarTabela(Maquina.fkmaquina, nomeMaquina);
+        // Limpando o List carrinho;
+        carrinho.clear();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        // TODO add your handling code here:
+        // Limpando o List carrinho;
+        carrinho.clear();
+        //Esvaziando o textArea;
+        txtResumo.setText("Itens adicionados:\n ");
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void txtCapacidadeMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCapacidadeMaxKeyReleased
+        // TODO add your handling code here:
+        // Deixando apenas numeros passarem e o . 
+        if (Character.isDigit(evt.getKeyChar()) || evt.getKeyChar() == '.') {
+            if (Double.parseDouble(txtCapacidadeMax.getText()) < 0) {
+                txtCapacidadeMax.setText("0");
+            }
+        } else {
+            // zerando a caixa caso não seja numerico
+             txtCapacidadeMax.setText("");
+        }
+    }//GEN-LAST:event_txtCapacidadeMaxKeyReleased
+    private String[] separarCarrinho(String carrinhoItens) {
+        // seperar o texto do textArea por quebra de linha '\n', e colocando em um array do tipo String
+        String[] itens = carrinhoItens.split("\n");
+        return itens;
+    }
 
     /**
      * @param args the command line arguments
      */
 
-    
-    private void carregarComponentes(){
-        try{
+    private void carregarComponentes() {
+        try {
             // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
             objBD.conectar();
             ResultSet retornoBD = objBD.consultarComponentes();
-            while(retornoBD.next()){
-                String nomeComponente  = retornoBD.getString("nomeComponente");
+            while (retornoBD.next()) {
+                String nomeComponente = retornoBD.getString("nomeComponente");
                 // na combo box, adicionamos o nome dos componentes
                 cbEscolhaComponente.addItem(nomeComponente);
             }
-        }
-        catch(SQLException se){
+        } catch (SQLException se) {
             System.out.println(se);
         }
     }
-    
-    void carregarTabela(Integer idMaquina, String nomeMaquina){  
+
+    void carregarTabela(Integer idMaquina, String nomeMaquina) {
         this.idMaquina = idMaquina;
         this.nomeMaquina = nomeMaquina;
-        try{
+        try {
             objBD.conectar();
             ResultSet retornoBD = objBD.consultarConfiguracaoMaquina(idMaquina);
             lblNomeMaquina.setText(nomeMaquina);
@@ -384,21 +459,20 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
             DefaultTableModel tabela = (DefaultTableModel) tbComponentes.getModel();
             //aqui deixamos o numero de linhas como 0, para poder reiniciar a tabela sempre que a tela for recarregada
             tabela.setRowCount(0);
-            while(retornoBD.next()){
+            while (retornoBD.next()) {
                 // aqui separamos as informações em variaveis
                 String nomeComponente = retornoBD.getString("nomeComponente");
-                String capacidadeMax  = retornoBD.getString("capacidadeMax");
-                String metrica  = retornoBD.getString("metrica");
+                String capacidadeMax = retornoBD.getString("capacidadeMax");
+                String metrica = retornoBD.getString("metrica");
                 String porcentagemMax = retornoBD.getString("porcentagemMax");
                 // para cada proximo item da lista, nos adicionamos na lista as informações anteriores
-                tabela.addRow(new Object[]{nomeComponente, capacidadeMax +" "+metrica, porcentagemMax + " %"});
+                tabela.addRow(new Object[]{nomeComponente, capacidadeMax + " " + metrica, porcentagemMax + " %"});
             }
-        }
-        catch(SQLException se){
+        } catch (SQLException se) {
             System.out.println(se);
-        }      
+        }
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -435,6 +509,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JComboBox<String> cbEscolhaComponente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

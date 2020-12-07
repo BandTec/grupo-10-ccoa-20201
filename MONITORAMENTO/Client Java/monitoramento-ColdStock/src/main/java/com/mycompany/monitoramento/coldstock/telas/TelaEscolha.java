@@ -7,8 +7,8 @@ package com.mycompany.monitoramento.coldstock.telas;
 
 import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
 import com.mycompany.monitoramento.coldstock.modelos.Conexao;
-import com.mycompany.monitoramento.coldstock.modelos.Imagens;
-import com.mycompany.monitoramento.coldstock.modelos.Maquinas;
+import com.mycompany.monitoramento.coldstock.modelos.Imagem;
+import com.mycompany.monitoramento.coldstock.modelos.Maquina;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -31,11 +31,11 @@ public class TelaEscolha extends javax.swing.JFrame {
     // aqui criamos objetos das classes que iremos utilizar
     TelaEditarMaquina telaEditarMaquina = new TelaEditarMaquina();
     ClsBD objBD = new ClsBD();
-    List<Maquinas> retornoBD;
-    Maquinas maquina;
-    Imagens imagem = new Imagens();
+    List<Maquina> retornoBD;
+    Maquina maquina;
+    Imagem imagem = new Imagem();
     
-    public Integer idMaquina;
+    //public Integer idMaquina;
 
     public TelaEscolha() {
         
@@ -235,14 +235,18 @@ public class TelaEscolha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
-        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-        idMaquina = Integer.valueOf(separador[1]);
         
+        // Separar palavra por "-"
+        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        // Setando o atributo estatico fkMaquina
+        Maquina.fkmaquina = Integer.valueOf(separador[1]);
+        // Confirm para deletar alguma maquina e colocando o retorno dentro do "retorno"
         Integer retorno = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir está máquina?", "Aviso",
                 JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
         if(retorno == JOptionPane.YES_OPTION){
-            new Conexao().excluirMaquina(idMaquina);
+            // excluindo as maquinas
+            new Conexao().excluirMaquina(Maquina.fkmaquina);
+            //reload das maquinas
             carregarMaquinas();
         }
         
@@ -289,9 +293,9 @@ public class TelaEscolha extends javax.swing.JFrame {
             Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
         }
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-        idMaquina = Integer.valueOf(separador[1]);
-        System.out.println(idMaquina);
-        grafico.setFkMaquina(idMaquina);
+        Maquina.fkmaquina = Integer.valueOf(separador[1]);
+        //System.out.println(Maquina.fkmaquina);
+        
         grafico.setVisible(true);
         //this.setVisible(false);
     }//GEN-LAST:event_btnOk1ActionPerformed
@@ -302,24 +306,27 @@ public class TelaEscolha extends javax.swing.JFrame {
 //        System.out.println(nomeMaquina);
         
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-        idMaquina = Integer.valueOf(separador[1]);
+        Maquina.fkmaquina = Integer.valueOf(separador[1]);
             
         GridLayout layout = new GridLayout (2,2);
+        
+        // Configurações para a caixa de texto, com 2 campos de texto com tamanho 10,  e 2 labels
         
         
         JTextField nome = new JTextField(10);
         JTextField tipo = new JTextField(10);
         JPanel myPanel = new JPanel();
         myPanel.setLayout(layout);
-        //myPanel.setSize(200, 400);
+       
         myPanel.add(new JLabel("Nome:"));
         myPanel.add(nome);
-//        myPanel.add(Box.createVerticalStrut(0)); // a spacer
+
         myPanel.add(new JLabel("Tipo: "));
         myPanel.add(tipo);
-
+        // adicionando o painel dentro do ShowConfirmDialog,  e pegando o resultado com o result
         int result = JOptionPane.showConfirmDialog(null, myPanel,
                 "Coloque o nome e o tipo da maquina da qual deseja adicionar.", JOptionPane.YES_NO_OPTION);
+        // Adicionando o os dados das caixas de textos no banco de dados. 
         if (result == JOptionPane.YES_OPTION && !(nome.getText().equals("") || tipo.getText().equals(""))) {
             new Conexao().adicionarMaquina(nome.getText(), tipo.getText());
             carregarMaquinas();
@@ -349,7 +356,7 @@ public class TelaEscolha extends javax.swing.JFrame {
             cbEscolhaMaquina.removeAllItems();
             //pegamos o resultado do select das maquinas
             retornoBD = objBD.consultarMaquinas();
-            for (Maquinas maquina : retornoBD) {
+            for (Maquina maquina : retornoBD) {
                 //separamos cada item da lista que foi gerada
                 //separamos de cada item, o nome da maquina e o tipo(se é servidor ou maquina comum)
                 String nomeMaquina = maquina.getNomeMaquina();

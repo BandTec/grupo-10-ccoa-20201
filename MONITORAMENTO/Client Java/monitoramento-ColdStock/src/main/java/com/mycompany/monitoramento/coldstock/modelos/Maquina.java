@@ -9,11 +9,12 @@ package com.mycompany.monitoramento.coldstock.modelos;
     Por exemplo, só é possivel editar o idMaquina usando o setIdMaquina, e só é possivel acessar
     o conteudo do idMaquina usando o getIdMaquina.
 */
-public class Maquinas {
-    private Integer idMaquina;
+public class Maquina {
+    public Integer idMaquina;
     private String nomeMaquina;
     private String tipoMaquina;
-
+    public static Integer fkmaquina = 1;
+    
     public Integer getIdMaquina() {
         return idMaquina;
     }
