@@ -281,7 +281,7 @@ where fkChamado = idChamado and fkMaquina = 1;
 use coldstock;
 select * from registros where fkMaquina = 1 order by idRegistro;
 
-select * from funcionarios;
+select * from componentes;
 
 select * from componentes;
 select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas 
