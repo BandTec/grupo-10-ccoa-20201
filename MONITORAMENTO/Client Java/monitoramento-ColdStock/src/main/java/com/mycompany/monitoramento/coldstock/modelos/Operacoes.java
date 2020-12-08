@@ -5,6 +5,7 @@
  */
 package com.mycompany.monitoramento.coldstock.modelos;
 
+import com.mycompany.monitoramento.coldstock.telas.TelaEditarMaquina;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -117,14 +118,16 @@ public class Operacoes {
 
     public void inserirComponentes(Integer idMaquina, Integer fkComponente, JTable tabela, String[] Itens) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
+        List<String> verificador = new ArrayList<String>();
         for (int j = 1; j < Itens.length; j++) {
             String sql = "insert into configuracaoMaquina (capacidadeMax, porcentagemMax,fkMaquina, fkComponente) values(?, ?, ?, (select idcomponente from componentes where nomeComponente = ?))";
             for (int i = 0; i < tabela.getRowCount(); i++) {
-                if (String.valueOf(tabela.getModel().getValueAt(i, 0)).equals(Itens[j].split(",")[0].trim())) {
+                if (String.valueOf(tabela.getModel().getValueAt(i, 0)).equals(Itens[j].split(",")[0].trim()) || verificador.contains(Itens[j].split(",")[0].trim()) ) {
                     sql = "update configuracaoMaquina set capacidadeMax = ? , porcentagemMax = ? where fkMaquina = ? and fkComponente = (select idcomponente from componentes where nomeComponente = ?)";
+                    break;
                 }
-
             }
+            verificador.add(Itens[j].split(",")[0].trim());
             jdbcTemplate.update(sql, Itens[j].split(",")[1].trim(), Itens[j].split(",")[2].trim(), idMaquina, Itens[j].split(",")[0].trim());
 
         }

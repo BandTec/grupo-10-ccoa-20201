@@ -75,7 +75,6 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel4.setBackground(new java.awt.Color(31, 40, 45));
@@ -198,6 +197,9 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         }
     });
     txtPorcentagemMax1.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyPressed(java.awt.event.KeyEvent evt) {
+            txtPorcentagemMax1KeyPressed(evt);
+        }
         public void keyReleased(java.awt.event.KeyEvent evt) {
             txtPorcentagemMax1KeyReleased(evt);
         }
@@ -418,6 +420,11 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 //             txtCapacidadeMax.setText("");
 //        }
     }//GEN-LAST:event_txtCapacidadeMaxKeyReleased
+
+    private void txtPorcentagemMax1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPorcentagemMax1KeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtPorcentagemMax1KeyPressed
     private String[] separarCarrinho(String carrinhoItens) {
         // seperar o texto do textArea por quebra de linha '\n', e colocando em um array do tipo String
         String[] itens = carrinhoItens.split("\n");
@@ -427,7 +434,6 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
     private void carregarComponentes() {
         try {
             // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
@@ -443,7 +449,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         }
     }
 
-    void carregarTabela(Integer idMaquina, String nomeMaquina) {
+    public void carregarTabela(Integer idMaquina, String nomeMaquina) {
         this.idMaquina = idMaquina;
         this.nomeMaquina = nomeMaquina;
         try {

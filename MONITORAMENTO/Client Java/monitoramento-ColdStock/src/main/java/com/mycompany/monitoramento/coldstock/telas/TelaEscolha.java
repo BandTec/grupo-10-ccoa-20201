@@ -260,9 +260,14 @@ public class TelaEscolha extends javax.swing.JFrame {
         System.out.println(num);
         // aqui pegamos um item especifico da lista, sendo aquele que é equivalente ao indice selecionado da combobox
         maquina = retornoBD.get(num);
-
+        
+        // Separar palavra por "-"
+        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        // Setando o atributo estatico fkMaquina
+        Maquina.fkmaquina = Integer.valueOf(separador[1]);
+        
         //por fim, passamos o item buscado para a proxima tela, mandando o id e o nome da maquina
-        telaEditarMaquina.carregarTabela(maquina.getIdMaquina(), maquina.getNomeMaquina());
+        telaEditarMaquina.carregarTabela(Maquina.fkmaquina, maquina.getNomeMaquina());
         // e deixamos a proxima tela visivel
         telaEditarMaquina.setVisible(true);
         
