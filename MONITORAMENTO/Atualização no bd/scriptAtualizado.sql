@@ -24,7 +24,7 @@ create table localidades(
     bairro varchar(20),
     rua varchar(40)
 );
-
+desc componentes;
 create table geladeiras(
 	idGeladeira int primary key auto_increment,
     fkLocador int,
@@ -298,6 +298,10 @@ select * from configuracaoMaquina;
 
 select dataHora, valor, nomeComponente, fkChamado from coldstock.registros INNER JOIN coldstock.componentes on fkComponente = idComponente where fkMaquina = 1 order by dataHora;
 
+select max(fkchamado) from registros where fkmaquina = 1;
+select * from configuracaoMaquina where fkmaquina = 1;
+
+update configuracaoMaquina set capacidadeMax = 1000, porcentagemMax = 20 where fkmaquina = 1 and fkComponente = 4;
 -- select nomeConsumidor,emailConsumidor,nomelocalidade from consumidoresFinais, localidades where fkLocalidade = idLocalidade;
 
 -- select nomeFuncionario,emailFuncionario,nomeFornecedora from funcionarios, fornecedoras where fkFornecedora = idFornecedora;

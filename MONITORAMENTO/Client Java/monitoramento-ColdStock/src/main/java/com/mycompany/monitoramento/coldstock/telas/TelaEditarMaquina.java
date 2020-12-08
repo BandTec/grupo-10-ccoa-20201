@@ -5,20 +5,16 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
-import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
-import com.mycompany.monitoramento.coldstock.modelos.Conexao;
+import com.mycompany.monitoramento.coldstock.modelos.Consultas;
+import com.mycompany.monitoramento.coldstock.modelos.Operacoes;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import com.mycompany.monitoramento.coldstock.modelos.Maquina;
-import java.awt.Color;
-import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,7 +30,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
      * Creates new form telaEditarMaquina
      */
     // criamos objetos novamente
-    ClsBD objBD = new ClsBD();
+    Consultas objBD = new Consultas();
     Imagem imagem = new Imagem();
     Integer idMaquina;
     String nomeMaquina;
@@ -308,13 +304,13 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        new Conexao().editarComponentes(Integer.valueOf(txtPorcentagemMax1.getText()), Double.valueOf(txtCapacidadeMax.getText()), idMaquina, cbEscolhaComponente.getSelectedIndex() + 1);
+        new Operacoes().editarComponentes(Integer.valueOf(txtPorcentagemMax1.getText()), Double.valueOf(txtCapacidadeMax.getText()), idMaquina, cbEscolhaComponente.getSelectedIndex() + 1);
         carregarTabela(Maquina.fkmaquina, nomeMaquina);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-        new Conexao().excluirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1);
+        new Operacoes().excluirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1);
         carregarTabela(Maquina.fkmaquina, nomeMaquina);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -392,7 +388,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         // passando o txtResumo, como parametro para o separarCarrinho.
         separarCarrinho(txtResumo.getText());
         // Inserindo os componentes dentro do BD 
-        new Conexao().inserirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1,
+        new Operacoes().inserirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1,
                 tbComponentes, separarCarrinho(txtResumo.getText()));
         //Esvaziando o textArea;
         txtResumo.setText("Itens adicionados:\n ");
@@ -413,14 +409,14 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     private void txtCapacidadeMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCapacidadeMaxKeyReleased
         // TODO add your handling code here:
         // Deixando apenas numeros passarem e o . 
-        if (Character.isDigit(evt.getKeyChar()) || evt.getKeyChar() == '.') {
-            if (Double.parseDouble(txtCapacidadeMax.getText()) < 0) {
-                txtCapacidadeMax.setText("0");
-            }
-        } else {
-            // zerando a caixa caso não seja numerico
-             txtCapacidadeMax.setText("");
-        }
+//        if (Character.isDigit(evt.getKeyChar()) || evt.getKeyChar() == '.') {
+//            if (Double.parseDouble(txtCapacidadeMax.getText()) < 0) {
+//                txtCapacidadeMax.setText("0");
+//            }
+//        } else {
+//            // zerando a caixa caso não seja numerico
+//             txtCapacidadeMax.setText("");
+//        }
     }//GEN-LAST:event_txtCapacidadeMaxKeyReleased
     private String[] separarCarrinho(String carrinhoItens) {
         // seperar o texto do textArea por quebra de linha '\n', e colocando em um array do tipo String

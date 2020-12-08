@@ -5,17 +5,11 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
-import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
+import com.mycompany.monitoramento.coldstock.modelos.Consultas;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
-import java.awt.Image;
-import java.io.File;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,7 +17,7 @@ import javax.swing.ImageIcon;
  */
 public class TelaLogin extends javax.swing.JFrame {
     // aqui criamos objetos das classes que iremos utilizar
-    ClsBD banco = new ClsBD();
+    Consultas banco = new Consultas();
     TelaEscolha telaEscolha = new TelaEscolha();
     Imagem imagem = new Imagem();
     /**
