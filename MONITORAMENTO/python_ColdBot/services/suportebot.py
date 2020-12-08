@@ -23,14 +23,35 @@ class SuporteBot:
             self.usuario.funcao = 0
             return ('Perguntas Frequentes: \n\n'
 
-            '1 - Qual prof tá com corona?\n'
-            'R: Não sabemos \n\n' 
+            '1 - O que é o ColdBot?\n'
+            'R: ColdBot é um Bot utilizado por nossos clientes para realizar consultas referentes a sua máquina/servidor e através das mesmas, realizar análises que garantiram um melhor funcionamento do equipamento \n\n' 
             
-            '2 - Qual uma pergunta frequente?\n'
-            'R: Mermão se vira\n\n' 
+            '2 - Consigo usar o coldbot em qualquer máquina?\n'
+            'R: Não, somente nas máquinas cadastradas junto a equipe ColdStock\n\n' 
 
-            '3 - Já não sei mais perguntas\n'
-            'R: Pode pá\n\n'
+            '3 - Quem tem acesso ao sistema de monitoramento Coldstock?\n'
+            'R: Todos os funcinários que possuem as credênciais referentes ao suporte e desenvolvimento e também os clientes que optarem a terem esse acessado de forma restritiva, onde apenas certas funçõe estaram liberadas\n\n'
+
+            '4 - O bot não está me respondendo. Como o inicializo?\n'
+            'R: A princípio é necesário a inicialização do diretório dentro de um interpretador de códigos, recomendamos o VSCODE, dentro do diretório, procure pelo arquivo "BotTelegramResponse.py", dentro dele use o debug (f5) e em seguida aperte "ENTER", o bot irá iniciar  "\n\n' 
+            
+            '5 - Qual é a versão mínima de Java para usar a aplicação?\n'
+            'R: Use as versões de 11 para cima\n\n' 
+
+            '6 - Qual sistema operacional é suportado?\n'
+            'R: Windows 7 e sucessores\n\n'
+            
+            '7 - Não estou conseguindo verificar a temperatura de minha máquina. O que devo fazer?\n'
+            'R: Verifique se o web crawler OpenHardwareMonitor, está funcionando de forma correta e também verifique se a API do mesmo está em funcionamento \n\n' 
+            
+            '8 - Qual a porcentagem máxima recomendada para se colocar em minha CPU?\n'
+            'R: Essa informação é totalmente dependente do usuário as configurações de sua máquina\n\n' 
+
+            '9 - Para acessar as opções é obrigatório ter login? Como me cadastro?\n'
+            'R: Assim que o cliente contatar a equipe, suas informações são coletadas e é feito o cadastro da máquina, para contato, use: "51sg4p@inbox.groovehq.com"\n\n'
+            
+            '10 - Estou com outras dúvidas, onde posso ter elas respondidas?\n'
+            'R: Utilize este email para contato: "51sg4p@inbox.groovehq.com"\n\n'
 
             'Selecione outra opção: \n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'    
             ) 
