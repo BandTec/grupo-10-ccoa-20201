@@ -5,6 +5,7 @@
  */
 package com.mycompany.monitoramento.coldstock.modelos;
 
+import com.mycompany.monitoramento.coldstock.jiraexecutavel.CriarChamado;
 import com.mycompany.monitoramento.coldstock.telas.TelaEditarMaquina;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -146,26 +147,30 @@ public class Operacoes {
             porcentagem.add(configMaquina.getDouble("porcentagemMax"));
         }
         ResultSet registros = new Consultas().consultarRegistros(capacidade.size());
+        
         for (int i = 0; registros.next(); i++) {
             if(registros.getString("fkchamado") == null){
                 if (registros.getInt("fkComponente") != 4 && registros.getInt("fkComponente") != 5 && registros.getDouble("valor") > (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100))) {
-                adicionarChamado(registros.getInt("fkComponente"),registros.getString("dataHora") );
+                    adicionarChamado(registros.getInt("fkComponente"),registros.getString("dataHora") );
                 
-                jdbcTemplate.update(sql, registros.getString("dataHora")
-                , Maquina.fkmaquina);
+                    jdbcTemplate.update(sql, registros.getString("dataHora")
+                    , Maquina.fkmaquina);
+                    new CriarChamado().criarChamado(registros, (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100)));
                 
-            } else if ((registros.getInt("fkComponente") == 4 || registros.getInt("fkComponente") == 5) && registros.getDouble("valor") < (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100))) {
-                adicionarChamado(registros.getInt("fkComponente"),registros.getString("dataHora") );
+                }else if ((registros.getInt("fkComponente") == 4 || registros.getInt("fkComponente") == 5) && registros.getDouble("valor") < (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100))) {
+                    adicionarChamado(registros.getInt("fkComponente"),registros.getString("dataHora") );
                                 jdbcTemplate.update(sql,  registros.getString("dataHora")
-                , Maquina.fkmaquina);
+                    , Maquina.fkmaquina);
+                    new CriarChamado().criarChamado(registros, (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100)));
+                }
             }
-            }
+            
             else{
-                
                 
                 jdbcTemplate.update(sql, registros.getString("dataHora")
                 , Maquina.fkmaquina);
                 System.out.println("Registros atualizados com sucesso");
+                
             }
         }
     }
@@ -177,7 +182,7 @@ public class Operacoes {
         System.out.println("Chamado inserido com sucesso");
     }
     
-    private String textoChamados(Integer fkComponente){
+    public String textoChamados(Integer fkComponente){
         String texto = "";
         switch(fkComponente){
             case 1:

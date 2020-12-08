@@ -210,7 +210,8 @@ public class Consultas {
     public ResultSet consultarRegistros(int limit) throws SQLException{
         conectar();
         stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from registros where fkMaquina =" + Maquina.fkmaquina + " order by idRegistro desc limit "
+        ResultSet rs = stmt.executeQuery(
+                "select fkChamado, dataHora, valor, fkMaquina, fkComponente, nomeComponente from registros, componentes where fkComponente = idComponente and fkMaquina =" + Maquina.fkmaquina + " order by idRegistro desc limit "
                 + limit);
         
         return rs;
