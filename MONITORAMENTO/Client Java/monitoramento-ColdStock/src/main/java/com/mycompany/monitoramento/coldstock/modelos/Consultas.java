@@ -19,7 +19,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class ClsBD {
+public class Consultas {
     
     BasicDataSource dataSource  = new BasicDataSource();
         
@@ -52,7 +52,7 @@ public class ClsBD {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (SQLException ex) {
             //plota o erro(usando uma váriavel do tipo "erro no mysql")
-            Logger.getLogger(ClsBD.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Conectado com sucesso ao BD!");
     }
@@ -198,5 +198,21 @@ public class ClsBD {
         }
     }
     
+    public ResultSet consultarMaximas() throws SQLException{
+        conectar();
+        stmt = conn.createStatement();
+        String sql = "select * from configuracaoMaquina where fkmaquina = "+ Maquina.fkmaquina+ " order by fkComponente desc;";
+        ResultSet rs = stmt.executeQuery(sql);
+        System.out.println("Comando executado com sucesso!");
+        return rs;
+    }
     
+    public ResultSet consultarRegistros(int limit) throws SQLException{
+        conectar();
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from registros where fkMaquina =" + Maquina.fkmaquina + " order by idRegistro desc limit "
+                + limit);
+        
+        return rs;
+    }
 }

@@ -43,7 +43,7 @@ import org.jfree.ui.RectangleInsets;
  */
 public class Grafico {
 
-    public CategoryDataset createDataset(ArrayList<Componente> listaGrafico) {
+    public CategoryDataset createDataset(ArrayList<Registros> listaGrafico) {
 
         /*
         Essa função cria itens da lista gerada na classe Conexao.
@@ -52,7 +52,7 @@ public class Grafico {
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 
         // aqui separamos a lista(listaGrafico) em itens (componente) e adiconamos esses itens no DataSet criado 
-        for (Componente componente : listaGrafico) {
+        for (Registros componente : listaGrafico) {
             dataSet.addValue(componente.getValor(), componente.getNomeComponente(),
                      componente.getDataHora());
         }
@@ -71,7 +71,7 @@ public class Grafico {
 
     }
 
-    public ChartPanel criargrafico(ArrayList<Componente> listaGrafico, String componente) {
+    public ChartPanel criargrafico(ArrayList<Registros> listaGrafico, String componente) {
 
         CategoryDataset dataSet = this.createDataset(listaGrafico);
 

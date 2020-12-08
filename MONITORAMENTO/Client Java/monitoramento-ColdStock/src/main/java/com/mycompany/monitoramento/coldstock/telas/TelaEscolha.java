@@ -5,8 +5,8 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
-import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
-import com.mycompany.monitoramento.coldstock.modelos.Conexao;
+import com.mycompany.monitoramento.coldstock.modelos.Consultas;
+import com.mycompany.monitoramento.coldstock.modelos.Operacoes;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import com.mycompany.monitoramento.coldstock.modelos.Maquina;
 import javax.swing.ImageIcon;
@@ -30,7 +30,7 @@ public class TelaEscolha extends javax.swing.JFrame {
      */
     // aqui criamos objetos das classes que iremos utilizar
     TelaEditarMaquina telaEditarMaquina = new TelaEditarMaquina();
-    ClsBD objBD = new ClsBD();
+    Consultas objBD = new Consultas();
     List<Maquina> retornoBD;
     Maquina maquina;
     Imagem imagem = new Imagem();
@@ -245,7 +245,7 @@ public class TelaEscolha extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
         if(retorno == JOptionPane.YES_OPTION){
             // excluindo as maquinas
-            new Conexao().excluirMaquina(Maquina.fkmaquina);
+            new Operacoes().excluirMaquina(Maquina.fkmaquina);
             //reload das maquinas
             carregarMaquinas();
         }
@@ -260,9 +260,14 @@ public class TelaEscolha extends javax.swing.JFrame {
         System.out.println(num);
         // aqui pegamos um item especifico da lista, sendo aquele que é equivalente ao indice selecionado da combobox
         maquina = retornoBD.get(num);
-
+        
+        // Separar palavra por "-"
+        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        // Setando o atributo estatico fkMaquina
+        Maquina.fkmaquina = Integer.valueOf(separador[1]);
+        
         //por fim, passamos o item buscado para a proxima tela, mandando o id e o nome da maquina
-        telaEditarMaquina.carregarTabela(maquina.getIdMaquina(), maquina.getNomeMaquina());
+        telaEditarMaquina.carregarTabela(Maquina.fkmaquina, maquina.getNomeMaquina());
         // e deixamos a proxima tela visivel
         telaEditarMaquina.setVisible(true);
         
@@ -285,19 +290,17 @@ public class TelaEscolha extends javax.swing.JFrame {
 
          */
         JanelaGrafico grafico = null;
-        //String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-        //Integer idMaquina = Integer.valueOf(separador[1]);
+        
         try {
             grafico = new JanelaGrafico();
         } catch (SQLException ex) {
             Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         Maquina.fkmaquina = Integer.valueOf(separador[1]);
-        //System.out.println(Maquina.fkmaquina);
         
         grafico.setVisible(true);
-        //this.setVisible(false);
     }//GEN-LAST:event_btnOk1ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -328,7 +331,7 @@ public class TelaEscolha extends javax.swing.JFrame {
                 "Coloque o nome e o tipo da maquina da qual deseja adicionar.", JOptionPane.YES_NO_OPTION);
         // Adicionando o os dados das caixas de textos no banco de dados. 
         if (result == JOptionPane.YES_OPTION && !(nome.getText().equals("") || tipo.getText().equals(""))) {
-            new Conexao().adicionarMaquina(nome.getText(), tipo.getText());
+            new Operacoes().adicionarMaquina(nome.getText(), tipo.getText());
             carregarMaquinas();
             System.out.println("Foi");
         }

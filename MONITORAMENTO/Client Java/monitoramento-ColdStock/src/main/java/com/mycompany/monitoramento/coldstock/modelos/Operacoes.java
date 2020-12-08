@@ -5,16 +5,12 @@
  */
 package com.mycompany.monitoramento.coldstock.modelos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import com.mycompany.monitoramento.coldstock.telas.TelaEditarMaquina;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -27,13 +23,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 
 /*
-    Essa classe é similar a classe ClsBD, onde fazemos a conexão com o banco e selects.
+    Essa classe é similar a classe Consultas, onde fazemos a conexão com o banco e selects.
  */
-public class Conexao {
+public class Operacoes {
 
     public BasicDataSource conectar() {
         /*
-        Aqui realizamos a conexão utilizando o JDBC, da mesma forma que na ClsBD
+        Aqui realizamos a conexão utilizando o JDBC, da mesma forma que na Consultas
          */
         BasicDataSource dataSource = new BasicDataSource();
 
@@ -78,9 +74,9 @@ public class Conexao {
                     + "and nomeComponente = '%s' order by dataHora desc limit 1", fkMaquina, componente);
         }
 
-        List<Componente> listaComponentes;
+        List<Registros> listaComponentes;
         listaComponentes = jdbcTemplate.query(sql,
-                new BeanPropertyRowMapper(Componente.class));
+                new BeanPropertyRowMapper(Registros.class));
 
         // Aqui nos invertemos a lista, para ter os resultados mais recentes como os ultimos da lista, deixando o grafico mais dinamico
         Collections.reverse(listaComponentes);
@@ -122,19 +118,87 @@ public class Conexao {
 
     public void inserirComponentes(Integer idMaquina, Integer fkComponente, JTable tabela, String[] Itens) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
+        List<String> verificador = new ArrayList<String>();
         for (int j = 1; j < Itens.length; j++) {
             String sql = "insert into configuracaoMaquina (capacidadeMax, porcentagemMax,fkMaquina, fkComponente) values(?, ?, ?, (select idcomponente from componentes where nomeComponente = ?))";
             for (int i = 0; i < tabela.getRowCount(); i++) {
-                if (String.valueOf(tabela.getModel().getValueAt(i, 0)).equals(Itens[j].split(",")[0].trim())) {
+                if (String.valueOf(tabela.getModel().getValueAt(i, 0)).equals(Itens[j].split(",")[0].trim()) || verificador.contains(Itens[j].split(",")[0].trim()) ) {
                     sql = "update configuracaoMaquina set capacidadeMax = ? , porcentagemMax = ? where fkMaquina = ? and fkComponente = (select idcomponente from componentes where nomeComponente = ?)";
+                    break;
                 }
-
             }
-            jdbcTemplate.update(sql,Itens[j].split(",")[1].trim(),Itens[j].split(",")[2].trim(), idMaquina, Itens[j].split(",")[0].trim());
-            
-            
-            
+            verificador.add(Itens[j].split(",")[0].trim());
+            jdbcTemplate.update(sql, Itens[j].split(",")[1].trim(), Itens[j].split(",")[2].trim(), idMaquina, Itens[j].split(",")[0].trim());
+
         }
         JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso");
+    }
+
+    public void comparacao() throws SQLException {
+        ResultSet configMaquina = new Consultas().consultarMaximas();
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
+        String sql = "update registros set fkChamado = (select max(idchamado) from chamados) where datahora = ? and fkmaquina = ?";
+        
+        List<Double> capacidade = new ArrayList<Double>();
+        List<Double> porcentagem = new ArrayList<Double>();
+        while (configMaquina.next()) {
+            capacidade.add(configMaquina.getDouble("CapacidadeMax"));
+            porcentagem.add(configMaquina.getDouble("porcentagemMax"));
+        }
+        ResultSet registros = new Consultas().consultarRegistros(capacidade.size());
+        for (int i = 0; registros.next(); i++) {
+            if(registros.getString("fkchamado") == null){
+                if (registros.getInt("fkComponente") != 4 && registros.getInt("fkComponente") != 5 && registros.getDouble("valor") > (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100))) {
+                adicionarChamado(registros.getInt("fkComponente"),registros.getString("dataHora") );
+                
+                jdbcTemplate.update(sql, registros.getString("dataHora")
+                , Maquina.fkmaquina);
+                
+            } else if ((registros.getInt("fkComponente") == 4 || registros.getInt("fkComponente") == 5) && registros.getDouble("valor") < (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100))) {
+                adicionarChamado(registros.getInt("fkComponente"),registros.getString("dataHora") );
+                                jdbcTemplate.update(sql,  registros.getString("dataHora")
+                , Maquina.fkmaquina);
+            }
+            }
+            else{
+                
+                
+                jdbcTemplate.update(sql, registros.getString("dataHora")
+                , Maquina.fkmaquina);
+                System.out.println("Registros atualizados com sucesso");
+            }
+        }
+    }
+    
+    public void adicionarChamado(Integer fkcomponente, String datahora){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
+        String sql = "insert into chamados(dataChamado, descricao) values(?,?)";
+        jdbcTemplate.update(sql, datahora,textoChamados(fkcomponente));
+        System.out.println("Chamado inserido com sucesso");
+    }
+    
+    private String textoChamados(Integer fkComponente){
+        String texto = "";
+        switch(fkComponente){
+            case 1:
+                texto = "CPU sobrecarregando!";
+                break;
+            case 2:
+                texto = "RAM sobrecarregando!";
+                break;
+            case 3:
+                texto = "DISCO Lotado!";
+                break;
+            case 4:
+                texto = "CONEXÃO D. baixa!!";
+                break;
+            case 5:
+                texto = "CONEXÃO U. baixa!";
+                break;
+            case 6:
+                texto = "TEMPERATURA alta!";
+                break;
+        }
+        return texto;
     }
 }

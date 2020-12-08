@@ -5,9 +5,9 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
-import com.mycompany.monitoramento.coldstock.modelos.ClsBD;
-import com.mycompany.monitoramento.coldstock.modelos.Componente;
-import com.mycompany.monitoramento.coldstock.modelos.Conexao;
+import com.mycompany.monitoramento.coldstock.modelos.Consultas;
+import com.mycompany.monitoramento.coldstock.modelos.Registros;
+import com.mycompany.monitoramento.coldstock.modelos.Operacoes;
 import com.mycompany.monitoramento.coldstock.modelos.Grafico;
 import com.mycompany.monitoramento.coldstock.modelos.Maquina;
 import java.awt.BorderLayout;
@@ -26,103 +26,107 @@ import java.util.Timer;
  * @author Carlos Alberto
  */
 public class JanelaGrafico extends javax.swing.JFrame {
-    ClsBD objBD = new ClsBD();
+
+    Consultas objBD = new Consultas();
     List<Maquina> retornoBD;
+
     //private Integer fkMaquina = 0; //Essa é o atributo de instancia que recebera o valor da ComboBox
     /**
      * Creates new form JanelaGrafico
      */
-    
-    
+
     public JanelaGrafico() throws SQLException {
         initComponents();
         //carregar os componentes ex comboBox, e grafico
         carregarComponentes();
         // criamos um temporizador, que irá executar uma ação com um determinado intervalo de tempo
         Timer temporizador = new Timer();
-        
+
         //aqui setamos o intervalo de tempo
         Integer tempo = 5000;
-        
+
         //aqui criamos uma tarefa, essa tarefa sera executar a função atualizarGrafico()
         TimerTask tarefa = new TimerTask() {
             @Override
             public void run() {
                 atualizarGrafico();
-                
+                try {
+                    new Operacoes().comparacao();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         };
-        
+
         //aqui executamos o temporizador, especificamos a tarefa, o tempo que vai demorar pra ela começar a rodar,
         //e o tempo do intervalo entre uma execução e outra.
         temporizador.scheduleAtFixedRate(tarefa, 0, tempo);
     }
-    
-    private void carregarComponentes(){
-        try{
+
+    private void carregarComponentes() {
+        try {
             // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
             objBD.conectar();
             ResultSet retornoBD = objBD.consultarComponentes(Maquina.fkmaquina);
-            while(retornoBD.next()){
-                String nomeComponente  = retornoBD.getString("nomeComponente");
+            while (retornoBD.next()) {
+                String nomeComponente = retornoBD.getString("nomeComponente");
                 cbComponentes.addItem(nomeComponente);
                 // na combo box, adicionamos o nome dos componentes
             }
-        }
-        catch(SQLException se){
+        } catch (SQLException se) {
             System.out.println(se);
         }
     }
-    
+
     public void atualizarGrafico() {
-        
+
         this.jpnGrafico.setLayout(new BorderLayout());
         this.jpnGrafico2.setLayout(new BorderLayout());
-            
+
         //criamos 3 objetos da classe conexao, para poder utilizar cada objeto para um grafico
-        Conexao campo1 = new Conexao();
-        Conexao campo2 = new Conexao();
-        Conexao campo3 = new Conexao();
-        
+        Operacoes campo1 = new Operacoes();
+        Operacoes campo2 = new Operacoes();
+        Operacoes campo3 = new Operacoes();
+
         //primeiramente, criamos listas que irão receber o resultado dos selects executados
-        List<Componente> listaComponente = null;
-        List<Componente> listaComponente2 = null;
-        List<Componente> listaComponente3 = null;
-        
+        List<Registros> listaComponente = null;
+        List<Registros> listaComponente2 = null;
+        List<Registros> listaComponente3 = null;
+
         //aqui executamos os devidos selects, passando como parametro o objeto que vai realizar
         //a conexao, o id do 
         System.out.println(Maquina.fkmaquina);
         listaComponente = campo1.trazerLista(campo1.conectar(), 1, (String) cbComponentes.getSelectedItem(), Maquina.fkmaquina);
         listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, (String) cbComponentes.getSelectedItem(), Maquina.fkmaquina);
         listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, (String) cbComponentes.getSelectedItem(), Maquina.fkmaquina);
-        
+
         //agora vamos começar o processo de converter essas listas para arralists
         //primeiro, criamos as arraylists
-        ArrayList<Componente> listaGrafico = new ArrayList<>();
-        ArrayList<Componente> listaGrafico2 = new ArrayList<>();
-        ArrayList<Componente> listaGrafico3 = new ArrayList<>();
-System.out.println(Maquina.fkmaquina);
+        ArrayList<Registros> listaGrafico = new ArrayList<>();
+        ArrayList<Registros> listaGrafico2 = new ArrayList<>();
+        ArrayList<Registros> listaGrafico3 = new ArrayList<>();
+        System.out.println(Maquina.fkmaquina);
         //e começamosa rodar FORs que vao passar por cada item da listaComponente,
         //e adicionando esses itens na arraylist
         //fazemos isso para as 3 listas
-        for (Componente componente : listaComponente) {
+        for (Registros componente : listaComponente) {
             listaGrafico.add(componente);
         }
-        for (Componente componente : listaComponente2) {
+        for (Registros componente : listaComponente2) {
             listaGrafico2.add(componente);
         }
-        for (Componente componente : listaComponente3) {
+        for (Registros componente : listaComponente3) {
             listaGrafico3.add(componente);
         }
-        
+
         //agora criamos 2 objetos de grafico
         Grafico graficoLinha = new Grafico();
         Grafico graficoLinha2 = new Grafico();
-        
+
         //e populamos o grafico com a arraylist
         this.jpnGrafico.add(graficoLinha.criargrafico(listaGrafico, (String) cbComponentes.getSelectedItem()));
         this.jpnGrafico2.add(graficoLinha2.criargrafico(listaGrafico2, (String) cbComponentes.getSelectedItem()));
-        
+
         lbMedida.setText(listaGrafico3.get(0).getValor().toString());
 
         pack();
@@ -148,8 +152,6 @@ System.out.println(Maquina.fkmaquina);
         lblMetrica = new javax.swing.JLabel();
         btVisualizar = new javax.swing.JButton();
         cbComponentes = new javax.swing.JComboBox<>();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
         javax.swing.GroupLayout jpnGraficoLayout = new javax.swing.GroupLayout(jpnGrafico);
         jpnGrafico.setLayout(jpnGraficoLayout);
@@ -291,22 +293,22 @@ System.out.println(Maquina.fkmaquina);
     private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
         MudarMetrica();
         atualizarGrafico();
-        
+
     }//GEN-LAST:event_btVisualizarActionPerformed
-    
-    private void MudarMetrica(){
-        try{
+
+    private void MudarMetrica() {
+        try {
             // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
             objBD.conectar();
             ResultSet retornoBD = objBD.consultarComponentes(Maquina.fkmaquina, String.valueOf(cbComponentes.getSelectedItem()));
-            while(retornoBD.next()){
+            while (retornoBD.next()) {
                 lblMetrica.setText(retornoBD.getString("metrica"));
             }
-        }
-        catch(SQLException se){
+        } catch (SQLException se) {
             System.out.println(se);
         }
     }
+
     /**
      * @param args the command line arguments
      */
