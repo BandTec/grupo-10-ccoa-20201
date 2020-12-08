@@ -48,8 +48,9 @@ class ClsSql:
             self.close()
 
     def listarComponente(self, idServer):
+        self.connect()
         query = (
-            "select nomeComponente, porcentagemMax from maquinas "
+            "select nomeComponente, porcentagemMax, capacidadeMax from maquinas "
             "inner join configuracaoMaquina on idMaquina = fkMaquina "
             "inner join componentes on idComponente = fkComponente "
             "where idMaquina = %s "
@@ -70,7 +71,10 @@ class ClsSql:
             self.close()
 
     def insert(self,valores):
-        query = "insert into registros (dataHora, valor, fkMaquina, fkComponente) values (%s,%s,%s,%s)"
+        if(len(valores[0]) == 5):
+            query = "insert into registros (dataHora, valor, fkMaquina, fkComponente, fkChamado) values (%s,%s,%s,%s,%s)"
+        else:
+            query = "insert into registros (dataHora, valor, fkMaquina, fkComponente) values (%s,%s,%s,%s)"
         try:
             print('Aguarde ...')
             self.cursor.executemany(query,valores)

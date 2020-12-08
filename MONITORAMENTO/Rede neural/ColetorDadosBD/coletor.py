@@ -13,10 +13,11 @@ configuracao = mysql.consultarConfiguracao(idMaquina)
 dataAtual = ''
 maiorQtdItens = 0
 # Pegando quais componentes vieram do BD
-componentes = []
+componentesBD = mysql.listarComponentes()
+componentes=[]
 componenteAtual = ''
-for linha in range(len(tabela)):
-    componenteAtual = tabela[linha][2]  # Nome componente
+for linha in range(len(componentesBD)):
+    componenteAtual = componentesBD[linha][1]  # Nome componente
     if componenteAtual not in componentes:
         componentes.append(componenteAtual)
 
@@ -54,25 +55,31 @@ for linhaTabela in range(len(tabela)):
         if config[0] == linhaAtual[2]:
             valorPorcent = valorMedido / config[1]
             break
+        valorPercent = 0.0
     matriz[linhaMatriz][linhaAtual[2]] = round(valorPorcent,2)
 
 print(matriz)
 
 escrita = ""
-
+vetorSaida = []
 #Preparando texto que ira para o arquivo .dat
 #Linha por linha da matriz coletada
 for linha in range(len(matriz)):
     #Componente por componente, pra colocar na ordem certa
     for componente in componentes:
-        escrita += "%s, "%(matriz[linha][componente])
+        if componente in matriz[linha]:
+            pontoFinal = (',', '')[componente == componentes[len(componentes)-1]]
+            escrita += "%s%s "%(matriz[linha][componente], pontoFinal)
     #Coloco no fim da linha se gerou chamado ou não
     chamadoStatus = "1" if 'chamado' in matriz[linha] else "0"
-    escrita += chamadoStatus
+    vetorSaida.append(chamadoStatus)
     #Próxima linha
     escrita += "\n"
 
 print(escrita)
-outF = open("saida.dat", "w")
+outF = open("dados.data", "w")
 outF.write(escrita)
+outF.close()
+outF = open("saida.data", "w")
+outF.write(str(vetorSaida))
 outF.close()
