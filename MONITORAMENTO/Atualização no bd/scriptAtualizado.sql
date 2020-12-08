@@ -209,28 +209,28 @@ insert into configuracaoMaquina (fkMaquina, fkComponente, capacidadeMax, porcent
 (3, 2, '8', 80);
 
 insert into registros (idRegistro, dataHora, valor, fkMaquina, fkComponente) values
-(null, '2020-09-23 17:45:00', 2.86, 1, 1), 		-- acima do limite
-(null, '2020-09-23 17:45:00', 8.1, 1, 2), 		-- abaixo
-(null, '2020-09-23 17:45:00', 200.00, 1, 3), 	-- abaixo
-(null, '2020-09-23 17:45:00', 658.32, 1, 4), 	-- abaixo
-(null, '2020-09-23 17:45:00', 600.02, 1, 5), 	-- abaixo
-(null, '2020-09-23 17:45:00', 57, 1, 6), 		-- abaixo
+(null, '2020-09-23 17:45:00', 3.24, 1, 1), 		-- Problematico (Cria chamado)
+(null, '2020-09-23 17:45:00', 8.1, 1, 2),
+(null, '2020-09-23 17:45:00', 200.00, 1, 3),
+(null, '2020-09-23 17:45:00', 658.32, 1, 4),
+(null, '2020-09-23 17:45:00', 600.02, 1, 5),
+(null, '2020-09-23 17:45:00', 76.5, 1, 6),
 
-(null, '2020-09-23 17:50:00', 2.92, 1, 1),
+(null, '2020-09-23 17:50:00', 3.43, 1, 1),		-- Problematico
 (null, '2020-09-23 17:50:00', 8.6, 1, 2),
 (null, '2020-09-23 17:50:00', 203.50, 1, 3),
 (null, '2020-09-23 17:50:00', 705.47, 1, 4),
 (null, '2020-09-23 17:50:00', 582.07, 1, 5),
-(null, '2020-09-23 17:50:00', 63, 1, 6),
+(null, '2020-09-23 17:50:00', 73.3, 1, 6),
 
-(null, '2020-09-23 17:52:00', 2.3, 1, 1),
+(null, '2020-09-23 17:52:00', 3.28, 1, 1),		-- Problematico
 (null, '2020-09-23 17:52:00', 8.6, 1, 2),
 (null, '2020-09-23 17:52:00', 205.00, 1, 3),
 (null, '2020-09-23 17:52:00', 780.25, 1, 4),
 (null, '2020-09-23 17:52:00', 605.70, 1, 5),
-(null, '2020-09-23 17:52:00', 65.3, 1, 6),
+(null, '2020-09-23 17:52:00', 78.3, 1, 6),
 
-(null, '2020-09-23 17:55:00', 2.9, 1, 1),
+(null, '2020-09-23 17:55:00', 2.9, 1, 1),		-- Tudo Okay
 (null, '2020-09-23 17:55:00', 5.1, 1, 2),
 (null, '2020-09-23 17:55:00', 203.50, 1, 3),
 (null, '2020-09-23 17:55:00', 800.47, 1, 4),
@@ -244,7 +244,7 @@ insert into registros (idRegistro, dataHora, valor, fkMaquina, fkComponente) val
 (null, '2020-09-23 17:57:00', 579.50, 1, 5),
 (null, '2020-09-23 17:57:00', 60, 1, 6),
 
-(null, '2020-09-23 17:59:00', 2.8, 1, 1),
+(null, '2020-09-23 17:59:00', 2.8, 1, 1), -- Não tem chamado
 (null, '2020-09-23 17:59:00', 8.3, 1, 2),
 (null, '2020-09-23 17:59:00', 203.50, 1, 3),
 (null, '2020-09-23 17:59:00', 700.98, 1, 4),
@@ -259,7 +259,7 @@ insert into chamados (idChamado, dataChamado, descricao) values
 (null, '2020-09-23 17:57:00', 'CPU sobrecarregando!'),
 (null, '2020-09-23 17:59:00', 'CPU sobrecarregando!');
 
-update registros set fkChamado = 1 where idRegistro =1;
+update registros set fkChamado = 1 where idRegistro =2;
 update registros set fkChamado = 2 where idRegistro =7;
 update registros set fkChamado = 3 where idRegistro =13;
 update registros set fkChamado = 4 where idRegistro =19;
@@ -276,12 +276,17 @@ where idMaquina = 2;
 
 select idChamado, idRegistro, fkComponente, valor 
 from registros, chamados 
-where fkChamado = idChamado and fkMaquina = 1;
+where fkChamado = idChamado and fkMaquina = 1 order by idChamado;
+
+select idComponente, nomeComponente, capacidadeMax, porcentagemMax 
+from componentes, configuracaoMaquina 
+where fkcomponente = idComponente and fkMaquina = 1
+order by fkMaquina;
 
 use coldstock;
 select * from registros where fkMaquina = 1 order by idRegistro;
 
-select * from componentes;
+select * from registros;
 
 select * from componentes;
 select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas 
@@ -291,10 +296,7 @@ where idMaquina = 2;
 
 select * from configuracaoMaquina;
 
-select idRegistro,valor, nomeComponente, dataHora  from registros
-inner join maquinas on idMaquina = fkMaquina
-inner join componentes on idComponente = fkComponente
-where idMaquina = 2 and nomeComponente = 'CPU';
+select dataHora, valor, nomeComponente, fkChamado from coldstock.registros INNER JOIN coldstock.componentes on fkComponente = idComponente where fkMaquina = 1 order by dataHora;
 
 -- select nomeConsumidor,emailConsumidor,nomelocalidade from consumidoresFinais, localidades where fkLocalidade = idLocalidade;
 

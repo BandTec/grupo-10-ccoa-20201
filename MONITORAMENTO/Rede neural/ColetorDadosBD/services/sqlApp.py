@@ -23,7 +23,25 @@ class ClsSql:
             raise
 
     def listarComponentes(self):
-        query = "select * from componentes; "
+        query = ("select * from componentes")
+
+        try:
+            print('Selecionando todos os componentes cadastrados')
+            self.cursor.execute(query)
+            retorno = self.cursor.fetchall()
+
+            print('Retorno do BD: ', retorno)
+            self.objSql.commit()
+            return retorno
+        except Exception as err:
+            print(err)
+            self.objSql.rollback()
+            self.close()
+
+    def consultarMaquina(self, idMaquina):
+        query = ("select dataHora, valor, nomeComponente, fkChamado "
+            "from coldstock.registros INNER JOIN coldstock.componentes on fkComponente = idComponente "
+            "where fkMaquina = %s order by dataHora ")%idMaquina
 
         try:
             print('Selecionando componentes cadastrados')
@@ -31,7 +49,6 @@ class ClsSql:
             retorno = self.cursor.fetchall()
 
             print('Retorno do BD: ', retorno)
-            print('Numero de registros:', len(retorno))
             self.objSql.commit()
             return retorno
         except Exception as err:
@@ -39,26 +56,25 @@ class ClsSql:
             self.objSql.rollback()
             self.close()
 
-    def consultarChamados(self, idMaquina):
+    def consultarConfiguracao(self, idMaquina):
+        self.connect()
         query = (
-            "select idChamado, idRegistro, fkComponente, valor "
-            "from registros, chamados "
-            "where fkChamado = idChamado and fkMaquina = %s;"
-        )
+            "select nomeComponente, capacidadeMax "
+            "from configuracaoMaquina, componentes "
+            "where fkMaquina = %s and idComponente = fkComponente;"
+        )%idMaquina
 
         try:
-            print('Selecionando dados da maquina ID: ', idMaquina)
-            self.cursor.execute(query, (idMaquina))
+            print('Selecionando configuracoes da maquina ID: ', idMaquina)
+            self.cursor.execute(query)
             retorno = self.cursor.fetchall()
 
-            print('Retorno do BD: ', retorno)
-            print('Numero de registros:', len(retorno))
             self.objSql.commit()
             return retorno
         except Exception as err:
             print(err)
             self.objSql.rollback()
             self.close()
-            
+                
     def close(self):
         self.objSql.close()
