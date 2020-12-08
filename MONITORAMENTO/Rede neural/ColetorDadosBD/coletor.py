@@ -71,7 +71,7 @@ for linha in range(len(matriz)):
             pontoFinal = (',', '')[componente == componentes[len(componentes)-1]]
             escrita += "%s%s "%(matriz[linha][componente], pontoFinal)
     #Coloco no fim da linha se gerou chamado ou não
-    chamadoStatus = "1" if 'chamado' in matriz[linha] else "0"
+    chamadoStatus = 1 if 'chamado' in matriz[linha] else 0
     vetorSaida.append(chamadoStatus)
     #Próxima linha
     escrita += "\n"
