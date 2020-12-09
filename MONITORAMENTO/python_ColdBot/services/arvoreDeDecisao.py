@@ -6,7 +6,7 @@ class Menu:
         self.mensagem = mensagem
 
         self.menu = [
-            ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'],
+            ['\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar','\n1 - máquinas \n2 - suporte \n0 - voltar/deslogar'],
             [self.usuario.maquina.iniciarMaquinas,   '\n1 - Abrir Chamado \n2 - FAQ \n0 - Voltar'],
             [self.usuario.maquina.maquinasId,        self.usuario.suporte.callOuFaq],
             [self.usuario.maquina.direcionarCaminho, self.usuario.suporte.pegarChave],
@@ -67,12 +67,16 @@ class Menu:
 
             if self.usuario.camada < 2:
                 retorno = self.menu[self.usuario.camada][1]
-                self.usuario.camada += 1
+                if self.usuario.funcao != 0:
+                    self.usuario.camada += 1
                 
             else:
                 retorno = self.menu[self.usuario.camada][1](self.mensagem)
             
         #Devolvendo pro bot o texto de resposta
+        if retorno not in self.usuario.anterior:
+            self.usuario.anterior.append(retorno)
+
         return retorno
     
     #Verifica onde esta o usuario.
@@ -85,7 +89,7 @@ class Menu:
         self.usuario.camada -=1
         if self.usuario.camada == 0:
             self.usuario.funcao = 0 
-            # return self.menu[self.usuario.camada][self.usuario.funcao]
+            #return self.menu[self.usuario.camada][self.usuario.funcao]
         self.usuario.anterior.pop() # retira o ultimo item do array.
         return self.usuario.anterior[len(self.usuario.anterior) - 1] # pega o ultimo item, no caso a mensagem anterior e retorna ela.
 
