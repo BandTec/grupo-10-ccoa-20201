@@ -215,7 +215,7 @@ public class Consultas {
                         + "from registros, componentes "
                         + "where fkComponente = idComponente "
                         + "and fkMaquina =" + Maquina.fkmaquina
-                        + "order by idRegistro desc limit " + limit);
+                        + " order by idRegistro desc limit " + limit);
         
         return rs;
     }

@@ -24,7 +24,7 @@ create table localidades(
     bairro varchar(20),
     rua varchar(40)
 );
-desc componentes;
+
 create table geladeiras(
 	idGeladeira int primary key auto_increment,
     fkLocador int,
@@ -258,13 +258,6 @@ insert into chamados (idChamado, dataChamado, descricao) values
 (null, '2020-09-23 17:55:00', 'CPU sobrecarregando!'),
 (null, '2020-09-23 17:57:00', 'CPU sobrecarregando!'),
 (null, '2020-09-23 17:59:00', 'CPU sobrecarregando!');
-
-update registros set fkChamado = 1 where idRegistro =2;
-update registros set fkChamado = 2 where idRegistro =7;
-update registros set fkChamado = 3 where idRegistro =13;
-update registros set fkChamado = 4 where idRegistro =19;
-update registros set fkChamado = 5 where idRegistro =25;
-update registros set fkChamado = 6 where idRegistro =31;
 
 -- Temos o id da maquina onde a API está rodando
 -- A maquina já está registrada e com componentes relacionados

@@ -375,7 +375,7 @@ public class TelaEscolha extends javax.swing.JFrame {
             cbEscolhaMaquina.removeAllItems();
             //pegamos o resultado do select das maquinas
             retornoBD = objBD.consultarMaquinas();
-            cbEscolhaMaquina.addItem("--Escolha--");
+            //cbEscolhaMaquina.addItem("--Escolha--");
             for (Maquina maquina : retornoBD) {
                 //separamos cada item da lista que foi gerada
                 //separamos de cada item, o nome da maquina e o tipo(se é servidor ou maquina comum)
