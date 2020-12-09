@@ -76,8 +76,8 @@ class Gerador:
             i += 1
 
         if(chamado):
-            for componente in values:
-                componente.append(1)
+            # for componente in values:
+            #     componente.append(1)
             print("ABRIU CHAMADO")
         else:
             print("PASSOU")
