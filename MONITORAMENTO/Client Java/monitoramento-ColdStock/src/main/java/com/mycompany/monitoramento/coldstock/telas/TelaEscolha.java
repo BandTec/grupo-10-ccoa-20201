@@ -19,23 +19,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Aluno
- */
 public class TelaEscolha extends javax.swing.JFrame {
-
-    /**
-     * Creates new form telaEscolha
-     */
     // aqui criamos objetos das classes que iremos utilizar
     TelaEditarMaquina telaEditarMaquina = new TelaEditarMaquina();
     Consultas objBD = new Consultas();
     List<Maquina> retornoBD;
     Maquina maquina;
     Imagem imagem = new Imagem();
-    
-    //public Integer idMaquina;
 
     public TelaEscolha() {
         
@@ -61,6 +51,7 @@ public class TelaEscolha extends javax.swing.JFrame {
         cbEscolhaMaquina = new javax.swing.JComboBox<>();
         btnOk = new javax.swing.JButton();
         btnOk1 = new javax.swing.JButton();
+        btnIA = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MONITORAMENTO");
@@ -182,6 +173,19 @@ public class TelaEscolha extends javax.swing.JFrame {
             }
         });
 
+        btnIA.setBackground(new java.awt.Color(77, 172, 166));
+        btnIA.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
+        btnIA.setForeground(new java.awt.Color(255, 255, 255));
+        btnIA.setText("Inteligência Artificial");
+        btnIA.setEnabled(false);
+        btnIA.setMaximumSize(new java.awt.Dimension(131, 29));
+        btnIA.setMinimumSize(new java.awt.Dimension(131, 29));
+        btnIA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIAActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -190,20 +194,21 @@ public class TelaEscolha extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCadastrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
+                .addGap(211, 211, 211))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnOk1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cbEscolhaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnOk1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbEscolhaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnIA, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -224,6 +229,8 @@ public class TelaEscolha extends javax.swing.JFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbEscolhaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnIA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,7 +257,6 @@ public class TelaEscolha extends javax.swing.JFrame {
             carregarMaquinas();
         }
         
-        //JOptionPane.showInputDialog(null, "Tetse");
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
@@ -287,7 +293,6 @@ public class TelaEscolha extends javax.swing.JFrame {
         1 e 2, e por isso somamos mais um, e tambem eu fiz uma alteração na função
         trazerGrafico();
         onde ele recebe mais um parametro, que seria a FkMaquina
-
          */
         JanelaGrafico grafico = null;
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
@@ -298,18 +303,10 @@ public class TelaEscolha extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-        
         grafico.setVisible(true);
     }//GEN-LAST:event_btnOk1ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
-//        String nomeMaquina = JOptionPane.showInputDialog(null, "Digite o Nome da máquina nova");
-//        System.out.println(nomeMaquina);
-        
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         Maquina.fkmaquina = Integer.valueOf(separador[1]);
             
@@ -340,20 +337,18 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void cbEscolhaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaMaquinaActionPerformed
-        // TODO add your handling code here:
-//        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-//        idMaquina = Integer.valueOf(separador[1]);
-//        System.out.println(idMaquina);
-        
         
     }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
+
+    private void btnIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIAActionPerformed
+        
+    }//GEN-LAST:event_btnIAActionPerformed
 
     /**
      * @param args the command line arguments
      */
     private void carregarMaquinas() {
         //essa função popul o combo box que tem todas as maquinas
-        
         try {
             //realizamos a conexao
             objBD.conectar();
@@ -362,6 +357,7 @@ public class TelaEscolha extends javax.swing.JFrame {
             //pegamos o resultado do select das maquinas
             retornoBD = objBD.consultarMaquinas();
             for (Maquina maquina : retornoBD) {
+                cbEscolhaMaquina.addItem("--Escolha--");
                 //separamos cada item da lista que foi gerada
                 //separamos de cada item, o nome da maquina e o tipo(se é servidor ou maquina comum)
                 String nomeMaquina = maquina.getNomeMaquina();
@@ -413,6 +409,7 @@ public class TelaEscolha extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnIA;
     private javax.swing.JButton btnOk;
     private javax.swing.JButton btnOk1;
     private javax.swing.JComboBox<String> cbEscolhaMaquina;

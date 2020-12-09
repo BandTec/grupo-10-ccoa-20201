@@ -170,7 +170,7 @@ public class Consultas {
         System.out.println("Comando executado com sucesso!");
         return rs;
     }
-    // criamos uma função onde dentro dela hávera duas variáveis do tipo string 
+    // criamos uma função onde dentro dela hávera duas variáveis do tipo string
     public Boolean consultarFuncionario(String funcionario, String senha) throws SQLException {
         /*
             Essa função é responsavel por selecionar todos os funcionarios que estão cadastrados 
@@ -211,8 +211,23 @@ public class Consultas {
         conectar();
         stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(
-                "select fkChamado, dataHora, valor, fkMaquina, fkComponente, nomeComponente from registros, componentes where fkComponente = idComponente and fkMaquina =" + Maquina.fkmaquina + " order by idRegistro desc limit "
-                + limit);
+                "select fkChamado, dataHora, valor, fkMaquina, fkComponente, nomeComponente "
+                        + "from registros, componentes "
+                        + "where fkComponente = idComponente "
+                        + "and fkMaquina =" + Maquina.fkmaquina
+                        + "order by idRegistro desc limit " + limit);
+        
+        return rs;
+    }
+    
+    public ResultSet consultarChamados(int idMaquina) throws SQLException{
+        conectar();
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(
+                "select count(idChamado) "
+                        + "from chamados "
+                        + "where fkMaquina = " + Maquina.fkmaquina
+                        + " order by idChamado");
         
         return rs;
     }
