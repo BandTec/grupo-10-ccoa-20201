@@ -14,8 +14,13 @@ tempo = {
 }
 data = input(" Digite a data de inicio para geração de dados (YYYY/MM/DD) ")
 
+def retornarTempo():
+    texto = ("{}:{}:{}".format(tempo["hora"],
+                               tempo["minuto"], 
+                               tempo["segundo"]))
+    return data + " " + texto
 
-def relogio():
+def avancarTempo():
     #hora = minuto = segundo = 0
     tempo["segundo"] += 10
     if(tempo["segundo"] == 60):
@@ -41,26 +46,39 @@ def relogio():
 
     if tempo["hora"] < 10:
         tempo["hora"] = "0" + str(tempo["hora"])
-
-    # if len(str(tempo["hora"]))
-    texto = ("{}:{}:{}".format(tempo["hora"],
-                               tempo["minuto"], tempo["segundo"]))
     
     tempo["segundo"] = segundo
     tempo["minuto"] = minuto
     tempo["hora"] = hora
-    return texto
+
+def gerarValor(max):
+    min = max/3
+    valorGerado = round(uniform(min,max),2)
+    return valorGerado
+
 
 #RETORNO: [[id, nome, maxima], [1, 'cpu', 2.5], [2, 'ram', 8]]
 configuracaoMaquina = mysql.consultarConfiguracao(idMaquina)
 i = 0
+valores = []
+fkComponentes = []
+qtdComponentes = len(configuracaoMaquina)
 while(True):
-    valor = round(uniform(0,configuracaoMaquina[i % len(configuracaoMaquina)][2]),2)
-    print(i % len(configuracaoMaquina))
-    print(valor)
     fkComponente = i % len(configuracaoMaquina)
-    i+=1
 
-    mysql.inserirNoBanco(data + " "+ relogio(),valor,idMaquina , fkComponente + 1)
+    if(fkComponente == 0 and i>0):
+        informacoes = []
+        dataHora = retornarTempo()
+        for x in range(len(fkComponentes)):
+            informacoes.append([dataHora, valores[x], fkComponentes[x], idMaquina])
+
+        avancarTempo()
+        mysql.inserirNoBanco(informacoes)
+
+    valores.append( gerarValor(configuracaoMaquina[i % len(configuracaoMaquina)][2]) )
+    #valor = round(uniform(0,configuracaoMaquina[i % len(configuracaoMaquina)][2]),2)
+    fkComponentes.append( configuracaoMaquina[i % len(configuracaoMaquina)][0] )
+
+    i+=1
     
     sleep(1)

@@ -61,19 +61,16 @@ class ClsSql:
             self.objSql.rollback()
             self.close()
     
-    def inserirNoBanco(self,datahora,valor,idMaquina, fkComponente ):
+    def inserirNoBanco(self,valores):
         self.connect()
-        query = ("insert into registros(idRegistro, dataHora, valor, fkComponente, fkMaquina) values(%s,%s,%s,%s)")
-        val = (datahora, valor,  fkComponente, int(idMaquina) )
+        query = ("insert into registros(idRegistro, dataHora, valor, fkComponente, fkMaquina) "
+            "values(null,%s,%s,%s,%s)")
         try:
-            print('Selecionando todos os componentes cadastrados')
-            self.cursor.execute(query, val)
-            retorno = self.cursor.fetchall()
+            self.cursor.executemany(query,valores)
 
-            print('Retorno do BD: ', retorno)
+            print('Inserido no bd!')
             self.objSql.commit()
             self.close()
-            return retorno
         except Exception as err:
             print(err)
             self.objSql.rollback()
