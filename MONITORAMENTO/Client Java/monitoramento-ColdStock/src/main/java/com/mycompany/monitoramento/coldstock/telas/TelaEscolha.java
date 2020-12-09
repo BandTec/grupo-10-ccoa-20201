@@ -290,15 +290,17 @@ public class TelaEscolha extends javax.swing.JFrame {
 
          */
         JanelaGrafico grafico = null;
-        
+        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        Maquina.fkmaquina = Integer.valueOf(separador[1]);
         try {
             grafico = new JanelaGrafico();
+            
         } catch (SQLException ex) {
             Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-        Maquina.fkmaquina = Integer.valueOf(separador[1]);
+        
+        
         
         grafico.setVisible(true);
     }//GEN-LAST:event_btnOk1ActionPerformed
