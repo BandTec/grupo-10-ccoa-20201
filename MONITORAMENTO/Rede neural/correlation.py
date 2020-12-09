@@ -12,8 +12,6 @@ b = saida.values.reshape(saida.shape[1],saida.shape[0])
 
 resposta = b
 
-print(entrada[0][1])
-
 df = pd.DataFrame(columns=['CPU', 'RAM', 'DISCO', 'RESPOSTA'])
 
 for i in range(len(entrada[0])):    
