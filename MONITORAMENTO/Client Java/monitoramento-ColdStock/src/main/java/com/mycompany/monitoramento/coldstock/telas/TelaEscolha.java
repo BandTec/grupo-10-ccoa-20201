@@ -9,11 +9,14 @@ import com.mycompany.monitoramento.coldstock.modelos.Consultas;
 import com.mycompany.monitoramento.coldstock.modelos.Operacoes;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import com.mycompany.monitoramento.coldstock.modelos.Maquina;
+import com.mycompany.monitoramento.coldstock.modelos.Registros;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.sql.ResultSet;
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,13 +30,14 @@ public class TelaEscolha extends javax.swing.JFrame {
     Maquina maquina;
     Imagem imagem = new Imagem();
 
+    //public Integer idMaquina;
     public TelaEscolha() {
-        
+
         initComponents();
         jLabel2.setIcon(imagem.carregarImgs("/1601053028644.png"));
         jLabel1.setIcon(imagem.carregarImgs("/Pingulinomonitoramento.png"));
         carregarMaquinas();
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -242,7 +246,7 @@ public class TelaEscolha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+
         // Separar palavra por "-"
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         // Setando o atributo estatico fkMaquina
@@ -250,13 +254,12 @@ public class TelaEscolha extends javax.swing.JFrame {
         // Confirm para deletar alguma maquina e colocando o retorno dentro do "retorno"
         Integer retorno = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir está máquina?", "Aviso",
                 JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        if(retorno == JOptionPane.YES_OPTION){
+        if (retorno == JOptionPane.YES_OPTION) {
             // excluindo as maquinas
             new Operacoes().excluirMaquina(Maquina.fkmaquina);
             //reload das maquinas
             carregarMaquinas();
         }
-        
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
@@ -266,17 +269,17 @@ public class TelaEscolha extends javax.swing.JFrame {
         System.out.println(num);
         // aqui pegamos um item especifico da lista, sendo aquele que é equivalente ao indice selecionado da combobox
         maquina = retornoBD.get(num);
-        
+
         // Separar palavra por "-"
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         // Setando o atributo estatico fkMaquina
         Maquina.fkmaquina = Integer.valueOf(separador[1]);
-        
+
         //por fim, passamos o item buscado para a proxima tela, mandando o id e o nome da maquina
         telaEditarMaquina.carregarTabela(Maquina.fkmaquina, maquina.getNomeMaquina());
         // e deixamos a proxima tela visivel
         telaEditarMaquina.setVisible(true);
-        
+
         System.out.println(maquina.getIdMaquina());
         System.out.println(maquina.getNomeMaquina());
 
@@ -294,32 +297,48 @@ public class TelaEscolha extends javax.swing.JFrame {
         trazerGrafico();
         onde ele recebe mais um parametro, que seria a FkMaquina
          */
-        JanelaGrafico grafico = null;
+
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         Maquina.fkmaquina = Integer.valueOf(separador[1]);
+
+        ResultSet listaComponente = null;
         try {
-            grafico = new JanelaGrafico();
-            
+            listaComponente = new Consultas().consultarRegistros(1);
+            //Verificando se existem registros daquela maquina
+            if (listaComponente.next()) {
+                JanelaGrafico grafico = null;
+                // Iniciando a JanelaGrafico
+                try {
+                    grafico = new JanelaGrafico();
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                grafico.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Está máquina não possui registros", "ERRO", JOptionPane.OK_OPTION);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
         }
-        grafico.setVisible(true);
     }//GEN-LAST:event_btnOk1ActionPerformed
 
+
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         Maquina.fkmaquina = Integer.valueOf(separador[1]);
-            
-        GridLayout layout = new GridLayout (2,2);
-        
+
+        GridLayout layout = new GridLayout(2, 2);
+
         // Configurações para a caixa de texto, com 2 campos de texto com tamanho 10,  e 2 labels
-        
-        
         JTextField nome = new JTextField(10);
         JTextField tipo = new JTextField(10);
         JPanel myPanel = new JPanel();
         myPanel.setLayout(layout);
-       
+
         myPanel.add(new JLabel("Nome:"));
         myPanel.add(nome);
 
@@ -337,7 +356,7 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void cbEscolhaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaMaquinaActionPerformed
-        
+
     }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
 
     private void btnIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIAActionPerformed
@@ -356,8 +375,8 @@ public class TelaEscolha extends javax.swing.JFrame {
             cbEscolhaMaquina.removeAllItems();
             //pegamos o resultado do select das maquinas
             retornoBD = objBD.consultarMaquinas();
+            cbEscolhaMaquina.addItem("--Escolha--");
             for (Maquina maquina : retornoBD) {
-                cbEscolhaMaquina.addItem("--Escolha--");
                 //separamos cada item da lista que foi gerada
                 //separamos de cada item, o nome da maquina e o tipo(se é servidor ou maquina comum)
                 String nomeMaquina = maquina.getNomeMaquina();
@@ -366,13 +385,13 @@ public class TelaEscolha extends javax.swing.JFrame {
                 //e criamos um item na combo box que ira receber o nome da maquina
                 cbEscolhaMaquina.addItem(nomeMaquina + " - " + idMaquina);
             }
-            
+
         } catch (SQLException se) {
             System.out.println(se);
         }
 //        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
 //        idMaquina = Integer.valueOf(separador[1]);
-        
+
     }
 
     public static void main(String args[]) {
