@@ -31,6 +31,7 @@ class MLP():
         #de entrada, oculta e de saida
         self.camada_oculta = [Neuron(n_entradas) for _ in range(n_oculta)]
         self.camada_saida = [Neuron(n_oculta) for _ in range(n_saida)]
+        #self.epochs = 0
 
     def teste(self, exemplo_entrada):
         #no teste, nos recebemos um conjunto de informações iniciais
@@ -39,19 +40,23 @@ class MLP():
         y_s = [n.saida(y_h) for n in self.camada_saida]
         return y_s
 
+    # def get_epochs(self):
+    #     return self.epochs
+
     def treinamento(self, exemplos_entrada, exemplos_saida, eta):
         #aqui setamos o valor do erro como 1, sendo o maior valor possivel 
         erro = 1
         #agora criamos um while que vai rodar até o erro alcançar 0.001 :)
         while (erro > 0.001):
             erro = 0
+            #self.epochs += 1
             
             #agora, esse FOR vai rodar pela quantidade de exempos na entrada
             for ex_index in range(len(exemplos_entrada)):
                 #a entrada vao ser os valores que a RN vai testar
                 entrada = exemplos_entrada[ex_index]
                 #e a saida sao os valores que a RN vai comparar com seu resultado
-                saida = exemplos_saida[ex_index]
+                saida = [exemplos_saida[ex_index]]
 
                 y_h = [n.saida(entrada) for n in self.camada_oculta]
                 y_s = [n.saida(y_h) for n in self.camada_saida]
