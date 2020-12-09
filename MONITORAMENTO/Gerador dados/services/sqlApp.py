@@ -52,7 +52,25 @@ class ClsSql:
             print('Selecionando configuracoes da maquina ID: ', idMaquina)
             self.cursor.execute(query)
             retorno = self.cursor.fetchall()
+            self.objSql.commit()
+            self.close()
+            return retorno
 
+        except Exception as err:
+            print(err)
+            self.objSql.rollback()
+            self.close()
+    
+    def inserirNoBanco(self,datahora,valor,idMaquina, fkComponente ):
+        self.connect()
+        query = ("insert into registros(idRegistro, dataHora, valor, fkComponente, fkMaquina) values(%s,%s,%s,%s)")
+        val = (datahora, valor,  fkComponente, int(idMaquina) )
+        try:
+            print('Selecionando todos os componentes cadastrados')
+            self.cursor.execute(query, val)
+            retorno = self.cursor.fetchall()
+
+            print('Retorno do BD: ', retorno)
             self.objSql.commit()
             self.close()
             return retorno
@@ -60,6 +78,7 @@ class ClsSql:
             print(err)
             self.objSql.rollback()
             self.close()
-                
+    
+
     def close(self):
         self.objSql.close()
