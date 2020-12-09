@@ -58,6 +58,7 @@ public class Grafico {
         Double livre = 0.00;
         ResultSet rs = new Consultas().consultarMaximas();
         while (rs.next()) {
+            // pegando a capacidadeMax do Disco
             if (rs.getInt("fkcomponente") == 3) {
                 livre = rs.getDouble("capacidadeMax");
             }
@@ -65,8 +66,8 @@ public class Grafico {
         // aqui separamos a lista(listaGrafico) em itens (componente) e adiconamos esses itens no DataSet criado 
         for (Registros componente : listaGrafico) {
             dataset.setValue("Ocupado", componente.getValor());
-            dataset.setValue("Livre", (livre - componente.getValor()));
-
+            //Subtraindo o livre pelo ocupado.
+            dataset.setValue("Livre (De acordo com a capacidadeMax)", (livre - componente.getValor()));
         }
 
         return dataset;
@@ -83,8 +84,7 @@ public class Grafico {
     }
 
     public ChartPanel criargrafico(ArrayList<Registros> listaGrafico, String componente) throws SQLException {
-        
-        
+
         JFreeChart grafico = null;
         ChartPanel painelGrafico = null;
         if (!componente.toUpperCase().equals("DISCO")) {
@@ -97,13 +97,13 @@ public class Grafico {
             renderer.setSeriesStroke(0, stroke);
             //Setando a cor da linha do grafico
             renderer.setSeriesPaint(0, new Color(99, 182, 177));
-            
+
             CategoryPlot plot = (CategoryPlot) grafico.getPlot();
             org.jfree.chart.axis.CategoryAxis domainAxis = plot.getDomainAxis();
             // colocando a a label virada pra baixo
             domainAxis.setCategoryLabelPositions(
                     CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 2.0));
-            
+
         } else {
             PieDataset dataset = createDatasetPie(listaGrafico);
             grafico = ChartFactory.createPieChart(
@@ -112,26 +112,26 @@ public class Grafico {
                     true,
                     true,
                     false);
-
+            //Pegando as plotagens do grafico
             PiePlot p = (PiePlot) grafico.getPlot();
             p.setBackgroundPaint(null);
-
+            
+            //Alterando a cor do PIECHART
             p.setSectionPaint("Ocupado", Color.BLACK);
-            p.setSectionPaint("Livre", new Color(99, 182, 177));
+            p.setSectionPaint("Livre (De acordo com a capacidadeMax)", new Color(99, 182, 177));
         }
 
         painelGrafico = new ChartPanel(grafico);
         
-        if(!componente.toUpperCase().equals("DISCO")){
-            MouseListener ml[] = painelGrafico.getMouseListeners();
+        // Retirando o evento de quando o mouse passa por cima dos gráficos.
+        MouseListener ml[] = painelGrafico.getMouseListeners();
 
-            if (ml != null) {
-                for (int i = 0; i < ml.length; i++) {
-                    painelGrafico.removeMouseListener(ml[i]);
-                }
+        if (ml != null) {
+            for (int i = 0; i < ml.length; i++) {
+                painelGrafico.removeMouseListener(ml[i]);
             }
         }
-        
+
         painelGrafico.setPreferredSize(new Dimension(640, 480));
 
         return painelGrafico;
