@@ -20,6 +20,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Timer;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,12 +35,13 @@ public class JanelaGrafico extends javax.swing.JFrame {
     /**
      * Creates new form JanelaGrafico
      */
-
     public JanelaGrafico() throws SQLException {
+
         initComponents();
         //carregar os componentes ex comboBox, e grafico
         carregarComponentes();
         // criamos um temporizador, que irá executar uma ação com um determinado intervalo de tempo
+        atualizarGrafico();
         Timer temporizador = new Timer();
 
         //aqui setamos o intervalo de tempo
@@ -48,8 +50,14 @@ public class JanelaGrafico extends javax.swing.JFrame {
         //aqui criamos uma tarefa, essa tarefa sera executar a função atualizarGrafico()
         TimerTask tarefa = new TimerTask() {
             @Override
+            
             public void run() {
-                atualizarGrafico();
+                
+                try {
+                    atualizarGrafico();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JanelaGrafico.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 try {
                     new Operacoes().comparacao();
                 } catch (SQLException ex) {
@@ -57,17 +65,20 @@ public class JanelaGrafico extends javax.swing.JFrame {
                 }
             }
         };
-
+        if(!this.isShowing()){
+            return;
+        }
         //aqui executamos o temporizador, especificamos a tarefa, o tempo que vai demorar pra ela começar a rodar,
         //e o tempo do intervalo entre uma execução e outra.
         temporizador.scheduleAtFixedRate(tarefa, 0, tempo);
     }
 
-    private void carregarComponentes() {
+    protected void carregarComponentes() {
         try {
             // a logica é a mesma da tela anterior, onde populamos a combo box das maquinas
             objBD.conectar();
             ResultSet retornoBD = objBD.consultarComponentes(Maquina.fkmaquina);
+            cbComponentes.removeAll();
             while (retornoBD.next()) {
                 String nomeComponente = retornoBD.getString("nomeComponente");
                 cbComponentes.addItem(nomeComponente);
@@ -78,7 +89,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
         }
     }
 
-    public void atualizarGrafico() {
+    protected void atualizarGrafico() throws SQLException {
 
         this.jpnGrafico.setLayout(new BorderLayout());
         this.jpnGrafico2.setLayout(new BorderLayout());
@@ -96,10 +107,12 @@ public class JanelaGrafico extends javax.swing.JFrame {
         //aqui executamos os devidos selects, passando como parametro o objeto que vai realizar
         //a conexao, o id do 
         System.out.println(Maquina.fkmaquina);
+
         listaComponente = campo1.trazerLista(campo1.conectar(), 1, (String) cbComponentes.getSelectedItem(), Maquina.fkmaquina);
         listaComponente2 = campo2.trazerLista(campo2.conectar(), 2, (String) cbComponentes.getSelectedItem(), Maquina.fkmaquina);
         listaComponente3 = campo3.trazerLista(campo3.conectar(), 3, (String) cbComponentes.getSelectedItem(), Maquina.fkmaquina);
 
+        
         //agora vamos começar o processo de converter essas listas para arralists
         //primeiro, criamos as arraylists
         ArrayList<Registros> listaGrafico = new ArrayList<>();
@@ -109,27 +122,40 @@ public class JanelaGrafico extends javax.swing.JFrame {
         //e começamosa rodar FORs que vao passar por cada item da listaComponente,
         //e adicionando esses itens na arraylist
         //fazemos isso para as 3 listas
-        for (Registros componente : listaComponente) {
-            listaGrafico.add(componente);
-        }
-        for (Registros componente : listaComponente2) {
-            listaGrafico2.add(componente);
-        }
-        for (Registros componente : listaComponente3) {
-            listaGrafico3.add(componente);
-        }
+        if (!listaComponente.get(0).getNomeComponente().toUpperCase().equals("DISCO")) {
+            for (Registros componente : listaComponente) {
 
+                listaGrafico.add(componente);
+
+            }
+            for (Registros componente : listaComponente2) {
+                listaGrafico2.add(componente);
+            }
+            for (Registros componente : listaComponente3) {
+                listaGrafico3.add(componente);
+            }
+        }
+        else{
+            for (Registros componente : listaComponente3) {
+                listaGrafico.add(componente);
+                listaGrafico2.add(componente);
+                listaGrafico3.add(componente);
+            }
+        }
         //agora criamos 2 objetos de grafico
         Grafico graficoLinha = new Grafico();
         Grafico graficoLinha2 = new Grafico();
-
+        this.jpnGrafico.removeAll();
+        this.jpnGrafico2.removeAll();
         //e populamos o grafico com a arraylist
         this.jpnGrafico.add(graficoLinha.criargrafico(listaGrafico, (String) cbComponentes.getSelectedItem()));
+        
         this.jpnGrafico2.add(graficoLinha2.criargrafico(listaGrafico2, (String) cbComponentes.getSelectedItem()));
 
         lbMedida.setText(listaGrafico3.get(0).getValor().toString());
 
         pack();
+
     }
 
     /**
@@ -148,10 +174,16 @@ public class JanelaGrafico extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        lbMedida = new javax.swing.JLabel();
-        lblMetrica = new javax.swing.JLabel();
         btVisualizar = new javax.swing.JButton();
         cbComponentes = new javax.swing.JComboBox<>();
+        lbMedida = new javax.swing.JLabel();
+        lbMetrica = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+
+        setResizable(false);
+
+        jpnGrafico.setEnabled(false);
 
         javax.swing.GroupLayout jpnGraficoLayout = new javax.swing.GroupLayout(jpnGrafico);
         jpnGrafico.setLayout(jpnGraficoLayout);
@@ -163,6 +195,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
             jpnGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 260, Short.MAX_VALUE)
         );
+
+        jpnGrafico2.setEnabled(false);
 
         javax.swing.GroupLayout jpnGrafico2Layout = new javax.swing.GroupLayout(jpnGrafico2);
         jpnGrafico2.setLayout(jpnGrafico2Layout);
@@ -219,10 +253,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        jLabel8.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Montserrat", 0, 36)); // NOI18N
         jLabel8.setText("Medida Atual:");
-
-        lblMetrica.setText("GHz");
 
         btVisualizar.setBackground(new java.awt.Color(77, 172, 166));
         btVisualizar.setText("Visualizar");
@@ -232,6 +264,21 @@ public class JanelaGrafico extends javax.swing.JFrame {
             }
         });
 
+        lbMedida.setFont(new java.awt.Font("Montserrat", 0, 36)); // NOI18N
+        lbMedida.setForeground(new java.awt.Color(0, 0, 0));
+
+        lbMetrica.setFont(new java.awt.Font("Montserrat", 0, 36)); // NOI18N
+        lbMetrica.setForeground(new java.awt.Color(0, 0, 0));
+        lbMetrica.setText("GHz");
+
+        jLabel9.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Os últimos 10 registros");
+
+        jLabel10.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Os últimos 30 registros");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -239,26 +286,30 @@ public class JanelaGrafico extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jpnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpnGrafico2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(89, 89, 89)
                         .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbMedida)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblMetrica))
+                        .addComponent(lbMetrica))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addContainerGap()
                         .addComponent(cbComponentes, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(btVisualizar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpnGrafico2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,23 +319,22 @@ public class JanelaGrafico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btVisualizar)
                     .addComponent(cbComponentes, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnGrafico2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel8)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1, 1, 1)
-                            .addComponent(lblMetrica)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbMetrica)
+                    .addComponent(jLabel8))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -292,7 +342,11 @@ public class JanelaGrafico extends javax.swing.JFrame {
 
     private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
         MudarMetrica();
-        atualizarGrafico();
+        try {
+            atualizarGrafico();
+        } catch (SQLException ex) {
+            Logger.getLogger(JanelaGrafico.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btVisualizarActionPerformed
 
@@ -302,7 +356,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
             objBD.conectar();
             ResultSet retornoBD = objBD.consultarComponentes(Maquina.fkmaquina, String.valueOf(cbComponentes.getSelectedItem()));
             while (retornoBD.next()) {
-                lblMetrica.setText(retornoBD.getString("metrica"));
+                lbMetrica.setText(retornoBD.getString("metrica"));
             }
         } catch (SQLException se) {
             System.out.println(se);
@@ -326,13 +380,17 @@ public class JanelaGrafico extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JanelaGrafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanelaGrafico.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JanelaGrafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanelaGrafico.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JanelaGrafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanelaGrafico.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JanelaGrafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanelaGrafico.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -343,7 +401,8 @@ public class JanelaGrafico extends javax.swing.JFrame {
                 try {
                     new JanelaGrafico().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(JanelaGrafico.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(JanelaGrafico.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -352,14 +411,16 @@ public class JanelaGrafico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btVisualizar;
     private javax.swing.JComboBox<String> cbComponentes;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jpnGrafico;
     private javax.swing.JPanel jpnGrafico2;
     private javax.swing.JLabel lbMedida;
-    private javax.swing.JLabel lblMetrica;
+    private javax.swing.JLabel lbMetrica;
     // End of variables declaration//GEN-END:variables
 }
