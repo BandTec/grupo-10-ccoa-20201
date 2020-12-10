@@ -5,22 +5,23 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
-import com.mycompany.monitoramento.coldstock.modelos.Consultas;
-import com.mycompany.monitoramento.coldstock.modelos.Registros;
-import com.mycompany.monitoramento.coldstock.modelos.Operacoes;
+import com.mycompany.monitoramento.coldstock.modelos.Consulta;
+import com.mycompany.monitoramento.coldstock.modelos.Registro;
+import com.mycompany.monitoramento.coldstock.modelos.Operacao;
 import com.mycompany.monitoramento.coldstock.modelos.Grafico;
+import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import com.mycompany.monitoramento.coldstock.modelos.Maquina;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Timer;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,22 +29,24 @@ import javax.swing.JOptionPane;
  */
 public class JanelaGrafico extends javax.swing.JFrame {
 
-    Consultas objBD = new Consultas();
+    Consulta objBD = new Consulta();
     List<Maquina> retornoBD;
-
+    Imagem imagem = new Imagem();
     //private Integer fkMaquina = 0; //Essa é o atributo de instancia que recebera o valor da ComboBox
     /**
      * Creates new form JanelaGrafico
      */
     public JanelaGrafico() throws SQLException {
-
+        this.getContentPane().setBackground(Color.decode("#343C41"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
+        
         initComponents();
         //carregar os componentes ex comboBox, e grafico
         carregarComponentes();
         // criamos um temporizador, que irá executar uma ação com um determinado intervalo de tempo
         atualizarGrafico();
         Timer temporizador = new Timer();
-
+        jLabel6.setIcon(imagem.carregarImgs("/1601053028644.png"));
         //aqui setamos o intervalo de tempo
         Integer tempo = 5000;
 
@@ -59,7 +62,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
                     Logger.getLogger(JanelaGrafico.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 try {
-                    new Operacoes().comparacao();
+                    new Operacao().comparacao();
                 } catch (SQLException ex) {
                     Logger.getLogger(TelaEscolha.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -96,14 +99,14 @@ public class JanelaGrafico extends javax.swing.JFrame {
         this.jpnGrafico2.setLayout(new BorderLayout());
 
         //criamos 3 objetos da classe conexao, para poder utilizar cada objeto para um grafico
-        Operacoes campo1 = new Operacoes();
-        Operacoes campo2 = new Operacoes();
-        Operacoes campo3 = new Operacoes();
+        Operacao campo1 = new Operacao();
+        Operacao campo2 = new Operacao();
+        Operacao campo3 = new Operacao();
 
         //primeiramente, criamos listas que irão receber o resultado dos selects executados
-        List<Registros> listaComponente = null;
-        List<Registros> listaComponente2 = null;
-        List<Registros> listaComponente3 = null;
+        List<Registro> listaComponente = null;
+        List<Registro> listaComponente2 = null;
+        List<Registro> listaComponente3 = null;
 
         //aqui executamos os devidos selects, passando como parametro o objeto que vai realizar
         //a conexao, o id do 
@@ -116,28 +119,28 @@ public class JanelaGrafico extends javax.swing.JFrame {
         
         //agora vamos começar o processo de converter essas listas para arralists
         //primeiro, criamos as arraylists
-        ArrayList<Registros> listaGrafico = new ArrayList<>();
-        ArrayList<Registros> listaGrafico2 = new ArrayList<>();
-        ArrayList<Registros> listaGrafico3 = new ArrayList<>();
+        ArrayList<Registro> listaGrafico = new ArrayList<>();
+        ArrayList<Registro> listaGrafico2 = new ArrayList<>();
+        ArrayList<Registro> listaGrafico3 = new ArrayList<>();
         System.out.println(Maquina.fkmaquina);
         //e começamosa rodar FORs que vao passar por cada item da listaComponente,
         //e adicionando esses itens na arraylist
         //fazemos isso para as 3 listas
         if (!listaComponente.get(0).getNomeComponente().toUpperCase().equals("DISCO")) {
-            for (Registros componente : listaComponente) {
+            for (Registro componente : listaComponente) {
 
                 listaGrafico.add(componente);
 
             }
-            for (Registros componente : listaComponente2) {
+            for (Registro componente : listaComponente2) {
                 listaGrafico2.add(componente);
             }
-            for (Registros componente : listaComponente3) {
+            for (Registro componente : listaComponente3) {
                 listaGrafico3.add(componente);
             }
         }
         else{
-            for (Registros componente : listaComponente3) {
+            for (Registro componente : listaComponente3) {
                 listaGrafico.add(componente);
                 listaGrafico2.add(componente);
                 listaGrafico3.add(componente);
@@ -255,6 +258,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
         );
 
         jLabel8.setFont(new java.awt.Font("Montserrat", 0, 36)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Medida Atual:");
 
         btVisualizar.setBackground(new java.awt.Color(77, 172, 166));
@@ -266,18 +270,18 @@ public class JanelaGrafico extends javax.swing.JFrame {
         });
 
         lbMedida.setFont(new java.awt.Font("Montserrat", 0, 36)); // NOI18N
-        lbMedida.setForeground(new java.awt.Color(0, 0, 0));
+        lbMedida.setForeground(new java.awt.Color(255, 255, 255));
 
         lbMetrica.setFont(new java.awt.Font("Montserrat", 0, 36)); // NOI18N
-        lbMetrica.setForeground(new java.awt.Color(0, 0, 0));
+        lbMetrica.setForeground(new java.awt.Color(255, 255, 255));
         lbMetrica.setText("GHz");
 
         jLabel9.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Médias semanais");
 
         jLabel10.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Médias Mensais");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

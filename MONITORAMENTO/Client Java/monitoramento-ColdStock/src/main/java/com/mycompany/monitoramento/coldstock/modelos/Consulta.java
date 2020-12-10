@@ -19,7 +19,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class Consultas {
+public class Consulta {
 
     BasicDataSource dataSource = new BasicDataSource();
 
@@ -50,7 +50,7 @@ public class Consultas {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (SQLException ex) {
             //plota o erro(usando uma váriavel do tipo "erro no mysql")
-            Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Conectado com sucesso ao BD!");
     }

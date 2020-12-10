@@ -5,11 +5,13 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
-import com.mycompany.monitoramento.coldstock.modelos.Consultas;
-import com.mycompany.monitoramento.coldstock.modelos.Operacoes;
+import com.mycompany.monitoramento.coldstock.modelos.Consulta;
+import com.mycompany.monitoramento.coldstock.modelos.Operacao;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import com.mycompany.monitoramento.coldstock.modelos.Maquina;
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import javax.swing.*;
 import java.sql.SQLException;
@@ -22,7 +24,7 @@ public class TelaEscolha extends javax.swing.JFrame {
 
     // aqui criamos objetos das classes que iremos utilizar
     TelaEditarMaquina telaEditarMaquina = new TelaEditarMaquina();
-    Consultas objBD = new Consultas();
+    Consulta objBD = new Consulta();
     List<Maquina> retornoBD;
     Maquina maquina;
     Imagem imagem = new Imagem();
@@ -31,6 +33,8 @@ public class TelaEscolha extends javax.swing.JFrame {
     public TelaEscolha() {
 
         initComponents();
+        this.getContentPane().setBackground(Color.decode("#343C41"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
         jLabel2.setIcon(imagem.carregarImgs("/1601053028644.png"));
         jLabel1.setIcon(imagem.carregarImgs("/Pingulinomonitoramento.png"));
         carregarMaquinas();
@@ -127,6 +131,7 @@ public class TelaEscolha extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("<html>Bem vindo ao monitoramento de <br>máquinas do Cold Stock, Qureeck!<br>Para começar, basta selecionar uma<br>máquina e começar a edita-la! Qureeck!</html>");
 
@@ -216,27 +221,26 @@ public class TelaEscolha extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(37, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCadastrar)
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbEscolhaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnIA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnOk1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(57, 57, 57))))
+                            .addComponent(btnOk1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(57, 57, 57))
         );
 
         pack();
@@ -255,7 +259,7 @@ public class TelaEscolha extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
         if (retorno == JOptionPane.YES_OPTION) {
             // excluindo as maquinas
-            new Operacoes().excluirMaquina(Maquina.fkmaquina);
+            new Operacao().excluirMaquina(Maquina.fkmaquina);
             //reload das maquinas
             carregarMaquinas();
         }
@@ -305,7 +309,7 @@ public class TelaEscolha extends javax.swing.JFrame {
 
         ResultSet listaComponente = null;
         try {
-            listaComponente = new Consultas().consultarRegistros(1);
+            listaComponente = new Consulta().consultarRegistros(1);
             //Verificando se existem registros daquela maquina
             if (listaComponente.next()) {
                 JanelaGrafico grafico = null;
@@ -346,7 +350,7 @@ public class TelaEscolha extends javax.swing.JFrame {
                 "Coloque o nome e o tipo da maquina da qual deseja adicionar.", JOptionPane.YES_NO_OPTION);
         // Adicionando o os dados das caixas de textos no banco de dados. 
         if (result == JOptionPane.YES_OPTION && !(nome.getText().equals("") || tipo.getText().equals(""))) {
-            new Operacoes().adicionarMaquina(nome.getText(), tipo.getText());
+            new Operacao().adicionarMaquina(nome.getText(), tipo.getText());
             carregarMaquinas();
             System.out.println("Foi");
         }

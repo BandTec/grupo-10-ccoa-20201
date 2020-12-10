@@ -3,7 +3,7 @@ package com.mycompany.monitoramento.coldstock.jiraexecutavel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mycompany.monitoramento.coldstock.jiramodelos.Issue;
-import com.mycompany.monitoramento.coldstock.modelos.Operacoes;
+import com.mycompany.monitoramento.coldstock.modelos.Operacao;
 import java.awt.Color;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -34,7 +34,7 @@ public class Chamado extends ClienteJiraApi{
         //e setamos as informações como Key, Titulo, Descricao e Labels
         novaIssue.setProjectKey("CK");
         
-        novaIssue.setSummary(new Operacoes().textoChamados(fkComponentes));
+        novaIssue.setSummary(new Operacao().textoChamados(fkComponentes));
         
         novaIssue.setDescription(textoSummary(valor, nome, limiteValor));
         
@@ -47,7 +47,6 @@ public class Chamado extends ClienteJiraApi{
             
         } catch (IOException ex) {
             //caso não seja possivel, imprimos para no log o erro
-            Logger.getLogger(TelaCriarChamado.class.getName()).log(Level.SEVERE, null, ex);
             
             System.out.println("Erro ao criar chamado,tente novaCkCKsmente!!");
             

@@ -31,7 +31,7 @@ import org.jfree.data.general.PieDataset;
  */
 public class Grafico {
 
-    private CategoryDataset createDataset(ArrayList<Registros> listaGrafico) {
+    private CategoryDataset createDataset(ArrayList<Registro> listaGrafico) {
 
         /*
         Essa função cria itens da lista gerada na classe Conexao.
@@ -40,7 +40,7 @@ public class Grafico {
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 
         // aqui separamos a lista(listaGrafico) em itens (componente) e adiconamos esses itens no DataSet criado 
-        for (Registros componente : listaGrafico) {
+        for (Registro componente : listaGrafico) {
             dataSet.addValue(componente.getValor(), componente.getNomeComponente(),
                     componente.getDataHora());
         }
@@ -49,14 +49,14 @@ public class Grafico {
 
     }
 
-    private PieDataset createDatasetPie(ArrayList<Registros> listaGrafico) throws SQLException {
+    private PieDataset createDatasetPie(ArrayList<Registro> listaGrafico) throws SQLException {
         /*
         Essa função cria itens da lista gerada na classe Conexao.
          */
         // aqui criamos um DataSet que ira popular o grafico
         DefaultPieDataset dataset = new DefaultPieDataset();
         Double livre = 0.00;
-        ResultSet rs = new Consultas().consultarMaximas();
+        ResultSet rs = new Consulta().consultarMaximas();
         while (rs.next()) {
             // pegando a capacidadeMax do Disco
             if (rs.getInt("fkcomponente") == 3) {
@@ -64,7 +64,7 @@ public class Grafico {
             }
         }
         // aqui separamos a lista(listaGrafico) em itens (componente) e adiconamos esses itens no DataSet criado 
-        for (Registros componente : listaGrafico) {
+        for (Registro componente : listaGrafico) {
             dataset.setValue("Ocupado", componente.getValor());
             //Subtraindo o livre pelo ocupado.
             dataset.setValue("Livre (De acordo com a capacidadeMax)", (livre - componente.getValor()));
@@ -83,7 +83,7 @@ public class Grafico {
 
     }
 
-    public ChartPanel criargrafico(ArrayList<Registros> listaGrafico, String componente) throws SQLException {
+    public ChartPanel criargrafico(ArrayList<Registro> listaGrafico, String componente) throws SQLException {
 
         JFreeChart grafico = null;
         ChartPanel painelGrafico = null;

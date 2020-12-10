@@ -1,6 +1,6 @@
 package com.mycompany.monitoramento.coldstock.modelos;
 
-public class Registros {
+public class Registro {
     private String nomeComponente;
     private Double valor;
     private String dataHora;
