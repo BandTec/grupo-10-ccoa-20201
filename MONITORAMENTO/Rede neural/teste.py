@@ -17,4 +17,11 @@ for exemplo in treino_entradas:
 end = timer()
 
 tempo = end-start
-print("Tempo de processamento:", round(tempo,2),"segundos")
+
+print("Tempo de processamento:", round(tempo,8),"segundos")
+
+redeSalva = open('redeSalva.pkl', 'wb')
+
+pickle.dump(rede, redeSalva)
+
+redeSalva.close()

@@ -1,9 +1,4 @@
 import pandas as pd
-import numpy as np
-
-# def histogram_intersection(a, b):
-#     v = np.minimum(a, b).sum().round(decimals=1)
-#     return v
 
 entrada = pd.read_csv("./ColetorDadosBD/dados.data", sep=",", header=None)
 saida = pd.read_csv("./ColetorDadosBD/saida.data", sep=",", header=None)
