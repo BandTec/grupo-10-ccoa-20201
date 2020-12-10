@@ -246,7 +246,9 @@ public class TelaEscolha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
+        if(cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --")){
+            return;
+        }     
         // Separar palavra por "-"
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         // Setando o atributo estatico fkMaquina
@@ -263,23 +265,26 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        //para saber quais informações teremos que passar pra proxima tela, temos que saber qual é a maquina
-        //aqui iremos pegar qual o indice do item da combo box que foi escolhido
-        Integer num = cbEscolhaMaquina.getSelectedIndex();
-        System.out.println(num);
+         if(cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --")){
+            return;
+        }     
+        
         // aqui pegamos um item especifico da lista, sendo aquele que é equivalente ao indice selecionado da combobox
-        maquina = retornoBD.get(num);
+        
 
         // Separar palavra por "-"
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         // Setando o atributo estatico fkMaquina
         Maquina.fkmaquina = Integer.valueOf(separador[1]);
-
+        //para saber quais informações teremos que passar pra proxima tela, temos que saber qual é a maquina
+        //aqui iremos pegar qual o indice do item da combo box que foi escolhido
+        
+        Integer num = Integer.valueOf(separador[1]);
+        maquina = retornoBD.get(num -1);
         //por fim, passamos o item buscado para a proxima tela, mandando o id e o nome da maquina
         telaEditarMaquina.carregarTabela(Maquina.fkmaquina, maquina.getNomeMaquina());
         // e deixamos a proxima tela visivel
         telaEditarMaquina.setVisible(true);
-
         System.out.println(maquina.getIdMaquina());
         System.out.println(maquina.getNomeMaquina());
 
@@ -297,7 +302,8 @@ public class TelaEscolha extends javax.swing.JFrame {
         trazerGrafico();
         onde ele recebe mais um parametro, que seria a FkMaquina
          */
-
+        if(cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --"))
+            return;
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         Maquina.fkmaquina = Integer.valueOf(separador[1]);
 
@@ -327,9 +333,8 @@ public class TelaEscolha extends javax.swing.JFrame {
 
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-
-        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-        Maquina.fkmaquina = Integer.valueOf(separador[1]);
+        
+        
 
         GridLayout layout = new GridLayout(2, 2);
 
@@ -375,12 +380,11 @@ public class TelaEscolha extends javax.swing.JFrame {
             cbEscolhaMaquina.removeAllItems();
             //pegamos o resultado do select das maquinas
             retornoBD = objBD.consultarMaquinas();
-            //cbEscolhaMaquina.addItem("--Escolha--");
+            cbEscolhaMaquina.addItem("-- Escolha --");
             for (Maquina maquina : retornoBD) {
                 //separamos cada item da lista que foi gerada
                 //separamos de cada item, o nome da maquina e o tipo(se é servidor ou maquina comum)
                 String nomeMaquina = maquina.getNomeMaquina();
-                String Tipo = maquina.getTipoMaquina();
                 Integer idMaquina = maquina.getIdMaquina();
                 //e criamos um item na combo box que ira receber o nome da maquina
                 cbEscolhaMaquina.addItem(nomeMaquina + " - " + idMaquina);

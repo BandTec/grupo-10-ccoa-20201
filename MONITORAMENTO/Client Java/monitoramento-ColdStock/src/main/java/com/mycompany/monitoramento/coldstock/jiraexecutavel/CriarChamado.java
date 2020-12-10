@@ -23,23 +23,18 @@ public class CriarChamado {
             "xYT7D7fZZRvpKWl0svMyC6C9"
     );
     
-    public void criarChamado(ResultSet registros, Double limiteValor) throws SQLException{
+    public void criarChamado(List valor, List nome,List limiteValor, List<Integer> fkComponentes) throws SQLException{
         Issue novaIssue = new Issue();
         
         
         //e setamos as informações como Key, Titulo, Descricao e Labels
         novaIssue.setProjectKey("CK");
         
-        novaIssue.setSummary(new Operacoes().textoChamados(registros.getInt("fkComponente")));
+        novaIssue.setSummary(new Operacoes().textoChamados(fkComponentes));
         
-        novaIssue.setDescription(
-                "O valor do componente "
-                + registros.getString("nomeComponente") + 
-                " está em " +
-                registros.getDouble("valor") + " e o máximo que pode atingir é "+
-                new DecimalFormat("#,##0.00").format(limiteValor));
+        novaIssue.setDescription(textoSummary(valor, nome, limiteValor));
         
-        novaIssue.setLabels("Alerta-" + registros.getString("nomeComponente"));
+        novaIssue.setLabels("Alerta-" + nome.get(0));
         
         try {
             //e com essas informações setadas, podemos criar uma issue no jira
@@ -56,6 +51,19 @@ public class CriarChamado {
         
         System.out.println("Issue criada: "+gson.toJson(novaIssue));
         
+    }
+    
+    private String textoSummary(List valor, List nome,List limiteValor){
+        String texto = "";
+        for (int i = 0; i < valor.size(); i++) {
+              texto += "O valor do componente "
+                + nome.get(i) + 
+                " está em " +
+                valor.get(i) + " e o máximo que pode atingir é "+
+                new DecimalFormat("#,##0.00").format(limiteValor.get(i)) + "\n";
+        }
+        
+        return texto;
     }
     
 }

@@ -49,7 +49,7 @@ public class Operacoes {
 
     ;
     
-    public List trazerLista(BasicDataSource dataSource, Integer idComando, String componente, Integer fkMaquina) {
+    public List trazerLista(BasicDataSource dataSource, Integer idComando, String componente, Integer fkMaquina) throws SQLException {
         /*
             Essa função é a responsavel por trazer uma lista de dados que será usada para
         gerar o grafico.
@@ -67,7 +67,7 @@ public class Operacoes {
         if (idComando == 2) {
             sql = String.format("select nomeComponente, valor, dataHora from registros INNER JOIN "
                     + "componentes on fkComponente = idComponente where fkMaquina = %d "
-                    + "and nomeComponente = '%s' order by dataHora desc ", fkMaquina, componente);
+                    + "and nomeComponente = '%s' order by dataHora desc limit 30 ", fkMaquina, componente);
         }
         if (idComando == 3) {
             sql = String.format("select nomeComponente, valor, dataHora from registros INNER JOIN "
@@ -81,7 +81,7 @@ public class Operacoes {
 
         // Aqui nos invertemos a lista, para ter os resultados mais recentes como os ultimos da lista, deixando o grafico mais dinamico
         Collections.reverse(listaComponentes);
-
+        dataSource.close();
         return listaComponentes;
     }
 
@@ -123,7 +123,7 @@ public class Operacoes {
         for (int j = 1; j < Itens.length; j++) {
             String sql = "insert into configuracaoMaquina (capacidadeMax, porcentagemMax,fkMaquina, fkComponente) values(?, ?, ?, (select idcomponente from componentes where nomeComponente = ?))";
             for (int i = 0; i < tabela.getRowCount(); i++) {
-                if (String.valueOf(tabela.getModel().getValueAt(i, 0)).equals(Itens[j].split(",")[0].trim()) || verificador.contains(Itens[j].split(",")[0].trim()) ) {
+                if (String.valueOf(tabela.getModel().getValueAt(i, 0)).equals(Itens[j].split(",")[0].trim()) || verificador.contains(Itens[j].split(",")[0].trim())) {
                     sql = "update configuracaoMaquina set capacidadeMax = ? , porcentagemMax = ? where fkMaquina = ? and fkComponente = (select idcomponente from componentes where nomeComponente = ?)";
                     break;
                 }
@@ -139,7 +139,7 @@ public class Operacoes {
         ResultSet configMaquina = new Consultas().consultarMaximas();
         JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
         String sql = "update registros set fkChamado = (select max(idchamado) from chamados) where datahora = ? and fkmaquina = ?";
-        
+
         List<Double> capacidade = new ArrayList<Double>();
         List<Double> porcentagem = new ArrayList<Double>();
         while (configMaquina.next()) {
@@ -147,63 +147,82 @@ public class Operacoes {
             porcentagem.add(configMaquina.getDouble("porcentagemMax"));
         }
         ResultSet registros = new Consultas().consultarRegistros(capacidade.size());
-        
+        List<Double> limite = new ArrayList<Double>();
+        List<Double> valor = new ArrayList<Double>();
+        List<String> nome = new ArrayList<String>();
+        List<String> datahora = new ArrayList<String>();
+        List<Integer> fkComponentes = new ArrayList<Integer>();
         for (int i = 0; registros.next(); i++) {
-            if(registros.getString("fkchamado") == null){
-                if (registros.getInt("fkComponente") != 4 && registros.getInt("fkComponente") != 5 && registros.getDouble("valor") > (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100))) {
-                    adicionarChamado(registros.getInt("fkComponente"),registros.getString("dataHora") );
-                
-                    jdbcTemplate.update(sql, registros.getString("dataHora")
-                    , Maquina.fkmaquina);
-                    new CriarChamado().criarChamado(registros, (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100)));
-                
-                }else if ((registros.getInt("fkComponente") == 4 || registros.getInt("fkComponente") == 5) && registros.getDouble("valor") < (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100))) {
-                    adicionarChamado(registros.getInt("fkComponente"),registros.getString("dataHora") );
-                                jdbcTemplate.update(sql,  registros.getString("dataHora")
-                    , Maquina.fkmaquina);
-                    new CriarChamado().criarChamado(registros, (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100)));
-                }
+
+            if (registros.getInt("fkComponente") != 4 && registros.getInt("fkComponente") != 5 && registros.getDouble("valor") > (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100))) {
+
+                fkComponentes.add(registros.getInt("fkComponente"));
+                datahora.add(registros.getString("dataHora"));
+                nome.add(registros.getString("nomeComponente"));
+                valor.add(registros.getDouble("valor"));
+                limite.add(capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100));
+
+            } else if ((registros.getInt("fkComponente") == 4 || registros.getInt("fkComponente") == 5) && registros.getDouble("valor") < (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100))) {
+//                    adicionarChamado(registros.getInt("fkComponentes"),registros.getString("dataHora") );
+//                    jdbcTemplate.update(sql,  registros.getString("dataHora")
+//                    , Maquina.fkmaquina);
+                fkComponentes.add(registros.getInt("fkComponente"));
+                datahora.add(registros.getString("dataHora"));
+                nome.add(registros.getString("nomeComponente"));
+                valor.add(registros.getDouble("valor"));
+                limite.add(capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100));
+                // new CriarChamado().criarChamado(registros, (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100)));
             }
-            
-            else{
-                
-                jdbcTemplate.update(sql, registros.getString("dataHora")
-                , Maquina.fkmaquina);
+
+        }
+        registros.close();
+        registros = new Consultas().consultarRegistros(capacidade.size());
+        while (registros.next()) {
+            if (registros.getString("fkChamado") == null) {
+                adicionarChamado(fkComponentes, registros.getString("dataHora"));
+                jdbcTemplate.update(sql, registros.getString("dataHora"),
+                        Maquina.fkmaquina);
+                new CriarChamado().criarChamado(valor, nome, limite, fkComponentes);
                 System.out.println("Registros atualizados com sucesso");
-                
+                break;
+
             }
         }
+        registros.close();
     }
-    
-    public void adicionarChamado(Integer fkcomponente, String datahora){
+
+    public void adicionarChamado(List<Integer> fkcomponente, String datahora) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
         String sql = "insert into chamados(dataChamado, descricao) values(?,?)";
-        jdbcTemplate.update(sql, datahora,textoChamados(fkcomponente));
+        jdbcTemplate.update(sql, datahora, textoChamados(fkcomponente));
         System.out.println("Chamado inserido com sucesso");
     }
-    
-    public String textoChamados(Integer fkComponente){
+
+    public String textoChamados(List<Integer> fkComponente) {
         String texto = "";
-        switch(fkComponente){
-            case 1:
-                texto = "CPU sobrecarregando!";
-                break;
-            case 2:
-                texto = "RAM sobrecarregando!";
-                break;
-            case 3:
-                texto = "DISCO Lotado!";
-                break;
-            case 4:
-                texto = "CONEXÃO D. baixa!!";
-                break;
-            case 5:
-                texto = "CONEXÃO U. baixa!";
-                break;
-            case 6:
-                texto = "TEMPERATURA alta!";
-                break;
+        for (int i = 0; i < fkComponente.size(); i++) {
+            switch (fkComponente.get(i)) {
+                case 1:
+                    texto += "CPU sobrecarregando!, ";
+                    break;
+                case 2:
+                    texto += "RAM sobrecarregando!, ";
+                    break;
+                case 3:
+                    texto = "DISCO Lotado!, ";
+                    break;
+                case 4:
+                    texto = "CONEXÃO D. baixa!!, ";
+                    break;
+                case 5:
+                    texto = "CONEXÃO U. baixa!, ";
+                    break;
+                case 6:
+                    texto = "TEMPERATURA alta!, ";
+                    break;
+            }
         }
+
         return texto;
     }
 }

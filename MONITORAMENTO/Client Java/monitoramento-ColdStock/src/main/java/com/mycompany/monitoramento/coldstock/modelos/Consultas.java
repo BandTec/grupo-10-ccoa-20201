@@ -20,14 +20,12 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class Consultas {
-    
-    BasicDataSource dataSource  = new BasicDataSource();
-        
-   
+
+    BasicDataSource dataSource = new BasicDataSource();
+
     //link para acessar nosso banco de dados
     private static final String DB_URL = "jdbc:mysql://localhost/coldstock?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    
-    
+
     //  Logando em nosso banco de dados
     private static final String USER = "ColdUser";
     private static final String PASS = "senha123";
@@ -35,7 +33,7 @@ public class Consultas {
     private Connection conn = null;
     // criando uma variável que permite dar comandos do mysql
     private Statement stmt = null;
-    
+
     //frase = resultado da tentativa de login
     private String frase = "";
 
@@ -43,7 +41,7 @@ public class Consultas {
     public String getFrase() {
         return frase;
     }
-    
+
     public void conectar() {
         // função responsavel por fazer a conexão com o BD
         System.out.println("Tentando conectar ao BD...");
@@ -56,24 +54,24 @@ public class Consultas {
         }
         System.out.println("Conectado com sucesso ao BD!");
     }
-    
+
     //throws SQLException = tem erro? Joga na tela! 
-    public List consultarMaquinas() throws SQLException{
+    public List consultarMaquinas() throws SQLException {
         /*
             Essa função é responsavel por gerar uma lista com base no resultado do select, 
             utilizando de molde a classe Maquina
-        */
+         */
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        
+
         //link para acessar o banco de dados
         dataSource.setUrl("jdbc:mysql://localhost/coldstock?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-        
+
         //Logando em nosso banco de dados
         dataSource.setUsername("ColdUser");
         dataSource.setPassword("senha123");
-        
+
         System.out.println("Criando Statement...");
-        
+
         //estamos mostrando onde iremos realizar os comandos mysql.... 
         //createStatment =  possibilita que criemos o statement
         stmt = conn.createStatement();
@@ -81,7 +79,7 @@ public class Consultas {
         //criamos uma variável sql do tipo string 
         String sql;
         sql = "SELECT * FROM Maquinas";
-        
+
         //executando o comando my sql
         //constultaMaquina = lista do retorno do banco de dados
         List<Maquina> consultaMaquina;
@@ -91,16 +89,16 @@ public class Consultas {
         //retorna essa lista gerada
         return consultaMaquina;
     }
-    
-        public ResultSet consultarComponentes() throws SQLException {
+
+    public ResultSet consultarComponentes() throws SQLException {
         /*
             Essa função é responsavel por selecionar todos os componentes que estão cadastrados 
             no Banco de dados, e criando um ResultSet, que é como uma lista.
             Essas informações 
             O funcionamento dessa função é similar ao de consultarFuncionario()
-        */
+         */
         System.out.println("Criando Statement...");
-        
+
         stmt = conn.createStatement();
 
         String sql;
@@ -110,72 +108,72 @@ public class Consultas {
         System.out.println("Comando executado com sucesso!");
         return rs;
     }
-        
+
     public ResultSet consultarComponentes(Integer fkMaquina) throws SQLException {
         /*
             Essa função é responsavel por selecionar todos os componentes que estão cadastrados 
             no Banco de dados, e criando um ResultSet, que é como uma lista.
             Essas informações 
             O funcionamento dessa função é similar ao de consultarFuncionario()
-        */
+         */
         System.out.println("Criando Statement...");
-        
+
         stmt = conn.createStatement();
 
         String sql;
-        sql = String.format("select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas \n" +
-                "inner join configuracaoMaquina on idMaquina = fkMaquina\n" +
-                "inner join componentes on idComponente = fkComponente\n" +
-                "where idMaquina = %d", fkMaquina);
-        
+        sql = String.format("select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas \n"
+                + "inner join configuracaoMaquina on idMaquina = fkMaquina\n"
+                + "inner join componentes on idComponente = fkComponente\n"
+                + "where idMaquina = %d", fkMaquina);
+
         ResultSet rs = stmt.executeQuery(sql);
         return rs;
     }
-    
-    
+
     public ResultSet consultarComponentes(Integer fkMaquina, String Componente) throws SQLException {
         /*
             Essa função é responsavel por selecionar todos os componentes que estão cadastrados 
             no Banco de dados, e criando um ResultSet, que é como uma lista.
             Essas informações 
             O funcionamento dessa função é similar ao de consultarFuncionario()
-        */
+         */
         System.out.println("Criando Statement...");
         System.out.println(Componente);
-        
+
         stmt = conn.createStatement();
 
         String sql;
-        sql = String.format("select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas \n" +
-                "inner join configuracaoMaquina on idMaquina = fkMaquina\n" +
-                "inner join componentes on idComponente = fkComponente\n" +
-                "where idMaquina = %d and nomeComponente = '%s'", fkMaquina, Componente);
-        
+        sql = String.format("select idMaquina, nomeMaquina, nomeComponente, capacidadeMax, metrica from maquinas \n"
+                + "inner join configuracaoMaquina on idMaquina = fkMaquina\n"
+                + "inner join componentes on idComponente = fkComponente\n"
+                + "where idMaquina = %d and nomeComponente = '%s'", fkMaquina, Componente);
+
         ResultSet rs = stmt.executeQuery(sql);
         return rs;
     }
-        
+
     public ResultSet consultarConfiguracaoMaquina(Integer fkMaquina) throws SQLException {
         /*
             Essa função é responsavel por selecionar as informações utilizadas para criar a tabela da tela 
             TelaEditarMaquina. Ele também retorna um ResultSet
-        */
+         */
         System.out.println("Criando Statement...");
         stmt = conn.createStatement();
 
         String sql;
-        sql =String.format("select nomeComponente, capacidadeMax, metrica, porcentagemMax from configuracaoMaquina, componentes where idComponente = fkComponente and fkMaquina = %d",fkMaquina);
+        sql = String.format("select nomeComponente, capacidadeMax, metrica, porcentagemMax from configuracaoMaquina, componentes where idComponente = fkComponente and fkMaquina = %d", fkMaquina);
 
         ResultSet rs = stmt.executeQuery(sql);
         System.out.println("Comando executado com sucesso!");
         return rs;
     }
+
     // criamos uma função onde dentro dela hávera duas variáveis do tipo string
     public Boolean consultarFuncionario(String funcionario, String senha) throws SQLException {
         /*
             Essa função é responsavel por selecionar todos os funcionarios que estão cadastrados 
             no Banco de dados, e criando um ResultSet, que é como uma lista.
-        */
+         */
         System.out.println("Criando Statement...");
         stmt = conn.createStatement();
 
@@ -185,11 +183,11 @@ public class Consultas {
 
         ResultSet rs = stmt.executeQuery(sql);
         System.out.println("Comando executado com sucesso!");
-        
+
         //Faz com que passemos para a próxima linha de comando
         if (rs.next()) {
             System.out.println("Buenas buenas, cliente encontrado!");
-            frase = String.format("Bem vindo, %s.",rs.getString("nomeFuncionario"));
+            frase = String.format("Bem vindo, %s.", rs.getString("nomeFuncionario"));
             return true;
         } else {
             System.out.println("Nada encontrado");
@@ -197,38 +195,46 @@ public class Consultas {
             return false;
         }
     }
-    
-    public ResultSet consultarMaximas() throws SQLException{
+
+    public ResultSet consultarMaximas() throws SQLException {
         conectar();
         stmt = conn.createStatement();
-        String sql = "select * from configuracaoMaquina where fkmaquina = "+ Maquina.fkmaquina+ " order by fkComponente desc;";
+        String sql = "select * from configuracaoMaquina where fkmaquina = " + Maquina.fkmaquina + " order by fkComponente desc;";
         ResultSet rs = stmt.executeQuery(sql);
         System.out.println("Comando executado com sucesso!");
         return rs;
     }
-    
-    public ResultSet consultarRegistros(int limit) throws SQLException{
+
+    public ResultSet consultarRegistros(int limit) throws SQLException {
         conectar();
         stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(
+        ResultSet rs = null;
+
+        rs = stmt.executeQuery(
                 "select fkChamado, dataHora, valor, fkMaquina, fkComponente, nomeComponente "
-                        + "from registros, componentes "
-                        + "where fkComponente = idComponente "
-                        + "and fkMaquina =" + Maquina.fkmaquina
-                        + " order by idRegistro desc limit " + limit);
-        
+                + "from registros, componentes "
+                + "where fkComponente = idComponente "
+                + "and fkMaquina =" + Maquina.fkmaquina
+                + " order by idRegistro desc limit " + limit);
+
+        stmt.closeOnCompletion();
+
         return rs;
     }
-    
-    public ResultSet consultarChamados(int idMaquina) throws SQLException{
+
+    public ResultSet consultarChamados(int idMaquina) throws SQLException {
         conectar();
         stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(
-                "select count(idChamado) "
-                        + "from chamados "
-                        + "where fkMaquina = " + Maquina.fkmaquina
-                        + " order by idChamado");
-        
+        ResultSet rs = null;
+        try {
+            rs = stmt.executeQuery(
+                    "select count(idChamado) "
+                    + "from chamados "
+                    + "where fkMaquina = " + Maquina.fkmaquina
+                    + " order by idChamado");
+        } finally {
+            stmt.closeOnCompletion();
+        }
         return rs;
     }
 }

@@ -65,11 +65,10 @@ public class JanelaGrafico extends javax.swing.JFrame {
                 }
             }
         };
-        if(!this.isShowing()){
-            return;
-        }
+        
         //aqui executamos o temporizador, especificamos a tarefa, o tempo que vai demorar pra ela começar a rodar,
         //e o tempo do intervalo entre uma execução e outra.
+        
         temporizador.scheduleAtFixedRate(tarefa, 0, tempo);
     }
 
@@ -90,7 +89,9 @@ public class JanelaGrafico extends javax.swing.JFrame {
     }
 
     protected void atualizarGrafico() throws SQLException {
-
+        if(!this.isShowing()){
+            return;
+        }
         this.jpnGrafico.setLayout(new BorderLayout());
         this.jpnGrafico2.setLayout(new BorderLayout());
 
@@ -145,6 +146,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
         //agora criamos 2 objetos de grafico
         Grafico graficoLinha = new Grafico();
         Grafico graficoLinha2 = new Grafico();
+        //Removendo graficos antigos
         this.jpnGrafico.removeAll();
         this.jpnGrafico2.removeAll();
         //e populamos o grafico com a arraylist
@@ -153,7 +155,6 @@ public class JanelaGrafico extends javax.swing.JFrame {
         this.jpnGrafico2.add(graficoLinha2.criargrafico(listaGrafico2, (String) cbComponentes.getSelectedItem()));
 
         lbMedida.setText(listaGrafico3.get(0).getValor().toString());
-
         pack();
 
     }
@@ -330,10 +331,11 @@ public class JanelaGrafico extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbMetrica)
-                    .addComponent(jLabel8))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -358,6 +360,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
             while (retornoBD.next()) {
                 lbMetrica.setText(retornoBD.getString("metrica"));
             }
+            retornoBD.close();
         } catch (SQLException se) {
             System.out.println(se);
         }
