@@ -77,8 +77,9 @@ while(True):
 
     valores.append( gerarValor(configuracaoMaquina[i % len(configuracaoMaquina)][2]) )
     #valor = round(uniform(0,configuracaoMaquina[i % len(configuracaoMaquina)][2]),2)
-    fkComponentes.append( configuracaoMaquina[i % len(configuracaoMaquina)][0] )
-
+    if configuracaoMaquina[i % len(configuracaoMaquina)][0] not in fkComponentes:
+        fkComponentes.append( configuracaoMaquina[i % len(configuracaoMaquina)][0])
+    
     i+=1
     
     sleep(1)

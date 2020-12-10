@@ -9,14 +9,10 @@ import com.mycompany.monitoramento.coldstock.modelos.Consultas;
 import com.mycompany.monitoramento.coldstock.modelos.Operacoes;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import com.mycompany.monitoramento.coldstock.modelos.Maquina;
-import com.mycompany.monitoramento.coldstock.modelos.Registros;
-import javax.swing.ImageIcon;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.sql.ResultSet;
 import javax.swing.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -270,8 +266,6 @@ public class TelaEscolha extends javax.swing.JFrame {
         }     
         
         // aqui pegamos um item especifico da lista, sendo aquele que é equivalente ao indice selecionado da combobox
-        
-
         // Separar palavra por "-"
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         // Setando o atributo estatico fkMaquina

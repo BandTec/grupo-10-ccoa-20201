@@ -274,11 +274,11 @@ public class JanelaGrafico extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Os últimos 10 registros");
+        jLabel9.setText("Médias semanais");
 
         jLabel10.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Os últimos 30 registros");
+        jLabel10.setText("Médias Mensais");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -334,8 +334,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbMetrica)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)))
+                    .addComponent(jLabel8))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 

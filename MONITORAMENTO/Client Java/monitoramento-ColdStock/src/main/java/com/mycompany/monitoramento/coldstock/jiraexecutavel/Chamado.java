@@ -13,17 +13,21 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CriarChamado {
+public class Chamado extends ClienteJiraApi{
     
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
     
-    ClienteJiraApi clienteJiraApi = new ClienteJiraApi(
-            "coldstock.atlassian.net",
-            "201grupo10c@bandtec.com.br",
-            "xYT7D7fZZRvpKWl0svMyC6C9"
-    );
+//    ClienteJiraApi clienteJiraApi = new ClienteJiraApi(
+//            "coldstock.atlassian.net",
+//            "201grupo10c@bandtec.com.br",
+//            "xYT7D7fZZRvpKWl0svMyC6C9"
+//    );
+
+    public Chamado(String urlBaseJira, String usuario, String token) {
+        super(urlBaseJira, usuario, token);
+    }
     
-    public void criarChamado(List valor, List nome,List limiteValor, List<Integer> fkComponentes) throws SQLException{
+    public void abrirChamado(List valor, List nome,List limiteValor, List<Integer> fkComponentes) throws SQLException{
         Issue novaIssue = new Issue();
         
         
@@ -38,7 +42,7 @@ public class CriarChamado {
         
         try {
             //e com essas informações setadas, podemos criar uma issue no jira
-            clienteJiraApi.criarIssue(novaIssue);
+            this.criarIssue(novaIssue);
             System.out.println("Chamado criado com sucesso!!!");
             
         } catch (IOException ex) {

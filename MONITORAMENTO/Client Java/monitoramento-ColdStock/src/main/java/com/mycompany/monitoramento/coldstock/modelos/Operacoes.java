@@ -5,7 +5,7 @@
  */
 package com.mycompany.monitoramento.coldstock.modelos;
 
-import com.mycompany.monitoramento.coldstock.jiraexecutavel.CriarChamado;
+import com.mycompany.monitoramento.coldstock.jiraexecutavel.Chamado;
 import com.mycompany.monitoramento.coldstock.telas.TelaEditarMaquina;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -171,7 +171,7 @@ public class Operacoes {
                 nome.add(registros.getString("nomeComponente"));
                 valor.add(registros.getDouble("valor"));
                 limite.add(capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100));
-                // new CriarChamado().criarChamado(registros, (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100)));
+                // new Chamado().abrirChamado(registros, (capacidade.get(i % capacidade.size()) * (porcentagem.get(i % porcentagem.size()) / 100)));
             }
 
         }
@@ -182,7 +182,9 @@ public class Operacoes {
                 adicionarChamado(fkComponentes, registros.getString("dataHora"));
                 jdbcTemplate.update(sql, registros.getString("dataHora"),
                         Maquina.fkmaquina);
-                new CriarChamado().criarChamado(valor, nome, limite, fkComponentes);
+                new Chamado("coldstock.atlassian.net",
+            "201grupo10c@bandtec.com.br",
+            "xYT7D7fZZRvpKWl0svMyC6C9").abrirChamado(valor, nome, limite, fkComponentes);
                 System.out.println("Registros atualizados com sucesso");
                 break;
 
