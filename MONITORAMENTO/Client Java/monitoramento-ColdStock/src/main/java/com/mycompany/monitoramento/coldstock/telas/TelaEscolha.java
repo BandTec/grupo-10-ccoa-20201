@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TelaEscolha extends javax.swing.JFrame {
+
     // aqui criamos objetos das classes que iremos utilizar
     TelaEditarMaquina telaEditarMaquina = new TelaEditarMaquina();
     Consultas objBD = new Consultas();
@@ -242,9 +243,9 @@ public class TelaEscolha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if(cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --")){
+        if (cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --")) {
             return;
-        }     
+        }
         // Separar palavra por "-"
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         // Setando o atributo estatico fkMaquina
@@ -261,10 +262,10 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-         if(cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --")){
+        if (cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --")) {
             return;
-        }     
-        
+        }
+
         // aqui pegamos um item especifico da lista, sendo aquele que é equivalente ao indice selecionado da combobox
         // Separar palavra por "-"
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
@@ -272,9 +273,9 @@ public class TelaEscolha extends javax.swing.JFrame {
         Maquina.fkmaquina = Integer.valueOf(separador[1]);
         //para saber quais informações teremos que passar pra proxima tela, temos que saber qual é a maquina
         //aqui iremos pegar qual o indice do item da combo box que foi escolhido
-        
+
         Integer num = Integer.valueOf(separador[1]);
-        maquina = retornoBD.get(num -1);
+        maquina = retornoBD.get(num - 1);
         //por fim, passamos o item buscado para a proxima tela, mandando o id e o nome da maquina
         telaEditarMaquina.carregarTabela(Maquina.fkmaquina, maquina.getNomeMaquina());
         // e deixamos a proxima tela visivel
@@ -296,8 +297,9 @@ public class TelaEscolha extends javax.swing.JFrame {
         trazerGrafico();
         onde ele recebe mais um parametro, que seria a FkMaquina
          */
-        if(cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --"))
+        if (cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --")) {
             return;
+        }
         String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
         Maquina.fkmaquina = Integer.valueOf(separador[1]);
 
@@ -316,8 +318,7 @@ public class TelaEscolha extends javax.swing.JFrame {
                 }
 
                 grafico.setVisible(true);
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Está máquina não possui registros", "ERRO", JOptionPane.OK_OPTION);
             }
         } catch (SQLException ex) {
@@ -327,9 +328,6 @@ public class TelaEscolha extends javax.swing.JFrame {
 
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        
-        
-
         GridLayout layout = new GridLayout(2, 2);
 
         // Configurações para a caixa de texto, com 2 campos de texto com tamanho 10,  e 2 labels
@@ -355,11 +353,29 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void cbEscolhaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaMaquinaActionPerformed
-
+        btnIA.enable(false);
+        if (cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --"))
+            return;
+        else {
+            String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+            Integer fkMaquina = Integer.valueOf(separador[1]);
+            try {
+                ResultSet rs = objBD.consultarQtdRegistros(fkMaquina);
+                if(rs.next()){
+                    Integer qtdItens = rs.getInt("qtdComponentes");
+                    if(qtdItens > 30){
+                        System.out.println("Habilitar IA");
+                        btnIA.enable(true);
+                    }
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
     }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
 
     private void btnIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIAActionPerformed
-        
+
     }//GEN-LAST:event_btnIAActionPerformed
 
     /**

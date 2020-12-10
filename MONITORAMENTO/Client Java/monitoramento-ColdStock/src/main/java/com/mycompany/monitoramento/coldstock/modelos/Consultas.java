@@ -222,16 +222,17 @@ public class Consultas {
         return rs;
     }
 
-    public ResultSet consultarChamados(int idMaquina) throws SQLException {
+    public ResultSet consultarQtdRegistros(int idMaquina) throws SQLException {
         conectar();
         stmt = conn.createStatement();
         ResultSet rs = null;
+        System.out.println("Coletando chamados da maquina");
         try {
             rs = stmt.executeQuery(
-                    "select count(idChamado) "
-                    + "from chamados "
-                    + "where fkMaquina = " + Maquina.fkmaquina
-                    + " order by idChamado");
+                    "select count(idRegistro) as 'qtdComponentes' "
+                    + "from registros "
+                    + "where fkMaquina = " + idMaquina
+                    + " group by fkComponente");
         } finally {
             stmt.closeOnCompletion();
         }
