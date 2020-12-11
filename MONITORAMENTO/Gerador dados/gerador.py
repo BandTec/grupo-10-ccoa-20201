@@ -53,7 +53,8 @@ def avancarTempo():
 
 def gerarValor(max):
     min = max/3
-    valorGerado = round(uniform(min,max),2)
+    #valorGerado = round(uniform(min,max),2)
+    valorGerado = round(min,2)
     return valorGerado
 
 
@@ -71,8 +72,11 @@ while(True):
         dataHora = retornarTempo()
         for x in range(len(fkComponentes)):
             informacoes.append([dataHora, valores[x], fkComponentes[x], idMaquina])
-
+            
+        valores = []
         avancarTempo()
+        print("Informacoes que serao inseridas: ")
+        print(str(informacoes))
         mysql.inserirNoBanco(informacoes)
 
     valores.append( gerarValor(configuracaoMaquina[i % len(configuracaoMaquina)][2]) )

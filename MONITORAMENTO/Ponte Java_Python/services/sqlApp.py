@@ -38,18 +38,17 @@ class ClsSql:
             self.objSql.rollback()
             self.close()
 
-    def pegarRegistros(self, idMaquina, dataHoje, dataPassado):
-        query = ("select valor, nomeComponente, fkChamado "
-            "from coldstock.registros INNER JOIN coldstock.componentes on fkComponente = idComponente "
-            "where fkMaquina = %s and dataHora between %s and %s "
-            " order by dataHora desc")%(idMaquina, dataHoje, dataPassado)
+    def pegarRegistros(self, idMaquina, dataHoje, dataPassado, idComponente):
+        query = ("select valor, nomeComponente "
+            "from coldstock.registros, coldstock.componentes where fkComponente = idComponente "
+            "and fkMaquina = %s and dataHora between '%s' and '%s' and fkComponente = %s "
+            "order by dataHora desc;")%(idMaquina, dataPassado, dataHoje, idComponente)
 
         try:
-            print('Selecionando componentes cadastrados')
+            print('Selecionando registros do componente ID: ', idComponente)
             self.cursor.execute(query)
             retorno = self.cursor.fetchall()
 
-            print('Retorno do BD: ', retorno)
             self.objSql.commit()
             return retorno
         except Exception as err:
@@ -60,7 +59,7 @@ class ClsSql:
     def consultarConfiguracao(self, idMaquina):
         self.connect()
         query = (
-            "select nomeComponente, capacidadeMax "
+            "select idComponente, nomeComponente, capacidadeMax "
             "from configuracaoMaquina, componentes "
             "where fkMaquina = %s and idComponente = fkComponente;"
         )%idMaquina
