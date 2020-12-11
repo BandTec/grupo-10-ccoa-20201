@@ -66,3 +66,5 @@ print(escrita)
 outF = open("previsao.json", "w")
 outF.write(escrita)
 outF.close()
+
+print("ARQUIVO JSON CRIADO")
