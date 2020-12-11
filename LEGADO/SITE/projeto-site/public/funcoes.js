@@ -14,6 +14,36 @@ function redirecionar_produto(){
     window.location.href = 'indexProduto.html';
 }
 
+
+function comentar() {
+    let formulario = new URLSearchParams(new FormData(form_avaliacao));
+    let texto = document.querySelectorAll('#MensagemDeRegistro')
+    if(sessionStorage.idConsumidor == undefined || txtMensagem.value.trim() == ''){
+    window.alert('Deve-se estar conectado e não pode conter nenhuma avalição vazia')
+    return false
+    }
+    fetch("/avaliacoes/comentar/" + sessionStorage.idConsumidor ,
+        {
+            method: "POST",
+            body: formulario
+        }).then(resposta => {
+
+            if (resposta.ok) {
+                texto.forEach(element => element.innerHTML = 'Avaliacão enviada com sucesso')
+                txtMensagem.value = '';
+                
+                resposta.json().then(json => {
+
+                    console.log(json)
+                });
+
+                
+                
+            }
+        })
+        return false;
+    }
+
 function verificar_autenticacao_localidade() {
     login_usuario = sessionStorage.login_usuario_meuapp;
     nome_usuario = sessionStorage.nome_usuario_meuapp;
@@ -26,6 +56,8 @@ function verificar_autenticacao_localidade() {
     }
     
 }
+
+
 
 function verificar_autenticacao_fornecedora() {
     login_usuario = sessionStorage.login_usuario_meuapp;

@@ -247,26 +247,21 @@
                         </div>
                     </div>
                     <div class="enviar-contato">
-                        <form action="">
-                            <div class="inputs-info">
-                                <div class="info-form">
-                                    <input placeholder="Nome" type="text">
-                                    <input placeholder="Email" type="text">
-                                </div>
-                            </div>
-                            <div class="input-assunto">
-                                <div class="info-form">
-                                    <input placeholder="Assunto" type="text">
-                                </div>
-                            </div>
+                        <form id="form_avaliacao" method="post"  action="" onsubmit="return comentar()">
+
                             <div class="input-mensagem">
+                                <p>Nos dê uma avaliação</p>
                                 <div class="info-form">
-                                    <textarea name="" id="" cols="30" rows="10" placeholder="Mensagem" style="width: 98%; resize: none;"></textarea>
+                                    <textarea name="avaliacao" placeholder="Mensagem para avaliação" id="txtMensagem"
+                                        spellcheck="true" maxlength="150" cols="30" rows="10"></textarea>
+                                    
                                 </div>
+                                <p id="MensagemDeRegistro" ></p>
                             </div>
                             <div class="btn-form">
-                                <button>Enviar</button>
+                                <button type="submit">Enviar</button>
                             </div>
+                            
                         </form>
                     </div>
                 </div>
