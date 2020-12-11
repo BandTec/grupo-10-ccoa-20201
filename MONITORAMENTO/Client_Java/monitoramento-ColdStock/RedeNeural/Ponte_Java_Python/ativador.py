@@ -9,7 +9,6 @@ mysql.connect()
 idMaquina = input(" Digite o id da máquina ")
 print("id recebido: ", idMaquina)
 # idMaquina = 1
-exit()
 
 lineares = []
 vetorSaida = []
@@ -52,8 +51,10 @@ for componente in configuracaoMaquina:
         'mediaAmanha' : round(mediaAmanha,2),
     })
 
-escrita = ""
+escrita = str(vetorSaida)
 print(escrita)
 outF = open("previsao.json", "w")
 outF.write(escrita)
 outF.close()
+
+print("ARQUIVO JSON CRIADO")

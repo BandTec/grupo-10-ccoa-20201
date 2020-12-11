@@ -167,13 +167,11 @@ public class TelaInteligencia extends javax.swing.JFrame {
     private void analisarMaquina(Integer fkMaquina) {
         try {
             String path = new File("RedeNeural//Ponte_Java_Python//ativador.py").getAbsolutePath();
-            String caminho = "C:\\Users\\gabri\\Documents\\BandTec\\PI\\grupo-10-ccoa-20201\\MONITORAMENTO\\Client Java\\monitoramento-ColdStock\\RedeNeural\\Ponte_Java_Python\\ativador.py";
-            //path += "/Ponte_Java_Python";
             
-            String[] cmd = {
-                "echo "+fkMaquina+" | python "+caminho
-            };
-            Runtime.getRuntime().exec(cmd);
+            String cmd = "cmd /c cd RedeNeural";
+            cmd += " && echo "+fkMaquina+" | python "+path;
+            Process p = Runtime.getRuntime().exec(cmd);
+            System.out.println("Comando cmd executado!");
             
         } catch (Exception ex) {
             System.out.println("Deu ruim! " + ex);
