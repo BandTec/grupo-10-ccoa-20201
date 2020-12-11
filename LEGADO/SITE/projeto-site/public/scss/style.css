@@ -430,7 +430,7 @@ img {
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .input-mensagem {
-  margin-top: 20px;
+  margin-top: -32.5px;
 }
 
 .contato .tudo-contato .conteudo-contato .enviar-contato .input-mensagem .info-form {
@@ -460,6 +460,20 @@ img {
   display: flex;
   justify-content: center;
 }
+.info-form > textarea{
+  resize: none;
+  width: 97.7%;
+  font-family:'Montserrat';
+  font-size: 1em;
+}
+.input-mensagem > p{
+  text-align: center;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 2em;
+  padding: 0;
+}
+
 section.conteudo-geladeira{
     margin-top: 90px;
     min-height: 600px;
@@ -520,4 +534,6 @@ section.conteudo-geladeira .w30{
 .footer p {
   padding-top: 50px;
 }
+
+
 /*# sourceMappingURL=style.css.map */
