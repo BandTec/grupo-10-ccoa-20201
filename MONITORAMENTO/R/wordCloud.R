@@ -5,7 +5,9 @@ docs <- Corpus(VectorSource(tabela$avaliacao))
 docs <- tm_map(docs, tolower)
 docs <- tm_map(docs, removePunctuation)
 docs <- tm_map(docs, removeWords, stopwords("pt"))
-docs <- tm_map(docs, removeWords, c("sistema", "tambem"))
+# Aqui podemos adicionar palavras que não fazem sentido para a wordCloud
+docs <- tm_map(docs, removeWords, c("sistema", "tambem", "porem"))
+# Aqui mudamos variasa palavras de significados iguais para apenas uma palavra semelhante
 docs <- tm_map(docs, content_transformer(gsub), pattern = "\\b(lerdo|lento|lerda|lenta)\\b", replacement = "lento")
 docs <- tm_map(docs, removeNumbers)
 docs <- tm_map(docs, stripWhitespace)
