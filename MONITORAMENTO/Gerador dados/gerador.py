@@ -53,8 +53,8 @@ def avancarTempo():
 
 def gerarValor(max):
     min = max/3
-    #valorGerado = round(uniform(min,max),2)
-    valorGerado = round(min,2)
+    valorGerado = round(uniform(min,max),2)
+    #valorGerado = round(min,2)
     return valorGerado
 
 
