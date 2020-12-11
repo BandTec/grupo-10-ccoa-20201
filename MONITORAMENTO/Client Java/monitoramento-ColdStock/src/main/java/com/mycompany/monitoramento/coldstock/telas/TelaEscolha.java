@@ -379,7 +379,10 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
 
     private void btnIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIAActionPerformed
-
+            String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+            Integer fkMaquina = Integer.valueOf(separador[1]);
+            TelaInteligencia tela = new TelaInteligencia(fkMaquina);
+            tela.show();
     }//GEN-LAST:event_btnIAActionPerformed
 
     /**

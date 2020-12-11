@@ -19,7 +19,8 @@ public class TelaInteligencia extends javax.swing.JFrame {
      * Creates new form TelaInteligencia
      */
     Imagem imagem = new Imagem();
-    public TelaInteligencia() {
+
+    public TelaInteligencia(Integer fkMaquina) {
         initComponents();
         this.getContentPane().setBackground(Color.decode("#343C41"));
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
@@ -28,6 +29,7 @@ public class TelaInteligencia extends javax.swing.JFrame {
         tbDados.setFillsViewportHeight(true);
         tbDados.setBackground(Color.decode("#FFFFFF"));
         //tbDados.setBackground(Color.decode("#343C41"));
+        analisarMaquina(fkMaquina);
     }
 
     /**
@@ -161,6 +163,19 @@ public class TelaInteligencia extends javax.swing.JFrame {
         // os dois textos recebem um conteudos pro texto.
     }//GEN-LAST:event_tbDadosMouseClicked
 
+    private void analisarMaquina(Integer fkMaquina) {
+        try {
+            String[] cmd = {
+                "/'Rede Neural'/Ponte_Java_Python",
+                "-c",
+                "echo "+fkMaquina+" | python ativador.py"
+            };
+            Runtime.getRuntime().exec(cmd);
+        } catch (Exception ex) {
+            System.out.println("Deu ruim! " + ex);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -191,7 +206,7 @@ public class TelaInteligencia extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaInteligencia().setVisible(true);
+                new TelaInteligencia(4).setVisible(true);
             }
         });
     }
