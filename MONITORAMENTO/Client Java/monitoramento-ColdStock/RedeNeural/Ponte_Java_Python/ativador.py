@@ -9,6 +9,8 @@ mysql.connect()
 idMaquina = input(" Digite o id da máquina ")
 print("id recebido: ", idMaquina)
 # idMaquina = 1
+exit()
+
 lineares = []
 vetorSaida = []
 #RETORNO: [[id, nome, maxima], [1, 'cpu', 2.5], [2, 'ram', 8]]
