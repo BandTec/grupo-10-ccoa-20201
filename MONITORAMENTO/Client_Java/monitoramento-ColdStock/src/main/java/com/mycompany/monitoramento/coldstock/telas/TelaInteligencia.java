@@ -8,6 +8,7 @@ package com.mycompany.monitoramento.coldstock.telas;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.io.File;
 
 /**
  *
@@ -165,12 +166,15 @@ public class TelaInteligencia extends javax.swing.JFrame {
 
     private void analisarMaquina(Integer fkMaquina) {
         try {
+            String path = new File("RedeNeural//Ponte_Java_Python//ativador.py").getAbsolutePath();
+            String caminho = "C:\\Users\\gabri\\Documents\\BandTec\\PI\\grupo-10-ccoa-20201\\MONITORAMENTO\\Client Java\\monitoramento-ColdStock\\RedeNeural\\Ponte_Java_Python\\ativador.py";
+            //path += "/Ponte_Java_Python";
+            
             String[] cmd = {
-                "/'Rede Neural'/Ponte_Java_Python",
-                "-c",
-                "echo "+fkMaquina+" | python ativador.py"
+                "echo "+fkMaquina+" | python "+caminho
             };
             Runtime.getRuntime().exec(cmd);
+            
         } catch (Exception ex) {
             System.out.println("Deu ruim! " + ex);
         }
