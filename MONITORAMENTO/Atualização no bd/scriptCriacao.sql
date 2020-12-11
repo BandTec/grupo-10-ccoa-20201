@@ -41,6 +41,9 @@ create table avaliacoes(
     foreign key (fkConsumidores) references consumidoresFinais(idConsumidor)
 );
 
+use coldstock;
+select * from avaliacoes;
+
 create table geladeiras(
 	idGeladeira int primary key auto_increment,
     fkLocador int,
@@ -273,3 +276,31 @@ insert into funcionarios values
 (null,'rebeca.pereira@gmail.com','rebecaRP356','Rebeca Rocha Pereira',2),
 (null,'mateus.alves@gmail.com','mateus79834','Mateus Pereira Alves',3),
 (null,'gabriel.gameiro@gmail.com','senha123','Gabriel Gameiro',1);
+
+insert into avaliacoes values
+(null, 'Não gostei do Sistema', 1),
+(null, 'Equipe Maravilhosa', 1),
+(null, 'Ótimo Sistema', 1),
+(null, 'Ótima empresa, atendimento rápido e fácil.', 1),
+(null, 'Excelente serviço prestado, recomendaria.', 1),
+(null, 'Atendimento deixou a desejar.', 1),
+(null, 'Melhorou minhas vendas, sensacional', 1),
+(null, 'Um serviço muito completo, com profissionais atenciosos, todo processo da obtenção do serviço foi bem simples e a instalação das máquinas foi precisa. Nota 10', 1),
+(null, 'Nota 10', 1),
+(null, 'Muito problemático a parte de relatórios do Bot', 1),
+(null, 'Adorei o atendimento do Bot, consegui visualizar facilmente minhas informações de máquina', 1),
+(null, 'O mascote é um FOFO', 1),
+(null, 'Mascote deixou a desejar, gostaria dele segurando uma cereja', 1),
+(null, 'Achei o layout dos graficos um pouco confuso', 1),
+(null, 'Atendimento ruim e funcionário mal educado', 1),
+(null, 'Design da aplicação java muito bonito', 1),
+(null, 'Site com letra muito pequena', 1),
+(null, 'O bot é abrangente e acolhedor, parecia até que estava conversando com uma pessoa real', 1),
+(null, 'Excelente funcionários, ganhei um tazo visitando a empresa', 1),
+(null, 'Mandei email e ninguém me respondeu, perderam um cliente, melhorem da proxima vez', 1),
+(null, 'Péssimo atendimento, fui atendido por um tal de Daniel, muito confuso', 1),
+(null, 'Atendimento ruim, tentei entrar em contato e não foi possivel', 1),
+(null, 'Não gostei, minha maquina pegou fogo e não sei ainda o por que', 1),
+(null, 'Achei o bot um pouco amedrontator', 1),
+(null, 'Adorei os funcionários, principalmente o Gabriel Gameiro', 1)
+;

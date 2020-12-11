@@ -6,14 +6,14 @@ library(RColorBrewer)
 library(tm)
 #wordCloud é o nome da tabela exportada pelo R
 tabela <- wordCloud
-names(tabela)[names(tabela) == "X1"] <- "Id"
-names(tabela)[names(tabela) == "X2"] <- "avaliacao"
+names(tabela)[names(tabela) == "idAvaliacao"] <- "Id"
+names(tabela)[names(tabela) == "texto"] <- "avaliacao"
 docs <- Corpus(VectorSource(tabela$avaliacao))
 docs <- tm_map(docs, tolower)
 docs <- tm_map(docs, removePunctuation)
 docs <- tm_map(docs, removeWords, stopwords("pt"))
 # Aqui podemos adicionar palavras que não fazem sentido para a wordCloud
-docs <- tm_map(docs, removeWords, c("sistema", "tambem", "porém","pra","desse","ter","algum","diria","assim",))
+docs <- tm_map(docs, removeWords, c("sistema", "tambem", "porém","pra","desse","ter","algum","diria","assim"))
 # Aqui mudamos variasa palavras de significados iguais para apenas uma palavra semelhante
 docs <- tm_map(docs, content_transformer(gsub), pattern = "\\b(lerdo|lento|lerda|lenta)\\b", replacement = "lento")
 docs <- tm_map(docs, content_transformer(gsub), pattern = "\\b(ótimo|ótima|otimo|otima)\\b", replacement = "ótimo")
