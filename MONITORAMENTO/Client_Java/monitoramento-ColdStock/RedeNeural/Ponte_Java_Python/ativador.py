@@ -45,22 +45,21 @@ for componente in configuracaoMaquina:
     soma = sum(valores)
     mediaAmanha = soma/len(valores)
     todosValores.append(valores)
-    vazio = ([], shape=(0, 6))
-    vetorSaida.append({
-        'nomeComponente' : registros[0][1],
-        'influencia' : vazio,
-        'mediaAnterior' : round(mediaPassada,2),
-        'mediaHoje' : round(mediaOntem,2),
-        'mediaAmanha' : round(mediaAmanha,2),
-    })
-#for i in range(len(influencias)):
-    #print(influencias[i])
-    print(influencias[0])
-    vetorSaida[0]['influencia'][0][0].append(influencias[0])
-    #vetorSaida[0]['influencia'][i] =    
-    print(vetorSaida[0]['influencia'][0][0])
+    
+    #for i in range(len(influencias)):
+    vetorSaida.append(
+        {'nomeComponente' : registros[0][1],
+         'influencia' : influencias[0],
+         'mediaAnterior' : round(mediaPassada,2),
+         'mediaHoje' : round(mediaOntem,2),
+         'mediaAmanha' : round(mediaAmanha,2),
+        })
+    
+for i in range(len(influencias)):   
+    vetorSaida[i]['influencia'] = influencias[i]
+    print(vetorSaida[i])
 
-print(vetorSaida[0])
+print(todosValores)
 escrita = ""
 print(escrita)
 outF = open("previsao.json", "w")
