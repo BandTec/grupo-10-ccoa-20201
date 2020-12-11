@@ -9,6 +9,8 @@ select idChamado, idRegistro, fkComponente, valor
 from registros, chamados 
 where fkChamado = idChamado and fkMaquina = 1 order by idChamado;
 
+select * from maquinas;
+
 select idComponente, nomeComponente, capacidadeMax, porcentagemMax 
 from componentes, configuracaoMaquina 
 where fkcomponente = idComponente and fkMaquina = 1
