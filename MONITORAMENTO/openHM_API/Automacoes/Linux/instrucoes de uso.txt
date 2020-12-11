@@ -1,9 +1,0 @@
-1° Execute o BaseCriarVenv.bat para "Filtrar" os demais arquivos e criar a ambiente virtual Linux ColdStock, 
-e aguarde até que a última linha contenha "Pressione qualquer tecla para continuar. . ."
-
-2° Abra o OpenHM > Option > Remote Web Server > Run
-Em seguida, se certifique de que está na porta 9000.
-
-3° Execute o BaseExecMain para colocar aplicação em funcionamento
-
-4° Seja feliz, beba água :D
