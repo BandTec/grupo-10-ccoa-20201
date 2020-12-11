@@ -16,11 +16,11 @@ class Correlacao:
 
           correlacao = round(df.corr(),3)
           df = correlacao
-
+          print(correlacao)
           respostas = []
-
-          for i in range(6):
-               respostas.append(df.iloc[6][i])
+          colunas = 6
+          for i in range(colunas):
+               respostas.append(df.iloc[colunas][i])
           return respostas
 
 

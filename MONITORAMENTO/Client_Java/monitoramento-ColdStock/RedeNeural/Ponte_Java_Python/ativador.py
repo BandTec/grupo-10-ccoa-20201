@@ -59,7 +59,7 @@ for i in range(len(influencias)):
     vetorSaida[i]['influencia'] = influencias[i]
     print(vetorSaida[i])
 
-print(todosValores)
+print(todosValores[0])
 escrita = ""
 print(escrita)
 outF = open("previsao.json", "w")
