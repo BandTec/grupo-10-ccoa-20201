@@ -5,8 +5,10 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
-import com.mycompany.monitoramento.coldstock.modelos.Consultas;
+import com.mycompany.monitoramento.coldstock.modelos.Consulta;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
+import java.awt.Toolkit;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class TelaLogin extends javax.swing.JFrame {
     // aqui criamos objetos das classes que iremos utilizar
-    Consultas banco = new Consultas();
+    Consulta banco = new Consulta();
     TelaEscolha telaEscolha = new TelaEscolha();
     Imagem imagem = new Imagem();
     /**
@@ -25,9 +27,10 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
         jLabel4.setIcon(imagem.carregarImgs("/1601947020378.png"));
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

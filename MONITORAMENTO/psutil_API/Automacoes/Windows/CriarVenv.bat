@@ -14,3 +14,4 @@ echo "Adicionando texto"
 echo python ../../main.py >> virtualColdStockWindows/Scripts/activate.bat
 
 
+pause

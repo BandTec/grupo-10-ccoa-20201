@@ -1,4 +1,4 @@
-drop database coldstock;
+-- drop database coldstock;
 create database coldstock;
 use coldstock;
 
@@ -32,6 +32,13 @@ create table consumidoresFinais(
     nomeConsumidor varchar(40),
     fkLocalidade int,
     foreign key (fkLocalidade) references localidades(idLocalidade)
+);
+
+create table avaliacoes(
+	idAvaliacao int primary key auto_increment,
+    texto varchar(200),
+    fkConsumidores int,
+    foreign key (fkConsumidores) references consumidoresFinais(idConsumidor)
 );
 
 create table geladeiras(

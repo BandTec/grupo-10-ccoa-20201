@@ -5,16 +5,16 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
-import com.mycompany.monitoramento.coldstock.modelos.Consultas;
-import com.mycompany.monitoramento.coldstock.modelos.Operacoes;
+import com.mycompany.monitoramento.coldstock.modelos.Consulta;
+import com.mycompany.monitoramento.coldstock.modelos.Operacao;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import com.mycompany.monitoramento.coldstock.modelos.Maquina;
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,14 +30,14 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
      * Creates new form telaEditarMaquina
      */
     // criamos objetos novamente
-    Consultas objBD = new Consultas();
+    Consulta objBD = new Consulta();
     Imagem imagem = new Imagem();
     Integer idMaquina;
     String nomeMaquina;
-
     public TelaEditarMaquina() {
         initComponents();
-
+        this.getContentPane().setBackground(Color.decode("#343C41"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
         jLabel6.setIcon(imagem.carregarImgs("/1601053028644.png"));
         carregarComponentes();
 
@@ -75,6 +75,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
 
+        setBackground(Color.decode("#343C41"));
         setResizable(false);
 
         jPanel4.setBackground(new java.awt.Color(31, 40, 45));
@@ -206,12 +207,15 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     });
 
     jLabel1.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
+    jLabel1.setForeground(new java.awt.Color(255, 255, 255));
     jLabel1.setText("Escolha um componente");
 
     jLabel2.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
+    jLabel2.setForeground(new java.awt.Color(255, 255, 255));
     jLabel2.setText("Insira uma máxima");
 
     jLabel3.setFont(new java.awt.Font("Montserrat", 1, 11)); // NOI18N
+    jLabel3.setForeground(new java.awt.Color(255, 255, 255));
     jLabel3.setText("Insira a porcentagem máxima");
 
     txtResumo.setEditable(false);
@@ -306,13 +310,13 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        new Operacoes().editarComponentes(Integer.valueOf(txtPorcentagemMax1.getText()), Double.valueOf(txtCapacidadeMax.getText()), idMaquina, cbEscolhaComponente.getSelectedIndex() + 1);
+        new Operacao().editarComponentes(Integer.valueOf(txtPorcentagemMax1.getText()), Double.valueOf(txtCapacidadeMax.getText()), idMaquina, cbEscolhaComponente.getSelectedIndex() + 1);
         carregarTabela(Maquina.fkmaquina, nomeMaquina);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-        new Operacoes().excluirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1);
+        new Operacao().excluirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1);
         carregarTabela(Maquina.fkmaquina, nomeMaquina);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -390,7 +394,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         // passando o txtResumo, como parametro para o separarCarrinho.
         separarCarrinho(txtResumo.getText());
         // Inserindo os componentes dentro do BD 
-        new Operacoes().inserirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1,
+        new Operacao().inserirComponentes(Maquina.fkmaquina, cbEscolhaComponente.getSelectedIndex() + 1,
                 tbComponentes, separarCarrinho(txtResumo.getText()));
         //Esvaziando o textArea;
         txtResumo.setText("Itens adicionados:\n ");
@@ -411,14 +415,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
     private void txtCapacidadeMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCapacidadeMaxKeyReleased
         // TODO add your handling code here:
         // Deixando apenas numeros passarem e o . 
-//        if (Character.isDigit(evt.getKeyChar()) || evt.getKeyChar() == '.') {
-//            if (Double.parseDouble(txtCapacidadeMax.getText()) < 0) {
-//                txtCapacidadeMax.setText("0");
-//            }
-//        } else {
-//            // zerando a caixa caso não seja numerico
-//             txtCapacidadeMax.setText("");
-//        }
+
     }//GEN-LAST:event_txtCapacidadeMaxKeyReleased
 
     private void txtPorcentagemMax1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPorcentagemMax1KeyPressed
@@ -447,6 +444,9 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
         } catch (SQLException se) {
             System.out.println(se);
         }
+        tbComponentes.setOpaque(true);
+        tbComponentes.setFillsViewportHeight(true);
+        tbComponentes.setBackground(Color.decode("#FFFFFF"));
     }
 
     public void carregarTabela(Integer idMaquina, String nomeMaquina) {

@@ -26,7 +26,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 /*
     Essa classe é similar a classe Consultas, onde fazemos a conexão com o banco e selects.
  */
-public class Operacoes {
+public class Operacao {
 
     public BasicDataSource conectar() {
         /*
@@ -75,9 +75,9 @@ public class Operacoes {
                     + "and nomeComponente = '%s' order by dataHora desc limit 1", fkMaquina, componente);
         }
 
-        List<Registros> listaComponentes;
+        List<Registro> listaComponentes;
         listaComponentes = jdbcTemplate.query(sql,
-                new BeanPropertyRowMapper(Registros.class));
+                new BeanPropertyRowMapper(Registro.class));
 
         // Aqui nos invertemos a lista, para ter os resultados mais recentes como os ultimos da lista, deixando o grafico mais dinamico
         Collections.reverse(listaComponentes);
@@ -136,7 +136,7 @@ public class Operacoes {
     }
 
     public void comparacao() throws SQLException {
-        ResultSet configMaquina = new Consultas().consultarMaximas();
+        ResultSet configMaquina = new Consulta().consultarMaximas();
         JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
         String sql = "update registros set fkChamado = (select max(idchamado) from chamados) where datahora = ? and fkmaquina = ?";
 
@@ -146,7 +146,7 @@ public class Operacoes {
             capacidade.add(configMaquina.getDouble("CapacidadeMax"));
             porcentagem.add(configMaquina.getDouble("porcentagemMax"));
         }
-        ResultSet registros = new Consultas().consultarRegistros(capacidade.size());
+        ResultSet registros = new Consulta().consultarRegistros(capacidade.size());
         List<Double> limite = new ArrayList<Double>();
         List<Double> valor = new ArrayList<Double>();
         List<String> nome = new ArrayList<String>();
@@ -176,7 +176,7 @@ public class Operacoes {
 
         }
         registros.close();
-        registros = new Consultas().consultarRegistros(capacidade.size());
+        registros = new Consulta().consultarRegistros(capacidade.size());
         while (registros.next()) {
             if (registros.getString("fkChamado") == null) {
                 adicionarChamado(fkComponentes, registros.getString("dataHora"));
