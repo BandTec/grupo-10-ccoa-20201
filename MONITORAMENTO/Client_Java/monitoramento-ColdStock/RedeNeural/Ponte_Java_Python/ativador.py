@@ -13,6 +13,7 @@ print("id recebido: ", idMaquina)
 todosValores = []
 lineares = []
 vetorSaida = []
+influencias = Correlacao().criarCorrelacao()
 #RETORNO: [[id, nome, maxima], [1, 'cpu', 2.5], [2, 'ram', 8]]
 configuracaoMaquina = mysql.consultarConfiguracao(idMaquina)
 
@@ -44,14 +45,22 @@ for componente in configuracaoMaquina:
     soma = sum(valores)
     mediaAmanha = soma/len(valores)
     todosValores.append(valores)
+    vazio = ([], shape=(0, 6))
     vetorSaida.append({
         'nomeComponente' : registros[0][1],
-        'influencia' : "ALGO A COMBINAR",
+        'influencia' : vazio,
         'mediaAnterior' : round(mediaPassada,2),
         'mediaHoje' : round(mediaOntem,2),
         'mediaAmanha' : round(mediaAmanha,2),
     })
-print(todosValores)
+#for i in range(len(influencias)):
+    #print(influencias[i])
+    print(influencias[0])
+    vetorSaida[0]['influencia'][0][0].append(influencias[0])
+    #vetorSaida[0]['influencia'][i] =    
+    print(vetorSaida[0]['influencia'][0][0])
+
+print(vetorSaida[0])
 escrita = ""
 print(escrita)
 outF = open("previsao.json", "w")

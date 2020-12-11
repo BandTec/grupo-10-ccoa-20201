@@ -3,8 +3,8 @@ import pandas as pd
 
 class Correlacao:
      def criarCorrelacao(self):
-          entrada = pd.read_csv("./ColetorDadosBD/dados.data", sep=",", header=None)
-          saida = pd.read_csv("./ColetorDadosBD/saida.data", sep=",", header=None)
+          entrada = pd.read_csv("../ColetorDadosBD/dados.data", sep=",", header=None)
+          saida = pd.read_csv("../ColetorDadosBD/saida.data", sep=",", header=None)
 
           b = saida.values.reshape(saida.shape[1],saida.shape[0])
           resposta = b
