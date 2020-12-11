@@ -2,6 +2,7 @@ from services.sqlApp import ClsSql
 from services.geradorLinear import Linear
 from datetime import datetime
 from correlation import Correlacao
+import json
 
 mysql = ClsSql('ColdUser', 'senha123', 'localhost', 'coldstock')
 
@@ -60,10 +61,13 @@ for i in range(len(influencias)):
     print(vetorSaida[i])
 
 print(todosValores[0])
-escrita = ""
-print(escrita)
-outF = open("previsao.json", "w")
-outF.write(escrita)
-outF.close()
+
+with open('previsao.json', 'w') as fp:
+    json.dump(vetorSaida, fp)
+# escrita = ""
+# print(escrita)
+# outF = open("previsao.json", "w")
+# outF.write(escrita)
+# outF.close()
 
 print("ARQUIVO JSON CRIADO")
