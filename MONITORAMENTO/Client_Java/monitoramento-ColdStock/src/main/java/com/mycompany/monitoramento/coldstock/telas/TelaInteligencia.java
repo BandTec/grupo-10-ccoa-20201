@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.concurrent.TimeUnit;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -185,13 +186,21 @@ public class TelaInteligencia extends javax.swing.JFrame {
             
             BufferedReader br = new BufferedReader(new FileReader(path+"//previsao.json"));
             JsonParser parser = new JsonParser();
-            JsonArray array = parser.parse(br).getAsJsonArray();
-            
+            JsonArray arrayJS = parser.parse(br).getAsJsonArray();
             System.out.println("Array JSON coletado");
-            JsonObject obj1 = array.get(1).getAsJsonObject();
-            System.out.println("Primeiro componente: "+obj1.get("nomeComponente"));
             
-            array.forEach(addLinhaGrafico());
+            DefaultTableModel tabela = (DefaultTableModel) tbDados.getModel();
+            for(int i = 0; i<arrayJS.size(); i++){
+                JsonObject jsonAtual = arrayJS.get(i).getAsJsonObject();
+                tabela.addRow(new Object[]{
+                jsonAtual.get("nomeComponente"), 
+                jsonAtual.get("influencia"),
+                jsonAtual.get("mediaAnterior"),
+                jsonAtual.get("mediaHoje"),
+                jsonAtual.get("mediaAmanha")
+                });
+            }
+            System.out.println("Criando Tabela");
             
             
         } catch (Exception ex) {
