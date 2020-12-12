@@ -6,6 +6,7 @@
 package com.mycompany.monitoramento.coldstock.telas;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import java.awt.Color;
@@ -182,15 +183,24 @@ public class TelaInteligencia extends javax.swing.JFrame {
             //Dando um delay para que os arquivos python tenham tempo de rodar
             TimeUnit.SECONDS.sleep(5);
             
-            BufferedReader br = new BufferedReader(new FileReader(path+"previsao.json"));
+            BufferedReader br = new BufferedReader(new FileReader(path+"//previsao.json"));
             JsonParser parser = new JsonParser();
             JsonArray array = parser.parse(br).getAsJsonArray();
             
+            System.out.println("Array JSON coletado");
+            JsonObject obj1 = array.get(1).getAsJsonObject();
+            System.out.println("Primeiro componente: "+obj1.get("nomeComponente"));
+            
+            array.forEach(addLinhaGrafico());
             
             
         } catch (Exception ex) {
             System.out.println("Deu ruim! " + ex);
         }
+    }
+    
+    private void addLinhaGrafico (JsonObject linhaJS){
+        
     }
 
     /**

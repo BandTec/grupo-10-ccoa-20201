@@ -20,6 +20,9 @@ class Linear:
     def proximosValores(self, qtd):
         print("Calculando os próximos %s valores"%self.qtdPontos)
         valores = []
-        x = np.array(self.qtdPontos).reshape((-1, 1))
+        x = []
+        for i in range(qtd):
+            x.append(self.qtdPontos+i+1)
+        x = np.array(x).reshape((-1, 1))
         valores = self.model.predict(x)
         return (valores)
