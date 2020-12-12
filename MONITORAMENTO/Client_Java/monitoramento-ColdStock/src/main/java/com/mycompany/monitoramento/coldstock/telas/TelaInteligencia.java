@@ -9,12 +9,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
+import com.mycompany.monitoramento.coldstock.modelos.TabelaIA;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -155,12 +157,12 @@ public class TelaInteligencia extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblAnalise)
                 .addGap(27, 27, 27)
                 .addComponent(lblResultado)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -189,7 +191,10 @@ public class TelaInteligencia extends javax.swing.JFrame {
             JsonArray arrayJS = parser.parse(br).getAsJsonArray();
             System.out.println("Array JSON coletado");
             
+            TabelaIA geradorCor = new TabelaIA();
+            tbDados.setDefaultRenderer(Object.class, geradorCor);
             DefaultTableModel tabela = (DefaultTableModel) tbDados.getModel();
+            
             for(int i = 0; i<arrayJS.size(); i++){
                 JsonObject jsonAtual = arrayJS.get(i).getAsJsonObject();
                 tabela.addRow(new Object[]{
@@ -200,16 +205,20 @@ public class TelaInteligencia extends javax.swing.JFrame {
                 jsonAtual.get("mediaAmanha")
                 });
             }
-            System.out.println("Criando Tabela");
+            System.out.println("Tabela Criada");
+            
+            JsonObject jsonFinal = arrayJS.get(arrayJS.size()-1).getAsJsonObject();
+            String analise = String.format("<html>Com essas informações, prevemos que "
+                    + "sua máquina poderá abrir cerca de <b>%s</b> chamados<br>amanhã, "
+                    + "caso  não haja nenhuma alteração na máquina</html>", 
+                    jsonFinal.get("qtdChamados"));
+            lblAnalise.setText(analise);
+
             
             
         } catch (Exception ex) {
             System.out.println("Deu ruim! " + ex);
         }
-    }
-    
-    private void addLinhaGrafico (JsonObject linhaJS){
-        
     }
 
     /**
