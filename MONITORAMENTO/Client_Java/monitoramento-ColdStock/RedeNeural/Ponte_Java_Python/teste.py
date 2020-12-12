@@ -1,7 +1,7 @@
-from mlp import MLP
 import pickle
 from timeit import default_timer as timer
 import time
+from mlp import MLP
 
 class Teste():
     def recuperarRede(self):
@@ -12,7 +12,7 @@ class Teste():
 
     def realizarTeste(self, valores):
         start = timer()
-        treino_entradas = valores #[[0.57, 0.42, 0.04, 0.0, 0.0, 0.69],[0.0, 0.0, 0.0, 0.0, 0.0, 0.0],[0.39, 0.41, 0.04, 0.0, 0.0, 0.69]]
+        treino_entradas = valores 
         contadorChamados = 0
         for exemplo in treino_entradas:
             resposta = self.recuperarRede().teste(exemplo)

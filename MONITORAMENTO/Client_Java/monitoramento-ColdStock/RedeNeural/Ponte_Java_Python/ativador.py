@@ -2,6 +2,7 @@ from services.sqlApp import ClsSql
 from services.geradorLinear import Linear
 from datetime import datetime
 from correlation import Correlacao
+from teste import Teste
 import json
 
 mysql = ClsSql('ColdUser', 'senha123', 'localhost', 'coldstock')
@@ -17,6 +18,7 @@ vetorSaida = []
 influencias = Correlacao().criarCorrelacao()
 #RETORNO: [[id, nome, maxima], [1, 'cpu', 2.5], [2, 'ram', 8]]
 configuracaoMaquina = mysql.consultarConfiguracao(idMaquina)
+print(configuracaoMaquina[0][2])
 
 for componente in configuracaoMaquina:
     #componente = [id, nome, maxima]
@@ -47,7 +49,6 @@ for componente in configuracaoMaquina:
     mediaAmanha = soma/len(valores)
     todosValores.append(valores)
     
-    #for i in range(len(influencias)):
     vetorSaida.append(
         {'nomeComponente' : registros[0][1],
          'influencia' : influencias[0],
@@ -55,19 +56,36 @@ for componente in configuracaoMaquina:
          'mediaHoje' : round(mediaOntem,2),
          'mediaAmanha' : round(mediaAmanha,2),
         })
+
+
+
+print(todosValores)
+valoresTratados = []
+#arrumando valores
+for i in range(len(todosValores)-1):   
+    valoresTratados.append([])
+    for j in range(len(todosValores[0])):
+        valoresTratados[i].append(todosValores[j][i])
+    valoresTratados[i].append(todosValores[5][i])
+print(valoresTratados)
+
+valoresFinais = []
+#criando alimentacao para RN
+for i in range(len(valoresTratados)):
+    valoresFinais.append([])
+    for j in range(len(valoresTratados[0])):
+        valoresFinais[i].append(round(valoresTratados[i][j]/configuracaoMaquina[j][2],2))
+print(valoresFinais)
     
+vetorSaida.append({'QtdChamados' : Teste().realizarTeste(valoresFinais)})
+
 for i in range(len(influencias)):   
     vetorSaida[i]['influencia'] = influencias[i]
     print(vetorSaida[i])
 
-print(todosValores[0])
-
 with open('previsao.json', 'w') as fp:
     json.dump(vetorSaida, fp)
-# escrita = ""
-# print(escrita)
-# outF = open("previsao.json", "w")
-# outF.write(escrita)
-# outF.close()
+
+fp.close()
 
 print("ARQUIVO JSON CRIADO")
