@@ -5,10 +5,16 @@
  */
 package com.mycompany.monitoramento.coldstock.telas;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import com.mycompany.monitoramento.coldstock.modelos.Imagem;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.util.concurrent.TimeUnit;
+
 
 /**
  *
@@ -166,12 +172,21 @@ public class TelaInteligencia extends javax.swing.JFrame {
 
     private void analisarMaquina(Integer fkMaquina) {
         try {
-            String path = new File("RedeNeural//Ponte_Java_Python//ativador.py").getAbsolutePath();
+            String path = new File("RedeNeural//Ponte_Java_Python//").getAbsolutePath();
             
             String cmd = "cmd /c cd RedeNeural";
-            cmd += " && echo "+fkMaquina+" | python "+path;
+            cmd += " && echo "+fkMaquina+" | python "+path+ "ativador.py";
             Process p = Runtime.getRuntime().exec(cmd);
             System.out.println("Comando cmd executado!");
+            
+            //Dando um delay para que os arquivos python tenham tempo de rodar
+            TimeUnit.SECONDS.sleep(5);
+            
+            BufferedReader br = new BufferedReader(new FileReader(path+"previsao.json"));
+            JsonParser parser = new JsonParser();
+            JsonArray array = parser.parse(br).getAsJsonArray();
+            
+            
             
         } catch (Exception ex) {
             System.out.println("Deu ruim! " + ex);
