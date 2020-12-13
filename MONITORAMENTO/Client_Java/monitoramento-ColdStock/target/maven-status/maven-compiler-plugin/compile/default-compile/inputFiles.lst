@@ -1,21 +1,20 @@
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\JanelaGrafico.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiraexecutavel\ViewChamado.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Imagem.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiramodelos\Description.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\TelaLogin.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Operacoes.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Grafico.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\TelaEditarMaquina.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Consultas.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\Configuracao.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\TelaEscolha.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiraexecutavel\TelaCriarChamado.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiraexecutavel\DemoDeUsoClienteApi.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiraexecutavel\ClienteJiraApi.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Componente.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiraexecutavel\Chamado.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiramodelos\Fields.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiramodelos\Issue.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Maquina.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Registros.java
-C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiramodelos\IssueField.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\TelaInteligencia.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiraexecutavel\ClienteJiraApi.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiramodelos\Issue.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiraexecutavel\Chamado.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Maquina.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\TelaEscolha.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Operacao.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\Configuracao.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Consulta.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\JanelaGrafico.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\TabelaIA.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiramodelos\Description.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Grafico.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Imagem.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiramodelos\IssueField.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\TelaEditarMaquina.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\telas\TelaLogin.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Componente.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\jiramodelos\Fields.java
+C:\Users\gabri\Documents\BandTec\PI\grupo-10-ccoa-20201\MONITORAMENTO\Client_Java\monitoramento-ColdStock\src\main\java\com\mycompany\monitoramento\coldstock\modelos\Registro.java

@@ -88,9 +88,9 @@ print(valoresFinais)
 
 qtdChamadosHoje = mysql.consultarQtdChamadosOntem(idMaquina, hoje, passado, componente[0])
 qtdChamadosAmanha = Teste().realizarTeste(valoresFinais)
-situacao = "melhorando"
+situacao = "Melhorando"
 if(qtdChamadosHoje[0][0] < qtdChamadosAmanha):
-    situacao = "piorando"
+    situacao = "Piorando"
     
 vetorSaida.append({
     'qtdChamados' : qtdChamadosAmanha,

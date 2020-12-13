@@ -219,9 +219,12 @@ public class TelaInteligencia extends javax.swing.JFrame {
             StringBuilder sb = new StringBuilder(situacao);
             sb.deleteCharAt(situacao.length() - 1);
             sb.deleteCharAt(0); 
-            lblResultado.setText(sb.toString());
-            if(situacao == "melhorando"){
+            lblResultado.setText("A situação da maquina está: " + sb.toString());
+            if(sb.toString().equals("melhorando")){
                 lblResultado.setForeground(Color.GREEN);
+            }
+            else{
+                lblResultado.setForeground(Color.RED);
             }
             
             
