@@ -38,6 +38,24 @@ class ClsSql:
             self.objSql.rollback()
             self.close()
 
+    def consultarQtdChamadosOntem(self, idMaquina, dataHoje, dataPassado, idComponente):
+        query = ("select count(fkChamado) "
+            "from coldstock.registros, coldstock.componentes where fkComponente = idComponente "
+            "and fkMaquina = %s and dataHora between '%s' and '%s' and fkComponente = %s "
+            "order by dataHora desc;")%(idMaquina, dataPassado, dataHoje, idComponente)
+
+        try:
+            self.cursor.execute(query)
+            retorno = self.cursor.fetchall()
+
+            print('Retorno do BD: ', retorno)
+            self.objSql.commit()
+            return retorno
+        except Exception as err:
+            print(err)
+            self.objSql.rollback()
+            self.close()
+
     def pegarRegistros(self, idMaquina, dataHoje, dataPassado, idComponente):
         query = ("select valor, nomeComponente "
             "from coldstock.registros, coldstock.componentes where fkComponente = idComponente "

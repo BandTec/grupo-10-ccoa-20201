@@ -63,6 +63,7 @@ public class TelaInteligencia extends javax.swing.JFrame {
         lblResultado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel4.setBackground(new java.awt.Color(31, 40, 45));
 
@@ -162,7 +163,7 @@ public class TelaInteligencia extends javax.swing.JFrame {
                 .addComponent(lblAnalise)
                 .addGap(27, 27, 27)
                 .addComponent(lblResultado)
-                .addContainerGap())
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,7 +214,15 @@ public class TelaInteligencia extends javax.swing.JFrame {
                     + "caso  não haja nenhuma alteração na máquina</html>", 
                     jsonFinal.get("qtdChamados"));
             lblAnalise.setText(analise);
-
+            
+            String situacao = jsonFinal.get("situacao").toString();
+            StringBuilder sb = new StringBuilder(situacao);
+            sb.deleteCharAt(situacao.length() - 1);
+            sb.deleteCharAt(0); 
+            lblResultado.setText(sb.toString());
+            if(situacao == "melhorando"){
+                lblResultado.setForeground(Color.GREEN);
+            }
             
             
         } catch (Exception ex) {

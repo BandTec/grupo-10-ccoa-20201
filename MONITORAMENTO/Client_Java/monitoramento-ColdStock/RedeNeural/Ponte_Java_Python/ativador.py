@@ -60,24 +60,42 @@ for componente in configuracaoMaquina:
 
 
 print(todosValores)
-valoresTratados = []
+#valoresTratados = []
 #arrumando valores
-for i in range(len(todosValores)-1):   
-    valoresTratados.append([])
-    for j in range(len(todosValores[0])):
-        valoresTratados[i].append(todosValores[j][i])
-    valoresTratados[i].append(todosValores[5][i])
-print(valoresTratados)
+# for i in range(len(todosValores)-1):   
+#     valoresTratados.append([])
+#     for j in range(len(todosValores[0])):
+#         valoresTratados[i].append(todosValores[j][i])
+#     valoresTratados[i].append(todosValores[5][i])
+# print(valoresTratados)
+
+qtdLinhasMatriz = len(todosValores[0])
+qtdColunasMatriz = len(todosValores)
+matriz = []
+for linha in range(qtdLinhasMatriz):
+    matriz.append([])
+    for coluna in range(qtdColunasMatriz):
+        matriz[linha].append(todosValores[coluna][linha])
+
 
 valoresFinais = []
 #criando alimentacao para RN
-for i in range(len(valoresTratados)):
+for i in range(len(matriz)):
     valoresFinais.append([])
-    for j in range(len(valoresTratados[0])):
-        valoresFinais[i].append(round(valoresTratados[i][j]/configuracaoMaquina[j][2],2))
+    for j in range(len(matriz[0])):
+        valoresFinais[i].append(round(matriz[i][j]/configuracaoMaquina[j][2],2))
 print(valoresFinais)
+
+qtdChamadosHoje = mysql.consultarQtdChamadosOntem(idMaquina, hoje, passado, componente[0])
+qtdChamadosAmanha = Teste().realizarTeste(valoresFinais)
+situacao = "melhorando"
+if(qtdChamadosHoje[0][0] < qtdChamadosAmanha):
+    situacao = "piorando"
     
-vetorSaida.append({'QtdChamados' : Teste().realizarTeste(valoresFinais)})
+vetorSaida.append({
+    'qtdChamados' : qtdChamadosAmanha,
+    'situacao' : situacao
+})
 
 for i in range(len(influencias)):   
     vetorSaida[i]['influencia'] = influencias[i]
