@@ -220,6 +220,7 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
 
     txtResumo.setEditable(false);
     txtResumo.setColumns(20);
+    txtResumo.setFont(new java.awt.Font("Montserrat", 0, 13)); // NOI18N
     txtResumo.setRows(5);
     txtResumo.setText("Itens adicionados: ");
     jScrollPane2.setViewportView(txtResumo);

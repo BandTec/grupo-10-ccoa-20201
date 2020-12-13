@@ -96,7 +96,7 @@ public class TelaInteligencia extends javax.swing.JFrame {
                 .addGap(3, 3, 3))
         );
 
-        lblAnalise.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
+        lblAnalise.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
         lblAnalise.setForeground(new java.awt.Color(255, 255, 255));
         lblAnalise.setText("<html>Com essas informações, prevemos que sua máquina poderá abrir cerca de X chamados<br>amanhã, caso  não haja nenhuma alteração na máquina</html>");
 
@@ -125,11 +125,11 @@ public class TelaInteligencia extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Medias");
 
-        jLabel2.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("<html>com base nos registros anteriores,<br>obtemos as informações dos componentes mais problemáticos</html>");
 
-        lblResultado.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblResultado.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
         lblResultado.setForeground(new java.awt.Color(255, 255, 255));
         lblResultado.setText("Resultado");
 
@@ -163,7 +163,7 @@ public class TelaInteligencia extends javax.swing.JFrame {
                 .addComponent(lblAnalise)
                 .addGap(27, 27, 27)
                 .addComponent(lblResultado)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         pack();

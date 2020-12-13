@@ -257,7 +257,7 @@ public class JanelaGrafico extends javax.swing.JFrame {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        jLabel8.setFont(new java.awt.Font("Montserrat", 0, 36)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Montserrat", 0, 30)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Medida Atual:");
 
@@ -269,10 +269,10 @@ public class JanelaGrafico extends javax.swing.JFrame {
             }
         });
 
-        lbMedida.setFont(new java.awt.Font("Montserrat", 0, 36)); // NOI18N
+        lbMedida.setFont(new java.awt.Font("Montserrat", 0, 30)); // NOI18N
         lbMedida.setForeground(new java.awt.Color(255, 255, 255));
 
-        lbMetrica.setFont(new java.awt.Font("Montserrat", 0, 36)); // NOI18N
+        lbMetrica.setFont(new java.awt.Font("Montserrat", 0, 30)); // NOI18N
         lbMetrica.setForeground(new java.awt.Color(255, 255, 255));
         lbMetrica.setText("GHz");
 
@@ -293,11 +293,11 @@ public class JanelaGrafico extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
+                        .addGap(48, 48, 48)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbMedida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(30, 30, 30)
+                        .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(lbMetrica))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -334,12 +334,12 @@ public class JanelaGrafico extends javax.swing.JFrame {
                     .addComponent(jpnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbMetrica)
-                    .addComponent(jLabel8))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(jLabel8)
+                    .addComponent(lbMetrica))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
