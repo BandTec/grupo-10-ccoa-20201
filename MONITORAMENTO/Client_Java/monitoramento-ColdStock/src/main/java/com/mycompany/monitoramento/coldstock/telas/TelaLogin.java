@@ -12,6 +12,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,14 +22,15 @@ public class TelaLogin extends javax.swing.JFrame {
     // aqui criamos objetos das classes que iremos utilizar
     Consulta banco = new Consulta();
     TelaEscolha telaEscolha = new TelaEscolha();
-    Imagem imagem = new Imagem();
+    //Imagem imagem = new Imagem();
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
-        jLabel4.setIcon(imagem.carregarImgs("/1601947020378.png"));
+        ImageIcon imagem = new ImageIcon(getClass().getClassLoader().getResource("1601947020378.png"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("1601053028644.png")));
+        jLabel4.setIcon(imagem);
     }
     
     /**

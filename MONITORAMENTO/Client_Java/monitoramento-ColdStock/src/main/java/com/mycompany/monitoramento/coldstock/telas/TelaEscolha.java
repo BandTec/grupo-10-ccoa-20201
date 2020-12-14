@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class TelaEscolha extends javax.swing.JFrame {
 
@@ -27,16 +26,19 @@ public class TelaEscolha extends javax.swing.JFrame {
     Consulta objBD = new Consulta();
     List<Maquina> retornoBD;
     Maquina maquina;
-    Imagem imagem = new Imagem();
+    //Imagem imagem = new Imagem();
 
     //public Integer idMaquina;
     public TelaEscolha() {
 
         initComponents();
         this.getContentPane().setBackground(Color.decode("#343C41"));
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
-        jLabel2.setIcon(imagem.carregarImgs("/1601053028644.png"));
-        jLabel1.setIcon(imagem.carregarImgs("/Pingulinomonitoramento.png"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("1601053028644.png")));
+        //this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
+        ImageIcon imagem = new ImageIcon(getClass().getClassLoader().getResource("1601053028644.png"));
+        ImageIcon imagem2 = new ImageIcon(getClass().getClassLoader().getResource("Pingulinomonitoramento.png"));
+        jLabel2.setIcon(imagem);
+        jLabel1.setIcon(imagem2);
         carregarMaquinas();
 
     }

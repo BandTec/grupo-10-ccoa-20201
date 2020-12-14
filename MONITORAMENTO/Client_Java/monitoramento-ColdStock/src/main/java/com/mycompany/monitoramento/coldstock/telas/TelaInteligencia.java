@@ -16,6 +16,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,13 +31,15 @@ public class TelaInteligencia extends javax.swing.JFrame {
     /**
      * Creates new form TelaInteligencia
      */
-    Imagem imagem = new Imagem();
+    //Imagem imagem = new Imagem();
 
     public TelaInteligencia(Integer fkMaquina) {
         initComponents();
         this.getContentPane().setBackground(Color.decode("#343C41"));
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
-        jLabel6.setIcon(imagem.carregarImgs("/1601053028644.png"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("1601053028644.png")));
+        //this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
+        ImageIcon imagem = new ImageIcon(getClass().getClassLoader().getResource("1601053028644.png"));
+        jLabel6.setIcon(imagem);
         tbDados.setOpaque(true);
         tbDados.setFillsViewportHeight(true);
         tbDados.setBackground(Color.decode("#FFFFFF"));

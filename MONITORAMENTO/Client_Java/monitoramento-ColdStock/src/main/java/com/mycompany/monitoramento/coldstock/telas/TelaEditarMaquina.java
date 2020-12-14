@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,14 +33,16 @@ public class TelaEditarMaquina extends javax.swing.JFrame {
      */
     // criamos objetos novamente
     Consulta objBD = new Consulta();
-    Imagem imagem = new Imagem();
+    //Imagem imagem = new Imagem();
     Integer idMaquina;
     String nomeMaquina;
     public TelaEditarMaquina() {
         initComponents();
         this.getContentPane().setBackground(Color.decode("#343C41"));
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
-        jLabel6.setIcon(imagem.carregarImgs("/1601053028644.png"));
+        ImageIcon imagem = new ImageIcon(getClass().getClassLoader().getResource("1601053028644.png"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("1601053028644.png")));
+        //this.setIconImage(Toolkit.getDefaultToolkit().getImage(imagem.retornarCaminho("/1601053028644.png")));
+        jLabel6.setIcon(imagem);
         carregarComponentes();
 
     }
