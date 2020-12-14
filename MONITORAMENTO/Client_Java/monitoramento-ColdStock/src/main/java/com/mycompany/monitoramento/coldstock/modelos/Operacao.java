@@ -89,7 +89,7 @@ public class Operacao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(conectar());
         String sql = "delete from configuracaoMaquina where fkMaquina = %d";
         jdbcTemplate.update(String.format(sql, idMaquina));
-        sql = "delete from Maquinas where idMaquina = %d";
+        sql = "delete from maquinas where idMaquina = %d";
         jdbcTemplate.update(String.format(sql, idMaquina));
         System.out.println("Delete efetuado com sucesso");
     }

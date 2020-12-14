@@ -78,7 +78,7 @@ public class Consulta {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         //criamos uma variável sql do tipo string 
         String sql;
-        sql = "SELECT * FROM Maquinas";
+        sql = "SELECT * FROM maquinas";
 
         //executando o comando my sql
         //constultaMaquina = lista do retorno do banco de dados
