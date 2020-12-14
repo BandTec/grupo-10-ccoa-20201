@@ -40,7 +40,7 @@ public class TelaEscolha extends javax.swing.JFrame {
         jLabel2.setIcon(imagem);
         jLabel1.setIcon(imagem2);
         carregarMaquinas();
-
+        btnIA.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -185,7 +185,6 @@ public class TelaEscolha extends javax.swing.JFrame {
         btnIA.setFont(new java.awt.Font("Montserrat", 1, 16)); // NOI18N
         btnIA.setForeground(new java.awt.Color(255, 255, 255));
         btnIA.setText("Inteligência Artificial");
-        btnIA.setEnabled(false);
         btnIA.setMaximumSize(new java.awt.Dimension(131, 29));
         btnIA.setMinimumSize(new java.awt.Dimension(131, 29));
         btnIA.addActionListener(new java.awt.event.ActionListener() {
@@ -371,7 +370,8 @@ public class TelaEscolha extends javax.swing.JFrame {
                     Integer qtdItens = rs.getInt("qtdComponentes");
                     if(qtdItens > 30){
                         System.out.println("Habilitar IA");
-                        btnIA.enable(true);
+                        btnIA.setVisible(true);
+                        //btnIA.enable(true);
                     }
                 }
             } catch (SQLException ex) {
@@ -381,10 +381,11 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
 
     private void btnIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIAActionPerformed
-            String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-            Integer fkMaquina = Integer.valueOf(separador[1]);
-            TelaInteligencia tela = new TelaInteligencia(fkMaquina);
-            tela.show();
+        System.out.println("Iniciando acao do botao IA");
+        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        Integer fkMaquina = Integer.valueOf(separador[1]);
+        TelaInteligencia tela = new TelaInteligencia(fkMaquina);
+        tela.show();
     }//GEN-LAST:event_btnIAActionPerformed
 
     /**
