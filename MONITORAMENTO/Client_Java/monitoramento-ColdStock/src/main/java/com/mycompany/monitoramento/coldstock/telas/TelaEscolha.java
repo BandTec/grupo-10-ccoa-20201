@@ -151,6 +151,11 @@ public class TelaEscolha extends javax.swing.JFrame {
 
         cbEscolhaMaquina.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         cbEscolhaMaquina.setForeground(new java.awt.Color(153, 153, 153));
+        cbEscolhaMaquina.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbEscolhaMaquinaItemStateChanged(evt);
+            }
+        });
         cbEscolhaMaquina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbEscolhaMaquinaActionPerformed(evt);
@@ -358,7 +363,43 @@ public class TelaEscolha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void cbEscolhaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEscolhaMaquinaActionPerformed
+//        btnIA.enable(false);
+//        if(cbEscolhaMaquina.getSelectedItem() == (null))
+//            return;
+//        if (cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --"))
+//            return;
+//        else {
+//            String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+//            Integer fkMaquina = Integer.valueOf(separador[1]);
+//            try {
+//                ResultSet rs = objBD.consultarQtdRegistros(fkMaquina);
+//                if(rs.next()){
+//                    Integer qtdItens = rs.getInt("qtdComponentes");
+//                    if(qtdItens > 30){
+//                        System.out.println("Habilitar IA");
+//                        btnIA.setVisible(true);
+//                        //btnIA.enable(true);
+//                    }
+//                }
+//            } catch (SQLException ex) {
+//                System.out.println(ex);
+//            }
+//        }
+    }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
+
+    private void btnIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIAActionPerformed
+        System.out.println("Iniciando acao do botao IA");
+        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
+        Integer fkMaquina = Integer.valueOf(separador[1]);
+        TelaInteligencia tela = new TelaInteligencia(fkMaquina);
+        tela.show();
+    }//GEN-LAST:event_btnIAActionPerformed
+
+    private void cbEscolhaMaquinaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEscolhaMaquinaItemStateChanged
+        // TODO add your handling code here:
         btnIA.enable(false);
+        if(cbEscolhaMaquina.getSelectedItem() == (null))
+            return;
         if (cbEscolhaMaquina.getSelectedItem().equals("-- Escolha --"))
             return;
         else {
@@ -378,15 +419,7 @@ public class TelaEscolha extends javax.swing.JFrame {
                 System.out.println(ex);
             }
         }
-    }//GEN-LAST:event_cbEscolhaMaquinaActionPerformed
-
-    private void btnIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIAActionPerformed
-        System.out.println("Iniciando acao do botao IA");
-        String[] separador = String.valueOf((cbEscolhaMaquina.getSelectedItem())).split(" - ");
-        Integer fkMaquina = Integer.valueOf(separador[1]);
-        TelaInteligencia tela = new TelaInteligencia(fkMaquina);
-        tela.show();
-    }//GEN-LAST:event_btnIAActionPerformed
+    }//GEN-LAST:event_cbEscolhaMaquinaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -396,10 +429,10 @@ public class TelaEscolha extends javax.swing.JFrame {
         try {
             //realizamos a conexao
             objBD.conectar();
-            //Limpamos a combobox para não repetir itens
-            cbEscolhaMaquina.removeAllItems();
             //pegamos o resultado do select das maquinas
             retornoBD = objBD.consultarMaquinas();
+            //Limpamos a combobox para não repetir itens
+            cbEscolhaMaquina.removeAllItems();
             cbEscolhaMaquina.addItem("-- Escolha --");
             for (Maquina maquina : retornoBD) {
                 //separamos cada item da lista que foi gerada
