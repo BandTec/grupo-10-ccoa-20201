@@ -11,7 +11,9 @@ class Gerador:
         self.valores = []
         self.data_atual = ''
     def gerarDados(self,listaComponente, idServidor):
-        self.data_atual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.data_atual = "2020-12-15 10:"
+        self.data_atual += datetime.now().strftime('%M:%S')
+        #self.data_atual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         i = 0
         while i < len(listaComponente):
             self.conversarComMaquina(listaComponente[i][0], idServidor)
@@ -32,12 +34,12 @@ class Gerador:
     def conversarComMaquina(self,componente, idServidor):
         
         if componente == 'CPU':
-            # from services.OpenHM import hardwareMonitor
-            # hMonitor= hardwareMonitor()
-            # valor = round((hMonitor.getInfo(idServidor)[0][1]), 2)
-            # idComponente = 1
-            print('CPU requerida e não entregue! para sua captação utilize a outra API')
-            return
+            from services.OpenHM import hardwareMonitor
+            hMonitor= hardwareMonitor()
+            valor = round((hMonitor.getInfo(idServidor)[0][1]), 2)
+            idComponente = 1
+            # print('CPU requerida e não entregue! para sua captação utilize a outra API')
+            # return
 
         elif componente == 'RAM':
             valor = (round(psutil.virtual_memory().used/1024**3, 2)) 
@@ -56,12 +58,12 @@ class Gerador:
             idComponente = 5
 
         elif componente == 'temperatura':
-            # from services.OpenHM import hardwareMonitor
-            # hMonitor= hardwareMonitor()
-            # valor = hMonitor.getInfo(idServidor)[2][1]
-            # idComponente = 6
-            print('TEMPERATURA requerida e não entregue! para sua captação utilize a outra API')
-            return
+            from services.OpenHM import hardwareMonitor
+            hMonitor= hardwareMonitor()
+            valor = hMonitor.getInfo(idServidor)[2][1]
+            idComponente = 6
+            # print('TEMPERATURA requerida e não entregue! para sua captação utilize a outra API')
+            # return
 
         
         self.valores.append((self.data_atual, valor, idServidor, idComponente))
